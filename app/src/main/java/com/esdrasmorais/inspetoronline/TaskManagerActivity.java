@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
-import com.esdrasmorais.inspetoronline.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
@@ -24,6 +23,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -41,7 +41,7 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
     LatLng mDefaultLocation;
 
     public TaskManagerActivity() {
-         this.mDefaultLocation = new LatLng(-23.4862562, -46.7285661);
+        this.mDefaultLocation = new LatLng(-23.4862562, -46.7285661);
     }
 
     @Override
@@ -69,8 +69,8 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
             }
         });
     }
@@ -144,6 +144,11 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                 new LatLng(mLastKnownLocation.getLatitude(),
                                     mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            mMap.addMarker(new MarkerOptions()
+                                .title("Aqui")
+                                .position(new LatLng(mLastKnownLocation.getLatitude(),
+                                    mLastKnownLocation.getLongitude()))
+                                .snippet("*"));
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());

@@ -10,13 +10,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c988f54-eab1-4f9c-9ba9-23266cbd8265" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Department.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/EmployeeType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/InspectionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/State.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Terminal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Violation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/WorkDaySchedule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/WorkTime.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/LoginDataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/LoginDataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/LoginRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/LoginRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/model/LoggedInUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/LoggedInUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoggedInUserView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoggedInUserView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginFormState.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginFormState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginViewModelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginViewModelFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,39 +63,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/TaskManagerActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="143" column="60" selection-start-line="143" selection-start-column="60" selection-end-line="143" selection-end-column="60" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_task_manager.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Violation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="76" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="76" />
+            <state relative-caret-position="434">
+              <caret line="54" column="1" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
             </state>
           </provider>
-          <provider editor-type-id="android-manifest" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/InspectionType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="26" selection-start-line="22" selection-end-line="26" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -90,16 +108,37 @@
       <list>
         <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/LoginDataSource.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginViewModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/TaskManagerActivityFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/LoginRepository.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_task_manager.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/TaskManagerActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/workday/WorkDay.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/workday/WorkDaySchedule.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/model/WorkDaySchedule.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Employee.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/WorkDaySchedule.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Terminal.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/Result.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoggedInUserView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginFormState.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/LoginDataSource.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginResult.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginViewModelFactory.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginViewModelFactory.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/LoginRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/TaskManagerActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/InspectionType.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/EmployeeType.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/WorkTime.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/State.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Department.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Violation.java" />
       </list>
     </option>
   </component>
@@ -114,8 +153,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -128,11 +167,42 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
             </path>
+            <path>
+              <item name="InspetorOnline" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="InspetorOnline" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="inspetoronline" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspetorOnline" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="inspetoronline" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspetorOnline" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="inspetoronline" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InspetorOnline" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -145,6 +215,9 @@
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.esdrasmorais.inspetoronline" />
+    </key>
     <key name="android.template.packageName">
       <recent name="com.esdrasmorais.inspetoronline" />
       <recent name="com.esdrasmorais.inspetoronline.login" />
@@ -245,7 +318,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17238627" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2585794" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -254,21 +327,21 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="0" />
-      <window_info anchor="bottom" id="Logcat" order="1" weight="0.3289256" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.7322314" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.097520664" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.21487603" />
       <window_info anchor="bottom" id="Terminal" order="5" />
       <window_info anchor="bottom" id="Event Log" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Build" order="8" visible="true" weight="0.18347107" />
+      <window_info anchor="bottom" id="Build" order="8" weight="0.18347107" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.3289256" />
-      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Gradle" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Preview" order="4" weight="0.17238627" />
-      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Gradle" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="right" id="Preview" order="3" weight="0.1819633" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Device File Explorer" order="5" side_tool="true" visible="true" weight="0.09177973" />
     </layout>
   </component>
   <component name="debuggerHistoryManager">
@@ -295,54 +368,10 @@
     <entry file="file://$PROJECT_DIR$/gradle.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/LoginDataSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginViewModelFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginFormState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
           <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoggedInUserView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/Result.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -403,30 +432,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/LoginRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/data/model/LoggedInUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/livedata-core/1.1.1/c38818e006ea7a408c05e3090364332d46494ef/livedata-core-1.1.1-sources.jar!/android/arch/lifecycle/MutableLiveData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -466,12 +471,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_task_manager.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6db36beabee1f145285716462dad135b/res/values/values.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -481,22 +486,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/login/ui/login/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="121" selection-start-line="121" selection-end-line="121" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7d257c5f113da5c19b7b5fbc15d33be8/jars/classes.jar!/com/google/android/gms/maps/zzak.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -519,31 +514,218 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/TaskManagerActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_task_manager.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="143" column="60" selection-start-line="143" selection-start-column="60" selection-end-line="143" selection-end-column="60" />
+        <state relative-caret-position="150">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-28/android/location/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+          <folding>
+            <element signature="e#21732#21733#0" expanded="true" />
+            <element signature="e#21764#21765#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/WorkDaySchedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="26" selection-start-line="7" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoggedInUserView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginFormState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_task_manager.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Terminal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+        <state relative-caret-position="165">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding>
+            <element signature="e#432#433#0" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+            <element signature="e#513#514#0" expanded="true" />
+            <element signature="e#553#554#0" expanded="true" />
+            <element signature="e#587#588#0" expanded="true" />
+            <element signature="e#617#618#0" expanded="true" />
+            <element signature="e#663#664#0" expanded="true" />
+            <element signature="e#701#702#0" expanded="true" />
+            <element signature="e#732#733#0" expanded="true" />
+            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#799#800#0" expanded="true" />
+            <element signature="e#831#832#0" expanded="true" />
+            <element signature="e#863#864#0" expanded="true" />
+            <element signature="e#891#892#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+            <element signature="e#967#968#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Employee.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/Result.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="29" selection-start-column="29" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/TaskManagerActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="144" column="48" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1933#1934#0" expanded="true" />
+            <element signature="e#2009#2010#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="76" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="76" />
+        <state relative-caret-position="630">
+          <caret line="42" column="11" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-28/java/lang/Enum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/EmployeeType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/WorkTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/LoginRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+          <folding>
+            <element signature="e#725#726#0" expanded="true" />
+            <element signature="e#769#770#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/LoggedInUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginViewModelFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/LoginDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Department.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/InspectionType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="26" selection-start-line="22" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/Violation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="54" column="1" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

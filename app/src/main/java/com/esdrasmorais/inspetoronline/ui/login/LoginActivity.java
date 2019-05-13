@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esdrasmorais.inspetoronline.R;
-import com.esdrasmorais.inspetoronline.TaskManagerActivity;
+import com.esdrasmorais.inspetoronline.ui.TaskManagerActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
             loadingProgressBar.setVisibility(View.VISIBLE);
             loginViewModel.login(usernameEditText.getText().toString(),
-                    passwordEditText.getText().toString());
+                passwordEditText.getText().toString());
             }
         });
     }

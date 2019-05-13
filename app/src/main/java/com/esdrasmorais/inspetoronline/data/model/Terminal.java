@@ -3,6 +3,7 @@ package com.esdrasmorais.inspetoronline.data.model;
 import android.location.Location;
 
 public class Terminal {
+    private String name;
     private Location location = new Location("Taboao");
     private String address = "Praca 8";
     private String city = "Guarulhos";
@@ -43,5 +44,13 @@ public class Terminal {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

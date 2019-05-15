@@ -2,7 +2,7 @@ package com.esdrasmorais.inspetoronline.data;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.LruCache;
 import com.android.volley.Cache;
 import com.android.volley.Network;

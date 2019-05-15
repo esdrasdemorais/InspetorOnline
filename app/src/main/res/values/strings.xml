@@ -7,7 +7,7 @@
     <string name="action_sign_in_short">Logar</string>
     <string name="welcome">"Bem Vindo !"</string>
     <string name="invalid_username">Login Invalido</string>
-    <string name="invalid_password">Senha dever ter > 5 caracteres</string>
+    <string name="invalid_password">Senha dever ser maior que 5 caracteres</string>
     <string name="login_failed">"Login Falhou"</string>
     <string name="title_activity_task_manager">TaskManagerActivity</string>
     <string name="action_settings">Settings</string>
@@ -15,4 +15,48 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="hint_line">Linha</string>
+    <string name="hint_prefix">Prefixo</string>
+    <string name="hint_location">Local</string>
+    <string name="hint_vehicle_state">
+        COMO SE ENCONTRA O ESTADO DE LIMPEZA E CONSERVAÇÃO INTERNA DO VEICULO?
+    </string>
+    <string name="hint_presentation_employees">
+        COMO ESTÁ A APRESENTAÇÃO DOS COLABORADORES (CABELOS, BARBA, ASSEIO, UNIFORME E ETC)?
+    </string>
+    <string name="hint_vehicle_identification">
+        O VEÍCULO ESTÁ DEVIDAMENTE IDENTIFICADO (LETREIRO, PLACAS E AVISOS EM GERAL)?
+    </string>
+    <string name="hint_personal_objects_cleaning">
+        QUAL O ESTADO DE LIMPEZA E CONSERVAÇÃO DOS OBJETOS DE USO PESSOAL, TAIS COMO CAPA DE BANCO, FLANELA E ETC?
+    </string>
+    <string name="hint_vehicle_objects_conservation">
+        QUAL O ESTADO DE CONSERVAÇÃO DOS OBJETOS PERTENCENTES AO ÔNIBUS, COMO MARRETA, TRIÂNGULO, VASSOURA, PORTA DOCUMENTOS, ETC?
+    </string>
+    <string name="hint_employee_identification">
+        O COLABORADOR ESTÁ PORTANDO VISIVELMENTE O SEU CRACHÁ DE MODO A FACILITAR A SUA IDENTIFICAÇÃO?
+    </string>
+    <string name="hint_wheelchair_seat_belt">
+        O CINTO DE SEGURANÇA DO MOTORISTA E CADEIRANTE ESTÁ EM FUNCIONAMENTO?
+    </string>
+    <string name="hint_objects_forbiden_to_role">
+        FOI CONSTATADO A UTILIZAÇÃO OU PRESENÇA DE OBJETOS INADEQUADAS A FUNÇÃO, COMO RÁDIO, CELULAR, REVISTAS, JORNAIS E ETC?
+    </string>
+    <string name="hint_vehicle_security_accessories">
+        O VEÍCULO ESTÁ DEVIDAMENTE EQUIPADO COM ACESSÓRIOS DE SEGURANÇA E O EXTINTOR ENCONTRA-SE DENTRO DO PRAZO DE VALIDADE
+    </string>
+    <string name="hint_impediment_to_inspection">
+        HOUVE ALGUM TIPO DE IMPEDIMENTO QUE DIFICULTOU ESTA INSPEÇÃO?
+    </string>
+    <string name="hint_inspection_rate">
+        De modo geral que nota você atribui para esta inspeção:
+    </string>
+    <string name="hint_comments">Comentarios</string>
+    <string name="text_save">SALVAR</string>
+    <string name="error_message_name">Informe Full Name</string>
+    <string name="error_message_email">Enter Valid Email</string>
+    <string name="error_message_age">Enter Age</string>
+    <string name="error_message_password">Enter Password</string>
+    <string name="success_message">Sign Up Successful</string>
 </resources>

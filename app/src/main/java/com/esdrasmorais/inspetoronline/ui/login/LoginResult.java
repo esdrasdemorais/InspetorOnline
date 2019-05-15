@@ -1,6 +1,6 @@
 package com.esdrasmorais.inspetoronline.ui.login;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Authentication result : success (user details) or error message.

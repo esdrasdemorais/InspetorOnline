@@ -13,16 +13,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.esdrasmorais.inspetoronline.data.interfaces.VolleyCallback;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleDirections {
+public class GoogleDirections extends GetVolleyResponse {
     private JsonObject json;
     private RequestQueue requestQueue;
     private String url;
@@ -43,6 +45,7 @@ public class GoogleDirections {
     }
 
     public GoogleDirections(Context context, Location location) {
+        super(context);
         this.context = context;
 
         url = "https://maps.googleapis.com/maps/api/directions/json?origin="+
@@ -50,7 +53,27 @@ public class GoogleDirections {
             "&destination=Centro%20Guarulhos&avoid=highways|tolls|ferries&region=br" +
             "&departure_time=now&mode=transit&transit_mode=bus&key=" + this.getGoogleApiKey();
 
-        parseResponse();
+        //parseResponse();
+        getResponse2();
+    }
+
+    private void getResponse2() {
+        getResponse(Request.Method.GET, url, null,
+            new GetVolleyResponse(context) {
+                @Override
+                public void onSuccessResponse(String result) {
+                    try {
+                        JSONObject response = new JSONObject(result);
+//                        Snackbar.make(view, response.getString("message") +
+//                         "", Snackbar.LENGTH_LONG)
+//                              .setAction("Action", null).show();
+                        json = new Gson().fromJson(result, JsonObject.class);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        );
     }
 
     private void parseResponse() {

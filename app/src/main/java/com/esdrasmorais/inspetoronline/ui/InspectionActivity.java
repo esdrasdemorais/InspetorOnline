@@ -1,20 +1,19 @@
 package com.esdrasmorais.inspetoronline.ui;
 
-import android.content.SharedPreferences;
-import android.location.Location;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+ import android.location.Location;
+ import android.os.Bundle;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.esdrasmorais.inspetoronline.R;
 import com.esdrasmorais.inspetoronline.data.GoogleDirections;
-import com.esdrasmorais.inspetoronline.data.MySingleton;
 import com.esdrasmorais.inspetoronline.data.SecurityPreferences;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 public class InspectionActivity extends AppCompatActivity {
 
@@ -48,6 +47,18 @@ public class InspectionActivity extends AppCompatActivity {
             this.getApplicationContext(),
             location
         );
-        googleDirections.getResponsibleBody();
+        //googleDirections.getResponsibleBody();
+
+        String[] COUNTRIES = new String[] {"Item 1", "Item 2", "Item 3", "Item 4"};
+
+        ArrayAdapter<String> adapter =
+            new ArrayAdapter<String>(
+                getApplicationContext(),
+                R.layout.dropdown_prefix_menu_popup_item,
+                COUNTRIES);
+
+        AutoCompleteTextView editTextPrefixDropdown =
+            findViewById(R.id.prefix_dropdown);
+        editTextPrefixDropdown .setAdapter(adapter);
     }
 }

@@ -1,5 +1,6 @@
 package com.esdrasmorais.inspetoronline.data;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,7 +12,14 @@ import com.esdrasmorais.inspetoronline.data.interfaces.VolleyCallback;
 
 import org.json.JSONObject;
 
-public class GetVolleyResponse {
+public class GetVolleyResponse implements VolleyCallback {
+
+    private Context context;
+
+    public GetVolleyResponse(Context context) {
+        this.context = context;
+    }
+
     public void getResponse(
             int method, String url,
             JSONObject jsonValue, final VolleyCallback callback
@@ -25,7 +33,7 @@ public class GetVolleyResponse {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError e) {
-                Log.e("GoogleDirections", e.getMessage());
+                Log.e("GetVolleyResponse", e.getMessage());
                 e.printStackTrace();
                 Toast.makeText(context, e + "error", Toast.LENGTH_LONG).show();
             }
@@ -42,5 +50,9 @@ public class GetVolleyResponse {
 //        }
         ;
         MySingleton.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void onSuccessResponse(String result) {
+        //
     }
 }

@@ -74,8 +74,9 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         fabAddInspection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Snackbar.make(view, "Clique aqui", Snackbar.LENGTH_LONG)
-                .setAction("Action", new OpenInspectionListener()).show();
+//            Snackbar.make(view, "Clique aqui", Snackbar.LENGTH_LONG)
+//                .setAction("Action", new OpenInspectionListener()).show();
+            new OpenInspectionListener(view);
             }
         });
     }
@@ -156,10 +157,10 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
                             new LatLng(mLastKnownLocation.getLatitude(),
                                 mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                         mMap.addMarker(new MarkerOptions()
-                            .title("Aqui")
+                            .title("Voce esta")
                             .position(new LatLng(mLastKnownLocation.getLatitude(),
                                 mLastKnownLocation.getLongitude()))
-                            .snippet("*"));
+                            .snippet("aqui"));
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.");
                         Log.e(TAG, "Exception: %s", task.getException());

@@ -5,7 +5,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.util.Log;
-import android.widget.Toast;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,7 +27,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleDirections extends GetVolleyResponse {
+public class GoogleDirections extends BaseObservable {
+    @Bindable
     private JsonObject json;
     private RequestQueue requestQueue;
     private String url;
@@ -45,7 +49,6 @@ public class GoogleDirections extends GetVolleyResponse {
     }
 
     public GoogleDirections(Context context, Location location) {
-        super(context);
         this.context = context;
 
         url = "https://maps.googleapis.com/maps/api/directions/json?origin="+
@@ -53,12 +56,16 @@ public class GoogleDirections extends GetVolleyResponse {
             "&destination=Centro%20Guarulhos&avoid=highways|tolls|ferries&region=br" +
             "&departure_time=now&mode=transit&transit_mode=bus&key=" + this.getGoogleApiKey();
 
-        //parseResponse();
-        getResponse2();
+        //setGoogleDirections();
     }
 
-    private void getResponse2() {
-        getResponse(Request.Method.GET, url, null,
+    public String getUrl() {
+        return this.url;
+    }
+
+    private void setGoogleDirections() {
+        GetVolleyResponse getVolleyResponse = new GetVolleyResponse(context);
+        getVolleyResponse.getResponse(Request.Method.GET, url, null,
             new GetVolleyResponse(context) {
                 @Override
                 public void onSuccessResponse(String result) {
@@ -68,12 +75,17 @@ public class GoogleDirections extends GetVolleyResponse {
 //                         "", Snackbar.LENGTH_LONG)
 //                              .setAction("Action", null).show();
                         json = new Gson().fromJson(result, JsonObject.class);
+                        notifyPropertyChanged(BR.json);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             }
         );
+    }
+
+    public JsonObject getJson() {
+        return this.json;
     }
 
     private void parseResponse() {
@@ -97,26 +109,6 @@ public class GoogleDirections extends GetVolleyResponse {
 //        ).getRequestQueue();
         MySingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
-
-//    public void parseResonseWithJsonRequest() {
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-//            Request.Method.GET, url, null,
-//            new Response.Listener<JSONObject>() {
-//                @Override
-//                public void onResponse(JSONObject response) {
-//                    json = new Gson().fromJson(
-//                        response.toString(), JsonObject.class
-//                    );
-//                }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    Log.e("GoogleDirections", error.getMessage());
-//                }
-//            }
-//        );
-//        MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
-//    }
 
     public JsonElement getResponsibleBody() {
         return json.get("routes"); /*[0].legs[0].steps[1] != null ?

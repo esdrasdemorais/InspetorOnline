@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.esdrasmorais.inspetoronline.data.interfaces.VolleyCallback;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -86,6 +87,10 @@ public class GoogleDirections extends BaseObservable {
 
     public JsonObject getJson() {
         return this.json;
+    }
+
+    public void setJson(JsonObject json) {
+        this.json = json;
     }
 
     private void parseResponse() {

@@ -18,6 +18,7 @@ import com.esdrasmorais.inspetoronline.data.GoogleDirections;
 import com.esdrasmorais.inspetoronline.data.SecurityPreferences;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;
@@ -29,7 +30,7 @@ import java.util.List;
 public class InspectionActivity extends AppCompatActivity {
 
     public static final String TAG = "Inspecao";
-    private JsonObject json;
+    private GoogleDirections googleDirections;
 
     private Location getLocation() {
         SecurityPreferences securityPreferences = new SecurityPreferences(this);
@@ -43,7 +44,7 @@ public class InspectionActivity extends AppCompatActivity {
     }
 
     private void setGoogleDirections() {
-        GoogleDirections googleDirections = new GoogleDirections(
+        this.googleDirections = new GoogleDirections(
             this.getApplicationContext(),
             this.getLocation()
         );
@@ -58,7 +59,9 @@ public class InspectionActivity extends AppCompatActivity {
 //                        Snackbar.make(view, response.getString("message") +
 //                         "", Snackbar.LENGTH_LONG)
 //                              .setAction("Action", null).show();
-                        json = new Gson().fromJson(result, JsonObject.class);
+                        googleDirections.setJson(
+                            new Gson().fromJson(result, JsonObject.class)
+                        );
                         setLinesAdapter();
                         //notifyPropertyChanged(BR.json);
                     } catch (JSONException e) {
@@ -69,38 +72,34 @@ public class InspectionActivity extends AppCompatActivity {
         );
     }
 
+    //json.routes[0].legs[0].steps[n].transit_details.line.name
     private void setLinesAdapter() {
-        List<String> prefixes = new ArrayList<String>();
+        List<String> lines = new ArrayList<String>();
+        final JsonArray routes = googleDirections.getJson().get("routes").getAsJsonArray();
 
-        //json.routes[0].legs[0].steps[1].transit_details.line.name
-        //JsonArray routes = json.get("routes").getAsJsonArray();
-        //if (!routes.isJsonArray())
-          //  throw new IllegalArgumentException("json is not an array");
+        if (!routes.isJsonArray() ||
+            routes.get(0).getAsJsonObject().getAsJsonArray("legs") == null
+        )
+            throw new IllegalArgumentException("json is not an array");
 
-//        routes.forEach((r) -> {
-//            if (r.isJsonObject()) {
-//                final JsonObject legs = r.getAsJsonObject();
-//                final JsonArray leg = legs.get("legs").getAsJsonArray();
-//                leg.forEach((l) -> {
-//                    if (l.isJsonObject()) {
-//                        final JsonObject steps = l.getAsJsonObject();
-//                        final JsonArray step = steps.get("steps").getAsJsonArray();
-//                        //prefixes.add(name);
-//                    }
-//                });
-//            }
-//        });
+        final JsonObject legsObject = routes.get(0).getAsJsonObject();
+        final JsonArray legs = legsObject.getAsJsonArray("legs");
 
-        String[] lines = new String[] { "4311-10", "5300-10", "1896-10", "118C-10"};
+        final JsonObject stepsObject = legs.get(0).getAsJsonObject();
+        final JsonArray steps = stepsObject.getAsJsonArray("steps");
+
+        for (JsonElement step : steps) {
+            JsonObject transitDetObj = step.getAsJsonObject();
+            final JsonObject transitDetail = transitDetObj.getAsJsonObject("transit_details");
+            if (transitDetail == null) continue;
+            String line = transitDetail.get("line").getAsJsonObject().get("short_name").toString();
+            lines.add(line.replace("\"", ""));
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-            getApplicationContext(),
-            R.layout.dropdown_line_menu_popup_item,
-            lines
+            getApplicationContext(), R.layout.dropdown_line_menu_popup_item, lines
         );
-
-        AutoCompleteTextView editTextPrefixDropdown =
-                findViewById(R.id.line_dropdown);
+        AutoCompleteTextView editTextPrefixDropdown = findViewById(R.id.line_dropdown);
         editTextPrefixDropdown.setAdapter(adapter);
     }
 
@@ -292,7 +291,7 @@ public class InspectionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.setGoogleDirections();
-        this.setLinesAdapter();
+        //this.setLinesAdapter();
         this.setPrefixesAdapter();
         this.setLocationsAdapter();
         this.setVehicleStateAdapter();

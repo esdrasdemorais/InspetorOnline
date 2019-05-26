@@ -78,7 +78,7 @@ public class GetVolleyResponse implements VolleyCallback {
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
                 responseHeaders = response.headers;
                 String rawCookies = responseHeaders.get("Set-Cookie");
-                cookie = rawCookies;
+                cookie = rawCookies != null ? rawCookies : cookie;
                 return super.parseNetworkResponse(response);
             }
         };

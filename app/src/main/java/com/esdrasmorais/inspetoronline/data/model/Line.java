@@ -5,6 +5,11 @@ public class Line {
     private String name;
     private String shortName;
     private LineType type;
+    private Integer lineCode;
+    private Direction direction;
+    private String lineDestinationMarker;
+    private String lineOriginMarker;
+    private Integer VehiclesQuantityLocalized;
 
     public Long getId() {
         return id;
@@ -36,5 +41,45 @@ public class Line {
 
     public void setType(LineType type) {
         this.type = type;
+    }
+
+    public Integer getLineCode() {
+        return lineCode;
+    }
+
+    public void setLineCode(Integer lineCode) {
+        this.lineCode = lineCode;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public String getLineDestinationMarker() {
+        return lineDestinationMarker;
+    }
+
+    public void setLineDestinationMarker(String lineDestinationMarker) {
+        this.lineDestinationMarker = lineDestinationMarker;
+    }
+
+    public String getLineOriginMarker() {
+        return lineOriginMarker;
+    }
+
+    public void setLineOriginMarker(String lineOriginMarker) {
+        this.lineOriginMarker = lineOriginMarker;
+    }
+
+    public Integer getVehiclesQuantityLocalized() {
+        return VehiclesQuantityLocalized;
+    }
+
+    public void setVehiclesQuantityLocalized(Integer vehiclesQuantityLocalized) {
+        VehiclesQuantityLocalized = vehiclesQuantityLocalized;
     }
 }

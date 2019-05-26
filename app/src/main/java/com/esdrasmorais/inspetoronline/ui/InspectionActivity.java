@@ -7,6 +7,8 @@ import com.android.volley.Request;
 import com.esdrasmorais.inspetoronline.data.GetVolleyResponse;
 import com.esdrasmorais.inspetoronline.data.SpTrans;
 import com.esdrasmorais.inspetoronline.data.model.Company;
+import com.esdrasmorais.inspetoronline.data.model.Line;
+import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,17 +28,22 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class InspectionActivity extends AppCompatActivity {
 
     public static final String TAG = "Inspecao";
     private GoogleDirections googleDirections;
     private SpTrans spTrans;
-    List<String> lines = new ArrayList<String>();
-    List<String> prefixes = new ArrayList<String>();
-    List<Company> companies = new ArrayList<>();
+    List<Line> lines = new ArrayList<Line>();
+    List<Vehicle> prefixes = new ArrayList<Vehicle>();
+    List<Company> companies = new ArrayList<Company>();
     Integer countCompanies = 1;
     String cookie;
     GetVolleyResponse getVolleyResponse;
@@ -97,14 +104,21 @@ public class InspectionActivity extends AppCompatActivity {
             JsonObject transitDetObj = step.getAsJsonObject();
             final JsonObject transitDetail = transitDetObj.getAsJsonObject("transit_details");
             if (transitDetail == null) continue;
-            String line = transitDetail.get("line").getAsJsonObject().get("short_name").toString();
-            lines.add(line.replace("\"", ""));
+
+            String shortName = transitDetail.get("line").
+                getAsJsonObject().get("short_name").toString();
+            String headSign = transitDetail.get("headsign").toString();
+            Line line = new Line();
+            line.setShortName(shortName.replace("\"", ""));
+            line.setName(headSign);
+            line.setLineDestinationMarker(headSign);
+            lines.add(line);
         }
     }
 
     //json.routes[0].legs[0].steps[n].transit_details.line.name
     private void setLinesAdapter() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<Line> adapter = new ArrayAdapter<Line>(
             getApplicationContext(), R.layout.dropdown_line_menu_popup_item, lines
         );
         AutoCompleteTextView editTextPrefixDropdown = findViewById(R.id.line_dropdown);
@@ -179,9 +193,62 @@ public class InspectionActivity extends AppCompatActivity {
 
         for (JsonElement line : lines) {
             JsonObject lineObject = line.getAsJsonObject();
-            //final JsonObject transitDetail = transitDetObj.getAsJsonObject("transit_details");
-            String shortLine = lineObject.get("c").toString();
-            lines.add(shortLine.replace("\"", ""));
+
+            Line lineModel = new Line();
+            String shortName = lineObject.get("c").toString();
+            lineModel.setShortName(shortName.replace("\"", ""));
+            lineModel.setLineCode(Integer.parseInt(lineObject.get("cl").toString()));
+            lineModel.setName(
+                lineObject.get("lt0").toString().replace("\"", "")
+            );
+            lineModel.setLineDestinationMarker(
+                lineObject.get("lt0").toString().replace("\"", "")
+            );
+            lineModel.setLineOriginMarker(
+                lineObject.get("lt1").toString().replace("\"", "")
+            );
+            lineModel.setVehiclesQuantityLocalized(
+                Integer.parseInt(lineObject.get("qv").toString())
+            );
+            this.lines.add(lineModel);
+
+            final JsonArray prefixes = lineObject.getAsJsonArray("vs");
+            this.setPrefixes(prefixes);
+        }
+    }
+
+    private void setPrefixes(JsonArray prefixes) {
+        try {
+            for (JsonElement prefix : prefixes) {
+                JsonObject prefixObject = prefix.getAsJsonObject();
+
+                Vehicle vehicle = new Vehicle();
+                vehicle.setPrefix(Integer.parseInt(
+                    prefixObject.get("p").toString())
+                );
+                vehicle.setHandicappedAccessible(Boolean.parseBoolean(
+                    prefixObject.get("a").toString()
+                ));
+
+                SimpleDateFormat sdf = new SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                );
+                sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                Date localizedAt = sdf.parse(
+                    prefixObject.get("ta").toString().replace("\"", "")
+                );
+                vehicle.setLocalizatedAt(localizedAt);
+
+                vehicle.setLatitude(Double.parseDouble(
+                    prefixObject.get("py").toString())
+                );
+                vehicle.setLongitude(Double.parseDouble(
+                    prefixObject.get("px").toString()
+                ));
+                this.prefixes.add(vehicle);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -204,22 +271,23 @@ public class InspectionActivity extends AppCompatActivity {
                                 setLinesAdapter();
                                 setPrefixesAdapter();
                             }
+                            countCompanies++;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 }
             );
-            this.countCompanies++;
         }
     }
 
     private void setPrefixesAdapter() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             getApplicationContext(),
             R.layout.dropdown_prefix_menu_popup_item,
             prefixes
-        );
+        );*/
+        VehicleAdapter adapter = new VehicleAdapter(this, prefixes);
         AutoCompleteTextView editTextPrefixDropdown =
             findViewById(R.id.prefix_dropdown);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -358,14 +426,16 @@ public class InspectionActivity extends AppCompatActivity {
     }
 
     private void setInspectionRateAdapter() {
-        String[] prefixes = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+        String[] prefixes = new String[] {
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
+        };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             getApplicationContext(),
             R.layout.dropdown_inspection_rate_menu_popup_item,
             prefixes
         );
         AutoCompleteTextView editTextPrefixDropdown =
-                findViewById(R.id.inspection_rate);
+            findViewById(R.id.inspection_rate);
         editTextPrefixDropdown.setAdapter(adapter);
     }
 

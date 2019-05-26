@@ -15,10 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.esdrasmorais.inspetoronline.data.interfaces.VolleyCallback;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -53,8 +50,8 @@ public class GoogleDirections extends BaseObservable {
         this.context = context;
 
         url = "https://maps.googleapis.com/maps/api/directions/json?origin="+
-            location.getLatitude()+","+location.getLongitude()+
-            "&destination=Centro%20Guarulhos&avoid=highways|tolls|ferries&region=br" +
+            "terminal%20pirituba%20SP"+//location.getLatitude()+","+location.getLongitude()+
+            "&destination=itaim%20bibi%20SP&avoid=highways|tolls|ferries&region=br" +
             "&departure_time=now&mode=transit&transit_mode=bus&key=" + this.getGoogleApiKey();
 
         //setGoogleDirections();
@@ -72,9 +69,6 @@ public class GoogleDirections extends BaseObservable {
                 public void onSuccessResponse(String result) {
                     try {
                         JSONObject response = new JSONObject(result);
-//                        Snackbar.make(view, response.getString("message") +
-//                         "", Snackbar.LENGTH_LONG)
-//                              .setAction("Action", null).show();
                         json = new Gson().fromJson(result, JsonObject.class);
                         notifyPropertyChanged(BR.json);
                     } catch (JSONException e) {

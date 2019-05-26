@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.android.volley.Request;
 import com.esdrasmorais.inspetoronline.data.GetVolleyResponse;
+import com.esdrasmorais.inspetoronline.data.SpTrans;
+import com.esdrasmorais.inspetoronline.data.model.Company;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,15 +33,24 @@ public class InspectionActivity extends AppCompatActivity {
 
     public static final String TAG = "Inspecao";
     private GoogleDirections googleDirections;
+    private SpTrans spTrans;
+    List<String> lines = new ArrayList<String>();
+    List<String> prefixes = new ArrayList<String>();
+    List<Company> companies = new ArrayList<>();
+    Integer countCompanies = 1;
+    String cookie;
+    GetVolleyResponse getVolleyResponse;
+
+    public InspectionActivity() {
+        this.getVolleyResponse = new GetVolleyResponse(this);
+    }
 
     private Location getLocation() {
         SecurityPreferences securityPreferences = new SecurityPreferences(this);
-
         Location location = new Gson().fromJson(
-        securityPreferences.getStoredString("last_know_location"),
-        Location.class
-    );
-
+            securityPreferences.getStoredString("last_know_location"),
+            Location.class
+        );
         return location;
     }
 
@@ -56,14 +67,10 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onSuccessResponse(String result) {
                     try {
                         JSONObject response = new JSONObject(result);
-//                        Snackbar.make(view, response.getString("message") +
-//                         "", Snackbar.LENGTH_LONG)
-//                              .setAction("Action", null).show();
                         googleDirections.setJson(
                             new Gson().fromJson(result, JsonObject.class)
                         );
-                        setLinesAdapter();
-                        //notifyPropertyChanged(BR.json);
+                        setLinesFromGoogleDirections();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -72,9 +79,7 @@ public class InspectionActivity extends AppCompatActivity {
         );
     }
 
-    //json.routes[0].legs[0].steps[n].transit_details.line.name
-    private void setLinesAdapter() {
-        List<String> lines = new ArrayList<String>();
+    private void setLinesFromGoogleDirections() {
         final JsonArray routes = googleDirections.getJson().get("routes").getAsJsonArray();
 
         if (!routes.isJsonArray() ||
@@ -95,7 +100,10 @@ public class InspectionActivity extends AppCompatActivity {
             String line = transitDetail.get("line").getAsJsonObject().get("short_name").toString();
             lines.add(line.replace("\"", ""));
         }
+    }
 
+    //json.routes[0].legs[0].steps[n].transit_details.line.name
+    private void setLinesAdapter() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             getApplicationContext(), R.layout.dropdown_line_menu_popup_item, lines
         );
@@ -103,16 +111,117 @@ public class InspectionActivity extends AppCompatActivity {
         editTextPrefixDropdown.setAdapter(adapter);
     }
 
+    private void authenticate() {
+        String url = this.spTrans.getUrl() + "/Login/Autenticar?token=" +
+            this.spTrans.getApiToken();
+        getVolleyResponse.getResponse(Request.Method.POST, url, null,
+            new GetVolleyResponse(this) {
+                @Override
+                public void onSuccessResponse(String result) {
+                    try {
+                        //JSONObject response = new JSONObject(result);
+                        //spTrans.setJson(new Gson().fromJson(result, JsonObject.class));
+                        if (Boolean.parseBoolean(result) == true) {
+                            cookie = getVolleyResponse.getCookie();
+                            getCompanies();
+                        }
+                        //notifyPropertyChanged(BR.json);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        );
+    }
+
+    private void setSpTrans() {
+        this.spTrans = new SpTrans(
+            this.getApplicationContext(),
+            this.getLocation()
+        );
+        this.authenticate();
+    }
+
+    private void setCompanies() {
+        Company company = new Company();
+        company.setOperationAreaCode(1);
+        company.setCompanyReferenceCode(38);
+        company.setCompanyName("SANTA BRIGIDA");
+        companies.add(company);
+    }
+
+    private void getCompanies() {
+        getVolleyResponse.getResponse(
+            Request.Method.GET, spTrans.getUrl() + "/Empresa", null,
+            new GetVolleyResponse(this) {
+                @Override
+                public void onSuccessResponse(String result) {
+                    try {
+                        JSONObject response = new JSONObject(result);
+                        spTrans.setJson(
+                            new Gson().fromJson(result, JsonObject.class)
+                        );
+                        setCompanies();
+                        setLinesFromCompanies();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        );
+    }
+
+    private void setLines() {
+        final JsonArray lines = spTrans.getJson().get("l").getAsJsonArray();
+
+        if (!lines.isJsonArray())
+            throw new IllegalArgumentException("json is not an array");
+
+        for (JsonElement line : lines) {
+            JsonObject lineObject = line.getAsJsonObject();
+            //final JsonObject transitDetail = transitDetObj.getAsJsonObject("transit_details");
+            String shortLine = lineObject.get("c").toString();
+            lines.add(shortLine.replace("\"", ""));
+        }
+    }
+
+    private void setLinesFromCompanies() {
+        for (Company company : companies) {
+            getVolleyResponse.getResponse(
+                Request.Method.GET, spTrans.getUrl() +
+                    "/Posicao/Garagem?codigoEmpresa=" +
+                    company.getCompanyReferenceCode(), null,
+                new GetVolleyResponse(this) {
+                    @Override
+                    public void onSuccessResponse(String result) {
+                        try {
+                            JSONObject response = new JSONObject(result);
+                            spTrans.setJson(
+                                new Gson().fromJson(result, JsonObject.class)
+                            );
+                            setLines();
+                            if (countCompanies == companies.size()) {
+                                setLinesAdapter();
+                                setPrefixesAdapter();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            );
+            this.countCompanies++;
+        }
+    }
+
     private void setPrefixesAdapter() {
-        String[] prefixes = new String[] { "10000", "10001", "10002" };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             getApplicationContext(),
             R.layout.dropdown_prefix_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
-                findViewById(R.id.prefix_dropdown);
+            findViewById(R.id.prefix_dropdown);
         editTextPrefixDropdown.setAdapter(adapter);
     }
 
@@ -123,7 +232,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_location_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
                 findViewById(R.id.location_dropdown);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -136,7 +244,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_vehicle_state_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
             findViewById(R.id.vehicle_state_dropdown);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -149,7 +256,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_presentation_employees_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
             findViewById(R.id.presentation_employees);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -162,7 +268,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_vehicle_identification_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
             findViewById(R.id.vehicle_identification);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -175,12 +280,10 @@ public class InspectionActivity extends AppCompatActivity {
                 R.layout.dropdown_objects_cleaning_menu_popup_item,
                 prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
                 findViewById(R.id.personal_objects_cleaning);
         editTextPrefixDropdown.setAdapter(adapter);
     }
-
 
     private void setVehicleObjectsConservationAdapter() {
         String[] prefixes = new String[] { "ÓTIMO", "BOM", "REGULAR", "RUIM" };
@@ -189,7 +292,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_objects_conservation_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
             findViewById(R.id.vehicle_objects_conservation);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -202,7 +304,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_employee_identification_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
                 findViewById(R.id.employee_identification);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -215,20 +316,18 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_wheelchair_seat_belt_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
                 findViewById(R.id.wheelchair_seat_belt);
         editTextPrefixDropdown.setAdapter(adapter);
     }
 
     private void setObjectsForbidenToRoleAdapter() {
-        String[] prefixes = new String[] { "ÓTIMO", "BOM", "REGULAR", "RUIM" };
+        String[] prefixes = new String[] { "SIM", "NAO" };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             getApplicationContext(),
             R.layout.dropdown_objects_forbiden_to_role_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
                 findViewById(R.id.objects_forbiden_to_role);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -241,7 +340,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_vehicle_security_accessories_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
                 findViewById(R.id.vehicle_security_accessories);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -254,7 +352,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_impediment_to_inspection_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
             findViewById(R.id.impediment_to_inspection);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -267,7 +364,6 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_inspection_rate_menu_popup_item,
             prefixes
         );
-
         AutoCompleteTextView editTextPrefixDropdown =
                 findViewById(R.id.inspection_rate);
         editTextPrefixDropdown.setAdapter(adapter);
@@ -292,7 +388,8 @@ public class InspectionActivity extends AppCompatActivity {
 
         this.setGoogleDirections();
         //this.setLinesAdapter();
-        this.setPrefixesAdapter();
+        this.setSpTrans();
+        //this.setPrefixesAdapter();
         this.setLocationsAdapter();
         this.setVehicleStateAdapter();
         this.setPresentationEmployeesAdapter();

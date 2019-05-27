@@ -14,8 +14,10 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import com.esdrasmorais.inspetoronline.R;
 import com.esdrasmorais.inspetoronline.data.GoogleDirections;
@@ -35,6 +37,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.Vector;
 
 public class InspectionActivity extends AppCompatActivity {
 
@@ -121,8 +124,21 @@ public class InspectionActivity extends AppCompatActivity {
         ArrayAdapter<Line> adapter = new ArrayAdapter<Line>(
             getApplicationContext(), R.layout.dropdown_line_menu_popup_item, lines
         );
-        AutoCompleteTextView editTextPrefixDropdown = findViewById(R.id.line_dropdown);
-        editTextPrefixDropdown.setAdapter(adapter);
+        AutoCompleteTextView editTextLineDropdown = findViewById(R.id.line_dropdown);
+        editTextLineDropdown.setAdapter(adapter);
+        editTextLineDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Line selected = (Line) parent.getAdapter().getItem(position);
+                    Toast.makeText(getApplicationContext(), "Clicked" +
+                        "position = " + position + " line = " +
+                         selected.getShortName(), Toast.LENGTH_LONG).show();
+                }
+            }
+        );
     }
 
     private void authenticate() {
@@ -287,10 +303,31 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_prefix_menu_popup_item,
             prefixes
         );*/
-        VehicleAdapter adapter = new VehicleAdapter(this, prefixes);
+//        VehicleAdapter adapter = new VehicleAdapter(
+//            getApplicationContext(), prefixes
+//        );
+        ArrayAdapter<Vehicle> adapter = new ArrayAdapter<Vehicle>(
+            getApplicationContext(),
+            R.layout.dropdown_prefix_menu_popup_item,
+            prefixes
+        );
         AutoCompleteTextView editTextPrefixDropdown =
             findViewById(R.id.prefix_dropdown);
         editTextPrefixDropdown.setAdapter(adapter);
+        editTextPrefixDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Vehicle selected = (Vehicle)
+                        parent.getAdapter().getItem(position);
+                    Toast.makeText(getApplicationContext(), "Clicked " +
+                        position + " prefix: " + selected.getPrefix(),
+                        Toast.LENGTH_LONG).show();
+                }
+            }
+        );
     }
 
     private void setLocationsAdapter() {

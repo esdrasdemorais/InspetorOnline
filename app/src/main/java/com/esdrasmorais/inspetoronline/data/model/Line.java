@@ -82,4 +82,9 @@ public class Line {
     public void setVehiclesQuantityLocalized(Integer vehiclesQuantityLocalized) {
         VehiclesQuantityLocalized = vehiclesQuantityLocalized;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s", this.shortName, this.name);
+    }
 }

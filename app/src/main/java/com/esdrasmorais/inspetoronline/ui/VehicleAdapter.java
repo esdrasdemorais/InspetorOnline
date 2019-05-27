@@ -26,10 +26,10 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
                 R.layout.dropdown_prefix_menu_popup_item, parent, false
             );
         }
-        AutoCompleteTextView tvPrefix = (AutoCompleteTextView)
-            convertView.findViewById(R.id.prefix_dropdown);
+        TextView tvPrefix = (TextView)
+            convertView.findViewById(R.id.tvPrefix);
         tvPrefix.setText(String.format(
-            "%s - %t", vehicle.getPrefix(), vehicle.getLocalizatedAt()
+            "%s - %s", vehicle.getPrefix(), vehicle.getLocalizatedAt()
         ));
         return convertView;
     }

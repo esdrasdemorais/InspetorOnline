@@ -25,7 +25,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_line">
+        android:hint="@string/hint_line"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/line_dropdown"
@@ -38,7 +39,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_prefix">
+        android:hint="@string/hint_prefix"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/prefix_dropdown"
@@ -52,7 +54,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_location">
+        android:hint="@string/hint_location"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/location_dropdown"
@@ -65,15 +68,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_vehicle_state">
+        android:hint="@string/hint_vehicle_state"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/vehicle_state_dropdown"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:paddingTop="0dp"
-            android:scrollbars="vertical"/>
+            android:layout_height="wrap_content"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +82,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_presentation_employees">
+        android:hint="@string/hint_presentation_employees"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/presentation_employees"
@@ -95,7 +97,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_vehicle_identification">
+        android:hint="@string/hint_vehicle_identification"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/vehicle_identification"
@@ -109,7 +112,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_personal_objects_cleaning">
+        android:hint="@string/hint_personal_objects_cleaning"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/personal_objects_cleaning"
@@ -122,7 +126,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_vehicle_objects_conservation">
+        android:hint="@string/hint_vehicle_objects_conservation"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/vehicle_objects_conservation"
@@ -135,7 +140,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_employee_identification">
+        android:hint="@string/hint_employee_identification"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/employee_identification"
@@ -148,7 +154,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_wheelchair_seat_belt">
+        android:hint="@string/hint_wheelchair_seat_belt"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/wheelchair_seat_belt"
@@ -161,7 +168,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_objects_forbiden_to_role">
+        android:hint="@string/hint_objects_forbiden_to_role"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/objects_forbiden_to_role"
@@ -174,7 +182,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_vehicle_security_accessories">
+        android:hint="@string/hint_vehicle_security_accessories"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/vehicle_security_accessories"
@@ -187,7 +196,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_impediment_to_inspection">
+        android:hint="@string/hint_impediment_to_inspection"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/impediment_to_inspection"
@@ -200,7 +210,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_inspection_rate">
+        android:hint="@string/hint_inspection_rate"
+        android:layout_marginBottom="17dp">
 
         <AutoCompleteTextView
             android:id="@+id/inspection_rate"
@@ -212,27 +223,27 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_comments"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="177dp"
+        android:layout_marginBottom="17dp">
 
         <EditText
             android:id="@+id/edit_text_comments"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="177dp"
             android:hint="@string/hint_comments"
             android:maxLines="10"
             android:minLines="5"
-            android:inputType="textImeMultiLine" />
+            android:inputType="textMultiLine" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/button_margin_top"
-        android:background="@android:color/black"
         android:text="@string/text_save"
-        android:textColor="@android:color/white" />
+        android:layout_marginBottom="77px"
+        android:textAlignment="center"/>
 
 <!--</android.support.constraint.ConstraintLayout>-->
 </LinearLayout>

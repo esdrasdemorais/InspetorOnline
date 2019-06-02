@@ -1,15 +1,29 @@
 package com.esdrasmorais.inspetoronline.ui;
 
+import android.Manifest;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 
@@ -36,17 +50,39 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
     Boolean mLocationPermissionGranted = false;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100;
     GoogleMap mMap = null;
-    GeoDataClient mGeoDataClient = null;
-    PlaceDetectionClient mPlaceDetectionClient = null;
-    FusedLocationProviderClient mFusedLocationProviderClient = null;
+    //    GeoDataClient mGeoDataClient = null;
+//    PlaceDetectionClient mPlaceDetectionClient = null;
+    FusedLocationProviderClient fusedLocationProviderClient = null;
     Task<Location> locationResult = null;
     Location mLastKnownLocation = null;
     private static final String TAG = "TaskManagerActivity";
     private static final Integer DEFAULT_ZOOM = 20; //Buildings
     LatLng mDefaultLocation;
+    private static final Integer REQUEST_CHECK_SETTINGS = 1;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
+    private static final Integer UPDATE_INTERVAL = 7 * 1000;
+    private static final Integer FASTEST_INTERVAL = 2;
 
     public TaskManagerActivity() {
         this.mDefaultLocation = new LatLng(-23.4862562, -46.7285661);
+    }
+
+    private void setUpMap() {
+        // Construct a GeoDataClient.
+//        mGeoDataClient = Places.getGeoDataClient(this, null);L
+//
+//        // Construct a PlaceDetectionClient.
+//        mPlaceDetectionClient = Places.getPlaceDetectionClient(
+//                this, null
+//        );
+
+        SupportMapFragment mapFragment = (SupportMapFragment)
+                getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        fusedLocationProviderClient = LocationServices
+            .getFusedLocationProviderClient(this);
     }
 
     @Override
@@ -56,29 +92,17 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Construct a GeoDataClient.
-        mGeoDataClient = Places.getGeoDataClient(this, null);
-        // Construct a PlaceDetectionClient.
-        mPlaceDetectionClient = Places.getPlaceDetectionClient(
-            this, null
-        );
-        // Construct a FusedLocationProviderClient.
-        mFusedLocationProviderClient = LocationServices
-            .getFusedLocationProviderClient(this);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        setUpMap();
 
         FloatingActionButton fabAddInspection = findViewById(R.id.fab_add_inspection);
         fabAddInspection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//            Snackbar.make(view, "Clique aqui", Snackbar.LENGTH_LONG)
-//                .setAction("Action", new OpenInspectionListener()).show();
-            new OpenInspectionListener(view);
+                new OpenInspectionListener(view);
             }
         });
+
+        createLocationCallback();
     }
 
     private void getLocationPermission() {
@@ -87,14 +111,21 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+            this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+        ) {
             mLocationPermissionGranted = true;
         } else {
             ActivityCompat.requestPermissions(
                 this,
-                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                new String[] {
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION
+                },
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
             );
         }
@@ -102,9 +133,9 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onRequestPermissionsResult(
-        int requestCode,
-        @NonNull String permissions[],
-        @NonNull int[] grantResults
+            int requestCode,
+            @NonNull String permissions[],
+            @NonNull int[] grantResults
     ) {
         mLocationPermissionGranted = false;
         switch (requestCode) {
@@ -119,10 +150,96 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         updateLocationUI();
     }
 
+    private void updateLocation(Location location) {
+        if (mMap != null) {
+            storeLocation(location);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(location.getLatitude(),
+                        location.getLongitude()), DEFAULT_ZOOM));
+            mMap.addMarker(new MarkerOptions()
+                .title("Voce esta")
+                .position(new LatLng(location.getLatitude(),
+                        location.getLongitude()))
+                .snippet("aqui"));
+        }
+    }
+
+    private void createLocationCallback() {
+        this.locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    updateLocation(location);
+                }
+            }
+        };
+    }
+
+    private void startLocationUpdates() {
+        try {
+            if (fusedLocationProviderClient != null && mLocationPermissionGranted &&
+                ContextCompat.checkSelfPermission(
+                    this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED
+            ) {
+                fusedLocationProviderClient.requestLocationUpdates(
+                    locationRequest, locationCallback, null
+                );
+            }
+        } catch (Exception ex) {
+            Log.e("startLocationUpdates()", ex.getMessage());
+        }
+    }
+
+    protected void createLocationRequest() {
+        locationRequest = LocationRequest.create();
+        locationRequest.setInterval(UPDATE_INTERVAL);
+        locationRequest.setFastestInterval(FASTEST_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest);
+
+        SettingsClient client = LocationServices.getSettingsClient(this);
+        Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
+        task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
+            @Override
+            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                if (locationSettingsResponse == null) return;
+                startLocationUpdates();
+            }
+        });
+
+        task.addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (e instanceof ResolvableApiException) {
+                    try {
+                        // Show the dialog by calling startResolutionForResult(),
+                        // and check the result in onActivityResult().
+                        ResolvableApiException resolvable = (ResolvableApiException) e;
+                        resolvable.startResolutionForResult(
+                            TaskManagerActivity.this, REQUEST_CHECK_SETTINGS
+                        );
+                    } catch (IntentSender.SendIntentException sendEx) {
+                        Log.e("createLocationRequest()", sendEx.getMessage());
+                    }
+                }
+            }
+        });
+    }
+
     private void updateLocationUI() {
         if (mMap == null) {
             return;
         }
+        getLocationPermission();
         try {
             if (mLocationPermissionGranted) {
                 mMap.setMyLocationEnabled(true);
@@ -131,7 +248,6 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 mLastKnownLocation = null;
-                getLocationPermission();
             }
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
@@ -139,41 +255,54 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void storeLocation(Location location) {
-        SecurityPreferences securityPreferences = new SecurityPreferences(this);
-        securityPreferences.storeString("last_know_location", new Gson().toJson(location));
+        SecurityPreferences securityPreferences = new SecurityPreferences(
+            this
+        );
+        securityPreferences.storeString(
+            "last_know_location", new Gson().toJson(location)
+        );
     }
 
     private void getDeviceLocation() {
         try {
             if (mLocationPermissionGranted) {
-                this.locationResult = mFusedLocationProviderClient.getLastLocation();
-                this.locationResult.addOnCompleteListener(this, new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                    if (task.isSuccessful()) {
-                        mLastKnownLocation = (Location) task.getResult();
-                        storeLocation(mLastKnownLocation);
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(mLastKnownLocation.getLatitude(),
-                                mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                        mMap.addMarker(new MarkerOptions()
-                            .title("Voce esta")
-                            .position(new LatLng(mLastKnownLocation.getLatitude(),
-                                mLastKnownLocation.getLongitude()))
-                            .snippet("aqui"));
-                    } else {
-                        Log.d(TAG, "Current location is null. Using defaults.");
-                        Log.e(TAG, "Exception: %s", task.getException());
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            mDefaultLocation, DEFAULT_ZOOM
-                        ));
-                        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//                this.locationResult = fusedLocationProviderClient.getLastLocation();
+//                this.locationResult.addOnCompleteListener(this, new OnCompleteListener() {
+//                    @Override
+//                    public void onComplete(@NonNull Task task) {
+//                        if (task.isSuccessful() && task.getResult() != null) {
+//                            storeLocation(mLastKnownLocation);
+//                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+//                                new LatLng(mLastKnownLocation.getLatitude(),
+//                                    mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+//                            mMap.addMarker(new MarkerOptions()
+//                                .title("Voce esta")
+//                                .position(new LatLng(mLastKnownLocation.getLatitude(),
+//                                    mLastKnownLocation.getLongitude()))
+//                                .snippet("aqui"));
+//                        } else {
+//                            Log.d(TAG, "Current location is null. Using defaults.");
+//                            Log.e(TAG, "Exception: %s", task.getException());
+//                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+//                                mDefaultLocation, DEFAULT_ZOOM
+//                            ));
+//                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//                        }
+//                    }
+//                });
+                fusedLocationProviderClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                updateLocation(location);
+                            }
+                        }
                     }
-                    }
-                });
+                );
             }
         } catch(SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
+            Log.e("getDeviceLocation()", e.getMessage());
         }
     }
 
@@ -181,16 +310,21 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
 
-        // Get the current location of the device and set the position of the map.
-        getDeviceLocation();
+        createLocationRequest();
+
+        this.getDeviceLocation();
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         MySingleton.getInstance(this).stop(TAG);
+        stopLocationUpdates();
     }
 }

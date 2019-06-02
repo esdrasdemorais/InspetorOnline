@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "207815691913",
+    "firebase_url": "https://inspetoronline.firebaseio.com",
+    "project_id": "inspetoronline",
+    "storage_bucket": "inspetoronline.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207815691913:android:e668d3e98470b12d",
+        "android_client_info": {
+          "package_name": "com.esdrasmorais.inspetoronline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207815691913-nhus6nepsr5pr5jkf4th483up394p4dq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqE8vQ_UbfIlfOHpvy2WGcHnC6HKnyIe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207815691913-nhus6nepsr5pr5jkf4th483up394p4dq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

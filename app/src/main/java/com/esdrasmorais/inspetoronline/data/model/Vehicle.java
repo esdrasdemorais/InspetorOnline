@@ -60,6 +60,9 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return String.format("%s - %s", this.prefix, this.localizatedAt);
+        return String.format(
+            "%s - %s", this.prefix,
+            (this.isHandicappedAccessible ? "COM" : "SEM") + " ACESSIBILIDADE"
+        );
     }
 }

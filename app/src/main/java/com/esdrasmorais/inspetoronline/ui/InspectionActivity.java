@@ -132,10 +132,10 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    Line selected = (Line) parent.getAdapter().getItem(position);
-                    Toast.makeText(getApplicationContext(), "Clicked" +
-                        "position = " + position + " line = " +
-                         selected.getShortName(), Toast.LENGTH_LONG).show();
+                Line selected = (Line) parent.getAdapter().getItem(position);
+                Toast.makeText(getApplicationContext(), "Clicked" +
+                    "position = " + position + " line = " +
+                     selected.getShortName(), Toast.LENGTH_LONG).show();
                 }
             }
         );

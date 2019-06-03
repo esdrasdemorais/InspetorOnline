@@ -23,7 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory"
-        android:appComponentFactory="whateverString">
+        android:appComponentFactory="whateverString"
+        android:usesCleartextTraffic="true">
+
+        <service
+            android:name=".FetchAddressIntentService"
+            android:exported="false"/>
+
         <activity
             android:name=".ui.InspectionActivity"
             android:label="@string/title_activity_inspection"
@@ -67,6 +73,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.login.LoginActivity" />
         </activity>
+
     </application>
 
 </manifest>

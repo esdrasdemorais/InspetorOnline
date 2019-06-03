@@ -61,8 +61,8 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
     private static final Integer REQUEST_CHECK_SETTINGS = 1;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
-    private static final Integer UPDATE_INTERVAL = 7 * 1000;
-    private static final Integer FASTEST_INTERVAL = 2;
+    private static final Integer UPDATE_INTERVAL = 17 * 1000;
+    private static final Integer FASTEST_INTERVAL = 7;
 
     public TaskManagerActivity() {
         this.mDefaultLocation = new LatLng(-23.4862562, -46.7285661);
@@ -98,7 +98,7 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         fabAddInspection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new OpenInspectionListener(view);
+            new OpenInspectionListener(view);
             }
         });
 
@@ -147,20 +147,27 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
                 }
             }
         }
-        updateLocationUI();
+        //updateLocationUI();
     }
 
     private void updateLocation(Location location) {
         if (mMap != null) {
             storeLocation(location);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(location.getLatitude(),
-                        location.getLongitude()), DEFAULT_ZOOM));
-            mMap.addMarker(new MarkerOptions()
-                .title("Voce esta")
-                .position(new LatLng(location.getLatitude(),
-                        location.getLongitude()))
-                .snippet("aqui"));
+            mMap.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(),
+                    location.getLongitude()), DEFAULT_ZOOM
+                )
+            );
+            mMap.addMarker(
+                new MarkerOptions()
+                    .title("Voce esta")
+                    .position(
+                        new LatLng(location.getLatitude(),
+                        location.getLongitude())
+                    )
+                    .snippet("aqui")
+            );
         }
     }
 
@@ -168,12 +175,13 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         this.locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    updateLocation(location);
-                }
+            if (locationResult == null) {
+                return;
+            }
+            for (Location location : locationResult.getLocations()) {
+                updateLocation(location);
+            }
+//            updateLocation(locationResult.getLastLocation());
             }
         };
     }
@@ -211,26 +219,26 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                if (locationSettingsResponse == null) return;
-                startLocationUpdates();
+            if (locationSettingsResponse == null) return;
+            startLocationUpdates();
             }
         });
 
         task.addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                if (e instanceof ResolvableApiException) {
-                    try {
-                        // Show the dialog by calling startResolutionForResult(),
-                        // and check the result in onActivityResult().
-                        ResolvableApiException resolvable = (ResolvableApiException) e;
-                        resolvable.startResolutionForResult(
-                            TaskManagerActivity.this, REQUEST_CHECK_SETTINGS
-                        );
-                    } catch (IntentSender.SendIntentException sendEx) {
-                        Log.e("createLocationRequest()", sendEx.getMessage());
-                    }
+            if (e instanceof ResolvableApiException) {
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(
+                        TaskManagerActivity.this, REQUEST_CHECK_SETTINGS
+                    );
+                } catch (IntentSender.SendIntentException sendEx) {
+                    Log.e("createLocationRequest()", sendEx.getMessage());
                 }
+            }
             }
         });
     }

@@ -50,8 +50,8 @@ public class GoogleDirections extends BaseObservable {
         this.context = context;
 
         url = "https://maps.googleapis.com/maps/api/directions/json?origin="+
-            "terminal%20pirituba%20SP"+//location.getLatitude()+","+location.getLongitude()+
-            "&destination=itaim%20bibi%20SP&avoid=highways|tolls|ferries&region=br" +
+            location.getLatitude() + "," + location.getLongitude() +
+            "&destination=Centro%20SP&avoid=highways|tolls|ferries&region=br" +
             "&departure_time=now&mode=transit&transit_mode=bus&key=" + this.getGoogleApiKey();
 
         //setGoogleDirections();

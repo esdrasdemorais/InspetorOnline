@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.esdrasmorais.inspetoronline"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -32,7 +32,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.0.0'
     implementation 'androidx.mediarouter:mediarouter:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.annotation:annotation:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
@@ -46,8 +45,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     api 'com.google.android.material:material:1.1.0-alpha06'
     annotationProcessor 'com.android.databinding:compiler:2.+'
-    implementation 'com.google.firebase:firebase-core:16.+'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.+'
+    implementation 'com.google.android.gms:play-services-plus:16.+'
     implementation 'com.google.android.gms:play-services-location:16.+'
     implementation 'com.google.android.gms:play-services-analytics:16+'
     implementation 'com.google.android.gms:play-services-base:16+'
@@ -59,6 +57,39 @@ dependencies {
     implementation 'com.google.android.gms:play-services-basement:16.+'
     implementation 'com.google.android.gms:play-services-places:16.+'
     implementation 'com.google.android.gms:play-services-panorama:16.+'
+    implementation 'com.google.android.gms:play-services-vision:17.+'
+    //implementation 'com.google.android.gms:play-services-ads:17.+'
+    implementation 'com.google.android.gms:play-services-drive:16.+'
+
+    implementation 'com.google.firebase:firebase-core:16.+'
+    //implementation 'com.google.firebase:firebase-ads:17.+'
+    implementation 'com.google.firebase:firebase-analytics:16.+'
+    implementation 'com.google.firebase:firebase-appindexing:18.+'
+    implementation 'com.google.firebase:firebase-auth:17.+'
+    implementation 'com.google.firebase:firebase-firestore:19.+'
+    implementation 'com.google.firebase:firebase-functions:17.+'
+    implementation 'com.google.firebase:firebase-messaging:18.+'
+    implementation 'com.google.firebase:firebase-storage:17.+'
+    implementation 'com.google.firebase:firebase-crash:16.+'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.+'
+    implementation 'com.google.firebase:firebase-dynamic-links:17.+'
+    implementation 'com.google.firebase:firebase-invites:17.+'
+    implementation 'com.google.firebase:firebase-inappmessaging:17.+'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:17.+'
+    /*implementation 'com.google.firebase:firebase-ml-vision:20.+'
+    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:17.+'
+    implementation 'com.google.firebase:firebase-ml-vision-face-model:17.+'
+    implementation 'com.google.firebase:firebase-ml-vision-object-detection-model:16.+'
+    implementation 'com.google.firebase:firebase-ml-natural-language:19.+'
+    implementation 'com.google.firebase:firebase-ml-natural-language-language-id-model:19.+'
+    implementation 'com.google.firebase:firebase-ml-natural-language-translate-model:19.+'
+    implementation 'com.google.firebase:firebase-ml-natural-language-smart-reply-model:19.+'
+    implementation 'com.google.firebase:firebase-ml-model-interpreter:19.+'
+    implementation 'com.google.firebase:firebase-ml-vision-automl:16.+'*/
+    implementation 'com.google.firebase:firebase-perf:17.+'
+    implementation 'com.google.firebase:firebase-database:17.+'
+    implementation 'com.google.firebase:firebase-config:17.+'
+    implementation 'com.google.firebase:firebase-bom:18.+'
 }
 
 apply plugin: 'com.google.gms.google-services'

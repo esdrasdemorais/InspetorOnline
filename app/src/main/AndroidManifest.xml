@@ -27,7 +27,7 @@
         android:usesCleartextTraffic="true">
 
         <service
-            android:name=".FetchAddressIntentService"
+            android:name=".data.FetchAddressIntentService"
             android:exported="false"/>
 
         <activity

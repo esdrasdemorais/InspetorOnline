@@ -59,4 +59,10 @@
     <string name="error_message_age">Enter Age</string>
     <string name="error_message_password">Enter Password</string>
     <string name="success_message">Sign Up Successful</string>
+
+    <string name="service_not_available">Service Unavailability</string>
+    <string name="invalid_lat_long_used">Invalid Location</string>
+    <string name="no_address_found">Address Found</string>
+    <string name="address_found">Address Found</string>
+    <string name="no_geocoder_available">GeoCoder Unavailability</string>
 </resources>

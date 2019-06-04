@@ -90,6 +90,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:17.+'
     implementation 'com.google.firebase:firebase-config:17.+'
     implementation 'com.google.firebase:firebase-bom:18.+'
+
+    implementation "androidx.room:room-runtime:2.+"
+    implementation "androidx.room:room-rxjava2:2.+"
+    implementation "androidx.room:room-guava:2.+"
+    testImplementation "androidx.room:room-testing:2.+"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.+"
+    androidTestImplementation "androidx.arch.core:core-testing:2.+"
+
 }
 
 apply plugin: 'com.google.gms.google-services'

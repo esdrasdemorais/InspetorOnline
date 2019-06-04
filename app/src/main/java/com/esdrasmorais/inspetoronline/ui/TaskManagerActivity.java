@@ -1,13 +1,20 @@
 package com.esdrasmorais.inspetoronline.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.esdrasmorais.inspetoronline.data.AddressResultReceiver;
+import com.esdrasmorais.inspetoronline.data.Constants;
+import com.esdrasmorais.inspetoronline.data.FetchAddressIntentService;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -24,8 +31,11 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.esdrasmorais.inspetoronline.R;
 import com.esdrasmorais.inspetoronline.data.MySingleton;
@@ -45,8 +55,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
-public class TaskManagerActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class TaskManagerActivity extends AppCompatActivity
+    implements OnMapReadyCallback,
+        ConnectionCallbacks, OnConnectionFailedListener
+{
     Boolean mLocationPermissionGranted = false;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100;
     GoogleMap mMap = null;
@@ -63,6 +79,9 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
     private LocationCallback locationCallback;
     private static final Integer UPDATE_INTERVAL = 17 * 1000;
     private static final Integer FASTEST_INTERVAL = 7;
+    protected String addressOutput = "";
+    private AddressResultReceiver resultReceiver;
+    protected GoogleApiClient googleApiClient;
 
     public TaskManagerActivity() {
         this.mDefaultLocation = new LatLng(-23.4862562, -46.7285661);
@@ -103,6 +122,8 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         });
 
         createLocationCallback();
+
+        buildGoogleApiClient();
     }
 
     private void getLocationPermission() {
@@ -142,12 +163,13 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
             case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
                     mLocationPermissionGranted = true;
                 }
             }
         }
-        //updateLocationUI();
+        updateLocationUI();
     }
 
     private void updateLocation(Location location) {
@@ -216,29 +238,33 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
 
         SettingsClient client = LocationServices.getSettingsClient(this);
         Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
-        task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
-            @Override
-            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-            if (locationSettingsResponse == null) return;
-            startLocationUpdates();
+        task.addOnSuccessListener(this,
+            new OnSuccessListener<LocationSettingsResponse>() {
+                @Override
+                public void onSuccess(
+                    LocationSettingsResponse locationSettingsResponse
+                ) {
+                    if (locationSettingsResponse == null) return;
+                    startLocationUpdates();
+                }
             }
-        });
+        );
 
         task.addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-            if (e instanceof ResolvableApiException) {
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    ResolvableApiException resolvable = (ResolvableApiException) e;
-                    resolvable.startResolutionForResult(
-                        TaskManagerActivity.this, REQUEST_CHECK_SETTINGS
-                    );
-                } catch (IntentSender.SendIntentException sendEx) {
-                    Log.e("createLocationRequest()", sendEx.getMessage());
+                if (e instanceof ResolvableApiException) {
+                    try {
+                        // Show the dialog by calling startResolutionForResult(),
+                        // and check the result in onActivityResult().
+                        ResolvableApiException resolvable = (ResolvableApiException) e;
+                        resolvable.startResolutionForResult(
+                            TaskManagerActivity.this, REQUEST_CHECK_SETTINGS
+                        );
+                    } catch (IntentSender.SendIntentException sendEx) {
+                        Log.e("createLocationRequest()", sendEx.getMessage());
+                    }
                 }
-            }
             }
         });
     }
@@ -269,6 +295,23 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         securityPreferences.storeString(
             "last_know_location", new Gson().toJson(location)
         );
+    }
+
+
+    private void storeLocationAddress(String locationAddress) {
+        SecurityPreferences securityPreferences = new SecurityPreferences(
+            this
+        );
+        securityPreferences.storeString(
+            "last_know_location_address", new Gson().toJson(locationAddress)
+        );
+    }
+
+    protected void startIntentService() {
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        intent.putExtra(Constants.RECEIVER, resultReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastKnownLocation);
+        startService(intent);
     }
 
     private void getDeviceLocation() {
@@ -302,8 +345,9 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-                            if (location != null) {
+                            if (location != null && googleApiClient.isConnected()) {
                                 updateLocation(location);
+                                startIntentService();
                             }
                         }
                     }
@@ -323,6 +367,74 @@ public class TaskManagerActivity extends AppCompatActivity implements OnMapReady
         createLocationRequest();
 
         this.getDeviceLocation();
+    }
+
+    protected void showToast(String address) {
+        Toast.makeText(this, address, Toast.LENGTH_LONG).show();
+    }
+
+    protected void displayAddressOutput() {
+        showToast(addressOutput);
+    }
+
+    class AddressResultReceiver extends ResultReceiver {
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            if (resultData == null) {
+                return;
+            }
+
+            addressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+            if (addressOutput == null) addressOutput = "";
+            storeLocationAddress(addressOutput);
+            displayAddressOutput();
+
+            if (resultCode == Constants.SUCCESS_RESULT) {
+                showToast(getString(R.string.address_found));
+            }
+        }
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        if (mLastKnownLocation == null &&
+            ContextCompat.checkSelfPermission(
+        this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+        ) {
+            mLastKnownLocation = LocationServices.
+                FusedLocationApi.getLastLocation(googleApiClient);
+        }
+        if (!Geocoder.isPresent()) {
+            showToast(getString(R.string.no_geocoder_available));
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Log.i(TAG, "Connection suspended");
+        googleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " +
+            result.getErrorCode());
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        googleApiClient = new GoogleApiClient.Builder(this)
+            .addConnectionCallbacks(this)
+            .addOnConnectionFailedListener(this)
+            .addApi(LocationServices.API)
+            .build();
     }
 
     private void stopLocationUpdates() {

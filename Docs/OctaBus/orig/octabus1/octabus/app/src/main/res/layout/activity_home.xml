@@ -1,0 +1,32 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    android:background="@drawable/grayradial"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:id="@+id/splash_screen"
+        android:src="@drawable/background"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentBottom="true" />
+
+
+    <fragment
+        android:id="@+id/fragment_app"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="br.com.octabus.View.AppFragment"
+        tools:layout="@layout/fragment_app" />
+
+</RelativeLayout>

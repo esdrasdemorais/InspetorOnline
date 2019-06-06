@@ -1,0 +1,366 @@
+<resources>
+    <!-- GENERICOS -->
+    <string name="app_name">Octabus</string>
+    <string name="erroProcessamento">Não foi possivel obter Resultados</string>
+    <string name="aguarde">Aguarde</string>
+    <string name="semConexao">Sem Conexão com internet</string>
+    <string name="semConexaoGps">Sem Conexão com gps</string>
+    <string name="naoFoiPossivelDeslogar">Não foi possivel deslogar</string>
+
+    <string name="aguardeVerificandoVersao">Aguarde... Verificando Versão</string>
+    <string name="erroVersao">A versão do seu aplicativo é inferior a versão atual. Solicitamos que atualize seu aplicativo para versão %s para prosseguir.</string>
+    <string name="erroPermissao">Você não aplicou todas as permissões necessárias. Feche o aplicativo e tente novamente</string>
+
+    <string name="confirmar">Confirmar</string>
+    <string name="erroParametro">Campo necessário</string>
+    <string name="buscar">Buscar</string>
+    <string name="endereco">Endereço</string>
+    <string name="utilizarLocalizacao">Utilizar Localização</string>
+    <string name="localizacaoNaoEncontrada">Localização não encontrada</string>
+
+    <!-- GENERICOS -->
+
+    <!-- TITULO PAGINAS -->
+
+    <string name="tituloPesquisaCarro">Pesquisar Carro</string>
+    <string name="tituloPesquisaInfracao">Pesquisar Infração</string>
+    <string name="tituloPesquisaFuncionario">Pesquisa Funcionário</string>
+    <string name="tituloRecuperarEndereco">Localização</string>
+
+    <string name="tituloTrocarSenha">Trocar Senha</string>
+    <string name="codInfracaoOuDescricao">Cód. Infração / Descrição</string>
+
+    <string name="tituloInfracao">Infração</string>
+    <string name="tituloComunicacaoChecklist">Comunicar Check List</string>
+    <string name="tituloChecklist">Check List</string>
+
+    <string name="tituloCate">Cate</string>
+    <string name="tituloRelatorioChefia">Relatório a chefia do tráfego</string>
+    <string name="tituloFiscalizacaoSPTrans">Fiscalização SP Trans</string>
+    <string name="tituloAcompanhamento">Acompanhamento</string>
+    <string name="tituloControlePoluentes">Controle de poluentes</string>
+    <string name="tituloEventos">Eventos</string>
+
+    <string name="tituloInformacaoPonto">Informação do ponto</string>
+    <string name="tituloComunicacaoInformacaoPonto">Comunicar inf. ponto</string>
+
+    <string name="tituloPontoCritico">Pontos criticos</string>
+    <string name="tituloPesquisaFrota">Pesquisa de frota</string>
+    <string name="tituloDelegacia">Delegacia</string>
+    <string name="tituloForum">Forum</string>
+    <string name="tituloRelatarAcidente">Relatar acidente</string>
+    <string name="tituloAtropelamentoQuedaAcidental">Atropelamento e queda acidental</string>
+    <string name="tituloRav">R.A.V</string>
+
+    <string name="tituloRepasse">Repasse</string>
+    <string name="tituloFolhaRendicao">Folha de rendição</string>
+    <string name="tituloEficiencia">Eficiencia</string>
+    <string name="tituloProgramacao">Programação</string>
+    <!-- TITULO PAGINAS -->
+
+    <!-- LOGIN -->
+    <string name="re">R.E.</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="esqueceuSenha">Esqueceu a senha?</string>
+
+    <string name="erroParametroRE">Digite seu R.E</string>
+    <string name="erroParametroSenha">Digite sua senha</string>
+    <string name="erroUsuarioSenhaIncorreto">Usuário/senha incorreto</string>
+    <!-- LOGIN -->
+    <!-- TROCAR SENHA -->
+    <string name="trocarSenha">Sua solicitação de troca de senha foi efetivada.\nPara trocar a senha preencha os dados abaixo.</string>
+    <string name="senhasDiferentes">As senhas não coincidem.</string>
+    <string name="codigoRecuperacaoSenha">Código</string>
+    <string name="senhaAtualizada">Senha atualizada com sucesso. Faça o login novamente.</string>
+    senhaAtualizada
+    <!--  SENHA -->
+
+
+    <!-- RECUPERAR SENHA -->
+    <string name="textoRecuperacaoSenha">Instruções para recuperação de senha.</string>
+    <string name="confirmarSenha">Confirmar Senha</string>
+    <string name="codigoNaoValidado">Código não validado. Tente Novamente.</string>
+
+    <string name="textoRecuperarSenha">1. Ligue em nossa central de atendimento.\n
+        2. Em contato com nossos atendentes, solicite a troca de senha e informe seu R.E. e o codigo abaixo.\n
+        3. Após efetivarem no sistema a solicitação, aguarde.\n
+        4. Nessa mesma tela você será direcionado automaticamente para cadastrar sua senha novamente.\n
+        5. Digite sua nova senha e pronto! Sua nova senha estará cadastrada.\n</string>
+
+
+    <!-- RECUPERAR SENHA -->
+
+    <!-- PROGRAMAÇÃO -->
+    <string name="pontoInicial">T.P.</string>
+    <string name="pontoFinal">T.S.</string>
+    <string name="tipoDeTabela">Tabela</string>
+    <string name="descricaoLinhaPontoInicial">Ponto Inicial</string>
+    <string name="descricaoLinhaPontoFinal">Ponto Final</string>
+
+    <string name="sentidoBairro">Sentido Bairro</string>
+    <string name="sentidoCentro">Sentido Centro</string>
+    <string name="erroRecuperarListagemRotina">Houve um erro ao recuperar a programação</string>
+    <!-- PROGRAMAÇÃO -->
+
+    <!-- HOME -->
+    <string name="tituloServico">Serviços</string>
+    <string name="tituloSelecioneServico">Selecione a Opção</string>
+    <string name="tituloRelatorio">Relatório</string>
+    <string name="menuHome">Inicio</string>
+    <string name="menuPerfil">Perfil</string>
+    <string name="menuLogout">Encerrar Sessão</string>
+    <string name="menuSobreApp">Sobre Aplicativo</string>
+    <string name="menuAvaliarApp">Avaliar App</string>
+    <string name="menuCompartilhar">Compartilhar</string>
+    <string name="menuReportar">Reportar erros / sugestões</string>
+    <string name="nomeUsuario">Usuário</string>
+    <string name="menuTelefone">Telefones Úteis</string>
+
+    <integer-array name="homeServicosImagens">
+        <!--1-->
+        <item>@drawable/ic_chrome_reader_mode_black_24dp</item>
+        <!--2-->
+        <item>@drawable/ic_warning_black_24dp</item>
+        <!--3-->
+        <item>@drawable/ic_bookmark</item>
+        <!--4-->
+        <item>@drawable/ic_assignment_black_24dp</item>
+        <!--5-->
+        <item>@drawable/ic_assignment_black_24dp</item>
+        <!--6-->
+        <item>@drawable/ic_graphic_eq_black_24dp</item>
+        <!--7-->
+        <item>@drawable/ic_blur_linear_black_24dp</item>
+        <!--8-->
+        <item>@drawable/ic_today_black_24dp</item>
+        <!--9-->
+        <item>@drawable/ic_store_mall_directory_black_24dp</item>
+        <!--10-->
+        <item>@drawable/ic_pin_drop_black_24dp</item>
+        <!--11-->
+        <item>@drawable/ic_directions_bus_black_24dp</item>
+        <!--12-->
+        <item>@drawable/ic_local_taxi_black_24dp</item>
+        <!--13-->
+        <item>@drawable/ic_account_balance_black_24dp</item>
+        <!--14-->
+        <item>@drawable/ic_assignment_late_black_24dp</item>
+        <!--15-->
+        <item>@drawable/ic_local_hospital_black_24dp</item>
+        <!--16-->
+        <item>@drawable/ic_bookmark</item>
+        <!--17-->
+        <item>@drawable/ic_today_black_24dp</item>
+    </integer-array>
+
+    <string-array name="homeServicosTitulos">
+        <!--1-->
+        <item>@string/tituloInfracao</item>
+        <!--2-->
+        <item>@string/tituloChecklist</item>
+        <!--3-->
+        <item>@string/tituloCate</item>
+        <!--4-->
+        <item>@string/tituloRelatorioChefia</item>
+        <!--5-->
+        <item>@string/tituloFiscalizacaoSPTrans</item>
+        <!--6-->
+        <item>@string/tituloAcompanhamento</item>
+        <!--7-->
+        <item>@string/tituloControlePoluentes</item>
+        <!--8-->
+        <item>@string/tituloEventos</item>
+        <!--9-->
+        <item>@string/tituloInformacaoPonto</item>
+        <!--10-->
+        <item>@string/tituloPontoCritico</item>
+        <!--11-->
+        <item>@string/tituloPesquisaFrota</item>
+        <!--12-->
+        <item>@string/tituloDelegacia</item>
+        <!--13-->
+        <item>@string/tituloForum</item>
+        <!--14-->
+        <item>@string/tituloRelatarAcidente</item>
+        <!--15-->
+        <item>@string/tituloAtropelamentoQuedaAcidental</item>
+        <!--16-->
+        <item>@string/tituloRav</item>
+        <!--17-->
+        <item>@string/tituloProgramacao</item>
+    </string-array>
+
+    <integer-array name="homeRelatorioImagens">
+        <item>@drawable/ic_repeat_black_24dp</item>
+        <item>@drawable/ic_perm_contact_calendar_black_24dp</item>
+        <item>@drawable/ic_trending_up_black_24dp</item>
+        <item>@drawable/ic_format_list_numbered_black_24dp</item>
+    </integer-array>
+    <string-array name="homeRelatorioTitulos">
+        <item>@string/tituloRepasse</item>
+        <item>@string/tituloFolhaRendicao</item>
+        <item>@string/tituloEficiencia</item>
+        <item>@string/tituloProgramacao</item>
+    </string-array>
+    <!-- HOME -->
+
+    <!-- servicos - infração -->
+
+    <string name="tituloComunicacaoInfracao">Comunicação Infração</string>
+    <string name="tituloComunicacaoInfracao1">Informação</string>
+    <string name="tituloIncidentesGraves">Incidente Grave</string>
+    <string name="tituloDisciplina">Disciplina</string>
+    <string name="tituloConsulta">Consulta</string>
+
+    <string name="selecioneInfracao">Selecione a infração</string>
+    <string name="selecioneAProgramacao">Selecione a programação</string>
+    <string name="selecioneInfrator">Selecione o infrator</string>
+    <string name="localizacao">Localizacao</string>
+    <string name="complementoCheckList">Complemento</string>
+
+    <string name="complementoInfracao">Complemento</string>
+    <string name="descricaoInfracao">Descrição da infração</string>
+    <string name="aceitoTermos">Aceita os termos de compromisso?</string>
+    <string name="gerarInfracao">Gerar Infração</string>
+    <string name="dadosIncidente">Dados do incidente</string>
+    <string name="adicionarLocalizacao">+ Localização</string>
+    <string name="adicionarFoto">+ Foto</string>
+    <string name="tipoInfracao">Tipo de Infração</string>
+    <string name="motorista">Motorista</string>
+    <string name="cobrador">Cobrador</string>
+
+    <integer-array name="imagemServicoInfracao">
+        <item>@drawable/ic_library_add_black_24dp</item>
+        <item>@drawable/ic_warning_black_24dp</item>
+        <item>@drawable/ic_library_books_black_24dp</item>
+        <item>@drawable/ic_search_black_24dp</item>
+    </integer-array>
+
+    <string-array name="tituloServicoInfracao">
+        <item>@string/tituloComunicacaoInfracao</item>
+        <item>@string/tituloConsulta</item>
+    </string-array>
+
+    <!-- servicos - infração -->
+    <!-- servicos - checklist -->
+    <integer-array name="imagemServicoChecklist">
+        <item>@drawable/ic_library_add_black_24dp</item>
+        <item>@drawable/ic_search_black_24dp</item>
+    </integer-array>
+
+    <string-array name="tituloServicoChecklist">
+        <item>@string/tituloComunicacaoChecklist</item>
+        <item>@string/tituloChecklist</item>
+    </string-array>
+
+    <integer-array name="imagemServicoInformacaoPonto">
+        <item>@drawable/ic_library_add_black_24dp</item>
+        <item>@drawable/ic_search_black_24dp</item>
+    </integer-array>
+
+    <string-array name="tituloServicoInformacaoPonto">
+        <item>@string/tituloComunicacaoInformacaoPonto</item>
+        <item>@string/tituloInformacaoPonto</item>
+    </string-array>
+
+
+    <string name="btnSalvar">Salvar</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="checkListSalvo">Checklist Enviado</string>
+    <string name="checkListGerada">Checklist Gerado</string>
+    <string name="confirmarCheckList">Você aceita os termos que ao gerar um check list incorreto, será penalizado?</string>
+    <string name="confirmarInformacaoPonto">Você aceita os termos que ao gerar um informação de ponto incorreto, será penalizado?</string>
+    <string name="informacaoPontoGerada">Informação Gerada</string>
+
+
+    <!-- servicos - checklist -->
+
+
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+    <!--                           -->
+
+
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <!-- servicos - infração comunicacao-->
+    <string name="data">Data</string>
+    <string name="hora">Hora</string>
+    <string name="dadosInfracao">Dados Infração</string>
+    <string name="dadosCarro">Dados Carro</string>
+    <string name="maisInformacoes">Mais informações</string>
+    <string name="carro">Pref. Carro / Linha</string>
+    <string name="linha">Linha</string>
+    <string name="sentido">Sentido</string>
+    <string name="emissor">Emissor</string>
+    <string name="cargo">Cargo</string>
+
+    <string name="codInfracao">Cód. Infr.</string>
+    <string name="nivelInfracao">Nivel</string>
+    <string name="cargoFuncionario">Cargo Funcionário</string>
+    <string name="funcionario">Funcionário</string>
+    <string name="infracaoGerada">Infração Gerada</string>
+    <string name="aguardeEnviandoFoto">Enviando Fotos</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- servicos - infração comunicacao-->
+
+    <!-- crash reporter -->
+    <string name="url">http://104.154.148.185/Octabus/Aplicativo/reportarErro</string>
+    <bool name="class_name">true</bool>
+    <bool name="message">true</bool>
+    <bool name="localized_message">true</bool>
+    <bool name="causes">true</bool>
+    <bool name="stack_trace">true</bool>
+    <bool name="brand_name">true</bool>
+    <bool name="device_name">true</bool>
+    <bool name="model_number">true</bool>
+    <bool name="product_name">true</bool>
+    <bool name="sdk_version">true</bool>
+    <bool name="release">true</bool>
+    <bool name="incremental">true</bool>
+    <bool name="height">true</bool>
+    <bool name="width">true</bool>
+    <bool name="app_version">true</bool>
+    <bool name="tablet">true</bool>
+    <bool name="package_name">true</bool>
+    <bool name="device_orientation">true</bool>
+    <bool name="screen_layout">true</bool>
+    <bool name="vm_heap_size">true</bool>
+    <bool name="allocated_vm_size">true</bool>
+    <bool name="vm_max_heap_size">true</bool>
+    <bool name="vm_free_heap_size">true</bool>
+    <bool name="native_allocated_size">true</bool>
+    <bool name="battery_percentage">true</bool>
+    <bool name="battery_charging">true</bool>
+    <bool name="battery_charging_via">true</bool>
+    <bool name="sd_card_status">true</bool>
+    <bool name="internal_memory_size">true</bool>
+    <bool name="external_memory_size">true</bool>
+    <bool name="internal_free_space">true</bool>
+    <bool name="external_free_space">true</bool>
+    <bool name="device_rooted">true</bool>
+    <bool name="network_mode">true</bool>
+    <bool name="country">true</bool>
+    <!-- crash reporter -->
+</resources>

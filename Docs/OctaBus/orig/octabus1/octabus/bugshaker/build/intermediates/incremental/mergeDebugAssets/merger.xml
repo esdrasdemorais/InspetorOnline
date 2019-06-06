@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/var/www/octabus/bugshaker/src/main/assets"/><source path="/var/www/octabus/bugshaker/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/var/www/octabus/bugshaker/src/debug/assets"/></dataSet></merger>

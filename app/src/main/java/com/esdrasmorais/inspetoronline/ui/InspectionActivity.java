@@ -331,11 +331,13 @@ public class InspectionActivity extends AppCompatActivity {
     }
 
     private void setLocationsAdapter() {
-        String[] prefixes = new String[] { "PIRITUBA", "LAPA", "CENTRO", "PINHEIROS" };
+        String[] locations = new String[] {
+            "PIRITUBA", "LAPA", "CENTRO", "PINHEIROS"
+        };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             getApplicationContext(),
             R.layout.dropdown_location_menu_popup_item,
-            prefixes
+                locations
         );
         AutoCompleteTextView editTextPrefixDropdown =
                 findViewById(R.id.location_dropdown);

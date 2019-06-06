@@ -446,5 +446,14 @@ public class TaskManagerActivity extends AppCompatActivity
         super.onStop();
         MySingleton.getInstance(this).stop(TAG);
         stopLocationUpdates();
+        if (googleApiClient.isConnected()) {
+            googleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    protected  void onStart() {
+        super.onStart();
+        googleApiClient.connect();
     }
 }

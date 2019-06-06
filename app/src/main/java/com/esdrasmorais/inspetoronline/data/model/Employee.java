@@ -59,6 +59,4 @@ public class Employee {
     public void setLines(List<Line> lines) {
         this.lines = lines;
     }
-
-
 }

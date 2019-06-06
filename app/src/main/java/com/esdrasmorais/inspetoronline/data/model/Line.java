@@ -9,7 +9,7 @@ public class Line {
     private Direction direction;
     private String lineDestinationMarker;
     private String lineOriginMarker;
-    private Integer VehiclesQuantityLocalized;
+    private Integer vehiclesQuantityLocalized;
 
     public Long getId() {
         return id;
@@ -76,11 +76,11 @@ public class Line {
     }
 
     public Integer getVehiclesQuantityLocalized() {
-        return VehiclesQuantityLocalized;
+        return vehiclesQuantityLocalized;
     }
 
     public void setVehiclesQuantityLocalized(Integer vehiclesQuantityLocalized) {
-        VehiclesQuantityLocalized = vehiclesQuantityLocalized;
+        this.vehiclesQuantityLocalized = vehiclesQuantityLocalized;
     }
 
     @Override

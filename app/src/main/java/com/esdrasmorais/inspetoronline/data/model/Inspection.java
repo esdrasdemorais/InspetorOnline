@@ -52,4 +52,20 @@ public class Inspection {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public InspectionType getType() {
+        return type;
+    }
+
+    public void setType(InspectionType type) {
+        this.type = type;
+    }
+
+    public WorkDaySchedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(WorkDaySchedule schedule) {
+        this.schedule = schedule;
+    }
 }

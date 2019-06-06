@@ -3,6 +3,7 @@ package com.esdrasmorais.inspetoronline.data.model;
 import android.location.Location;
 
 public class Terminal {
+    private Long id;
     private String name;
     private Location location = new Location("Taboao");
     private String address = "Praca 8";
@@ -12,6 +13,14 @@ public class Terminal {
     public Terminal() {
         location.setLatitude(-23.435083);
         location.setLongitude(-46.4974829);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Location getLocation() {

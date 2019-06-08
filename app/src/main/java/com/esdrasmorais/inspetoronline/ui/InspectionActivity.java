@@ -56,13 +56,25 @@ public class InspectionActivity extends AppCompatActivity {
     }
 
     private Location getLocation() {
-        SecurityPreferences securityPreferences = new SecurityPreferences(this);
+        SecurityPreferences securityPreferences = new SecurityPreferences(
+            this
+        );
         Location location = new Gson().fromJson(
             securityPreferences.getStoredString("last_know_location"),
             Location.class
         );
         return location;
     }
+
+    private String getLocationAddress() {
+        SecurityPreferences securityPreferences = new SecurityPreferences(
+            this
+        );
+        String addressLocation =
+            securityPreferences.getStoredString("last_know_location_address");
+        return addressLocation;
+    }
+
 
     private void setGoogleDirections() {
         this.googleDirections = new GoogleDirections(
@@ -331,8 +343,11 @@ public class InspectionActivity extends AppCompatActivity {
     }
 
     private void setLocationsAdapter() {
+//        String[] locations = new String[] {
+//            "PIRITUBA", "LAPA", "CENTRO", "PINHEIROS"
+//        };
         String[] locations = new String[] {
-            "PIRITUBA", "LAPA", "CENTRO", "PINHEIROS"
+            this.getLocationAddress().replace("\"", "")
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             getApplicationContext(),

@@ -82,6 +82,9 @@ public class TaskManagerActivity extends AppCompatActivity
     protected String addressOutput = "";
     private AddressResultReceiver resultReceiver;
     protected GoogleApiClient googleApiClient;
+    protected Boolean addressRequested;
+    protected static final String ADDRESS_REQUESTED_KEY = "address-request-pending";
+    protected static final String LOCATION_ADDRESS_KEY = "location-address";
 
     public TaskManagerActivity() {
         this.mDefaultLocation = new LatLng(-23.4862562, -46.7285661);
@@ -104,6 +107,20 @@ public class TaskManagerActivity extends AppCompatActivity
             .getFusedLocationProviderClient(this);
     }
 
+    private void updateValuesFromBundle(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            if (savedInstanceState.keySet().contains(ADDRESS_REQUESTED_KEY)) {
+                addressRequested = savedInstanceState.getBoolean(
+                        ADDRESS_REQUESTED_KEY
+                );
+            }
+            if (savedInstanceState.keySet().contains(LOCATION_ADDRESS_KEY)) {
+                addressOutput = savedInstanceState.getString(LOCATION_ADDRESS_KEY);
+                displayAddressOutput();
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,8 +139,12 @@ public class TaskManagerActivity extends AppCompatActivity
         });
 
         createLocationCallback();
-
         buildGoogleApiClient();
+
+        this.resultReceiver = new AddressResultReceiver(new Handler());
+        addressRequested = false;
+        addressOutput = "";
+        updateValuesFromBundle(savedInstanceState);
     }
 
     private void getLocationPermission() {
@@ -253,18 +274,18 @@ public class TaskManagerActivity extends AppCompatActivity
         task.addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                if (e instanceof ResolvableApiException) {
-                    try {
-                        // Show the dialog by calling startResolutionForResult(),
-                        // and check the result in onActivityResult().
-                        ResolvableApiException resolvable = (ResolvableApiException) e;
-                        resolvable.startResolutionForResult(
-                            TaskManagerActivity.this, REQUEST_CHECK_SETTINGS
-                        );
-                    } catch (IntentSender.SendIntentException sendEx) {
-                        Log.e("createLocationRequest()", sendEx.getMessage());
-                    }
+            if (e instanceof ResolvableApiException) {
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(
+                        TaskManagerActivity.this, REQUEST_CHECK_SETTINGS
+                    );
+                } catch (IntentSender.SendIntentException sendEx) {
+                    Log.e("createLocationRequest()", sendEx.getMessage());
                 }
+            }
             }
         });
     }
@@ -296,7 +317,6 @@ public class TaskManagerActivity extends AppCompatActivity
             "last_know_location", new Gson().toJson(location)
         );
     }
-
 
     private void storeLocationAddress(String locationAddress) {
         SecurityPreferences securityPreferences = new SecurityPreferences(
@@ -389,13 +409,12 @@ public class TaskManagerActivity extends AppCompatActivity
             }
 
             addressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
-            if (addressOutput == null) addressOutput = "";
             storeLocationAddress(addressOutput);
-            displayAddressOutput();
+            //displayAddressOutput();
 
-            if (resultCode == Constants.SUCCESS_RESULT) {
-                showToast(getString(R.string.address_found));
-            }
+//            if (resultCode == Constants.SUCCESS_RESULT) {
+//                showToast(getString(R.string.address_found));
+//            }
         }
     }
 

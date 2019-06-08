@@ -35,19 +35,34 @@ public class FetchAddressIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent == null) return;
 
+        this.receiver = intent.getParcelableExtra(Constants.RECEIVER);
+
+        if (this.receiver == null) {
+            Log.wtf(TAG,
+            "No receiver received. There is nowhere to send the results.");
+            return;
+        }
+
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
         Location location = intent.getParcelableExtra(
             Constants.LOCATION_DATA_EXTRA
         );
 
+        if (location == null) {
+            String errorMessage = getString(R.string.no_location_data_provided);
+            Log.wtf(TAG, errorMessage);
+            deliverResultToReceiver(Constants.FAILURE_RESULT, errorMessage);
+            return;
+        }
+
         List<Address> addresses = null;
         String errorMessage = "";
         try {
             addresses = geocoder.getFromLocation(
-                    location.getLatitude(),
-                    location.getLongitude(),
-                    1
+                location.getLatitude(),
+                location.getLongitude(),
+                1
             );
         } catch (IOException ioException) {
             errorMessage = getString(R.string.service_not_available);
@@ -55,9 +70,9 @@ public class FetchAddressIntentService extends IntentService {
         } catch (IllegalArgumentException illegalArgumentException) {
             errorMessage = getString(R.string.invalid_lat_long_used);
             Log.e(TAG, errorMessage + ". " +
-                    "Latitude = " + location.getLatitude() +
-                    ", Longitude = " +
-                    location.getLongitude(), illegalArgumentException);
+                "Latitude = " + location.getLatitude() +
+                ", Longitude = " +
+                location.getLongitude(), illegalArgumentException);
         }
 
         if ((addresses == null || addresses.size() == 0)

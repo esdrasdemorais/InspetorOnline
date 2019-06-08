@@ -65,4 +65,6 @@
     <string name="no_address_found">Address Found</string>
     <string name="address_found">Address Found</string>
     <string name="no_geocoder_available">GeoCoder Unavailability</string>
+
+    <string name="no_location_data_provided">No Location Found</string>
 </resources>

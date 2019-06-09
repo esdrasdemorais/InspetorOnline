@@ -54,9 +54,9 @@
     </string>
     <string name="hint_comments">Comentarios</string>
     <string name="text_save">SALVAR</string>
-    <string name="error_message_name">Informe Full Name</string>
-    <string name="error_message_email">Enter Valid Email</string>
-    <string name="error_message_age">Enter Age</string>
+    <string name="error_message_line">Informe a Linha</string>
+    <string name="error_message_prefix">Informe o Prefixo</string>
+    <string name="error_message_location">Informe o Local</string>
     <string name="error_message_password">Enter Password</string>
     <string name="success_message">Sign Up Successful</string>
 

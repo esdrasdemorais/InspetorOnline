@@ -19,14 +19,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:layout_marginTop="57dp"
-    tools:context="com.esdrasmorais.inspetoronline.ui.InspectionActivity">
+    tools:context="com.esdrasmorais.inspetoronline.ui.inspection.InspectionActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_line"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_line">
 
         <AutoCompleteTextView
             android:id="@+id/line_dropdown"
@@ -40,7 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_prefix"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_prefix">
 
         <AutoCompleteTextView
             android:id="@+id/prefix_dropdown"
@@ -55,7 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_location"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_location">
 
         <AutoCompleteTextView
             android:id="@+id/location_dropdown"
@@ -69,7 +72,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_vehicle_state"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_vehicle_state">
 
         <AutoCompleteTextView
             android:id="@+id/vehicle_state_dropdown"
@@ -83,7 +87,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_presentation_employees"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_presentation_employees">
 
         <AutoCompleteTextView
             android:id="@+id/presentation_employees"
@@ -98,7 +103,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_vehicle_identification"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_vehicle_identification">
 
         <AutoCompleteTextView
             android:id="@+id/vehicle_identification"
@@ -113,7 +119,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_personal_objects_cleaning"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_personal_objects">
 
         <AutoCompleteTextView
             android:id="@+id/personal_objects_cleaning"
@@ -127,7 +134,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_vehicle_objects_conservation"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_vehicle_objects_conservation">
 
         <AutoCompleteTextView
             android:id="@+id/vehicle_objects_conservation"
@@ -141,7 +149,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_employee_identification"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_employee_identification">
 
         <AutoCompleteTextView
             android:id="@+id/employee_identification"
@@ -155,7 +164,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_wheelchair_seat_belt"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_wheelchair_seat_belt">
 
         <AutoCompleteTextView
             android:id="@+id/wheelchair_seat_belt"
@@ -169,7 +179,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_objects_forbiden_to_role"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_objects_forbiden_to_role">
 
         <AutoCompleteTextView
             android:id="@+id/objects_forbiden_to_role"
@@ -183,7 +194,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_vehicle_security_accessories"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_vehicle_security_accessories">
 
         <AutoCompleteTextView
             android:id="@+id/vehicle_security_accessories"
@@ -197,7 +209,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_impediment_to_inspection"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_impediment_to_inspection">
 
         <AutoCompleteTextView
             android:id="@+id/impediment_to_inspection"
@@ -211,7 +224,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_inspection_rate"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:id="@+id/input_layout_inspection_rate">
 
         <AutoCompleteTextView
             android:id="@+id/inspection_rate"
@@ -221,7 +235,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_comments"
+        android:id="@+id/input_layout_comments"
         android:layout_width="match_parent"
         android:layout_height="177dp"
         android:layout_marginBottom="17dp">

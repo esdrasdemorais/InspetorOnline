@@ -1,6 +1,7 @@
 package com.esdrasmorais.inspetoronline.data;
 
 public final class Constants {
+    public static final String DATABASE_NAME = "inspetoronline";
     public static final Integer SUCCESS_RESULT = 0;
     public static final Integer FAILURE_RESULT = 1;
     public static final String PACKAGE_NAME =

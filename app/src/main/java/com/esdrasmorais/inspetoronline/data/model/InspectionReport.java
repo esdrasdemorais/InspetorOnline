@@ -10,13 +10,13 @@ public class InspectionReport {
     private Location location;
     private Rate vehicleState;
     private Rate presentationEmployees;
-    private Rate vehicleIdentification;
+    private Boolean vehicleIdentification;
     private Rate personalObjectsCleaning;
     private Rate vehicleObjectsConservation;
-    private Rate employeeIdentification;
-    private Rate wheelchairSeatBelt;
+    private Boolean employeeIdentification;
+    private Boolean wheelchairSeatBelt;
     private Boolean objectsForbidenToRole;
-    private Rate vehicleSecurityAccessories;
+    private Boolean vehicleSecurityAccessories;
     private Boolean impedimentToInspection;
     private Short rate;
     private String comments;
@@ -77,11 +77,11 @@ public class InspectionReport {
         this.presentationEmployees = presentationEmployees;
     }
 
-    public Rate getVehicleIdentification() {
+    public Boolean getVehicleIdentification() {
         return vehicleIdentification;
     }
 
-    public void setVehicleIdentification(Rate vehicleIdentification) {
+    public void setVehicleIdentification(Boolean vehicleIdentification) {
         this.vehicleIdentification = vehicleIdentification;
     }
 
@@ -101,19 +101,19 @@ public class InspectionReport {
         this.vehicleObjectsConservation = vehicleObjectsConservation;
     }
 
-    public Rate getEmployeeIdentification() {
+    public Boolean getEmployeeIdentification() {
         return employeeIdentification;
     }
 
-    public void setEmployeeIdentification(Rate employeeIdentification) {
+    public void setEmployeeIdentification(Boolean employeeIdentification) {
         this.employeeIdentification = employeeIdentification;
     }
 
-    public Rate getWheelchairSeatBelt() {
+    public Boolean getWheelchairSeatBelt() {
         return wheelchairSeatBelt;
     }
 
-    public void setWheelchairSeatBelt(Rate wheelchairSeatBelt) {
+    public void setWheelchairSeatBelt(Boolean wheelchairSeatBelt) {
         this.wheelchairSeatBelt = wheelchairSeatBelt;
     }
 
@@ -125,11 +125,11 @@ public class InspectionReport {
         this.objectsForbidenToRole = objectsForbidenToRole;
     }
 
-    public Rate getVehicleSecurityAccessories() {
+    public Boolean getVehicleSecurityAccessories() {
         return vehicleSecurityAccessories;
     }
 
-    public void setVehicleSecurityAccessories(Rate vehicleSecurityAccessories) {
+    public void setVehicleSecurityAccessories(Boolean vehicleSecurityAccessories) {
         this.vehicleSecurityAccessories = vehicleSecurityAccessories;
     }
 

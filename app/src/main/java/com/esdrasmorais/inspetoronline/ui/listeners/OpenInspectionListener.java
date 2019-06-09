@@ -3,7 +3,7 @@ package com.esdrasmorais.inspetoronline.ui.listeners;
 import android.content.Intent;
 import android.view.View;
 
-import com.esdrasmorais.inspetoronline.ui.InspectionActivity;
+import com.esdrasmorais.inspetoronline.ui.inspection.InspectionActivity;
 
 public class OpenInspectionListener implements View.OnClickListener {
 

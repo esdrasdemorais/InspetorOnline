@@ -31,7 +31,7 @@
             android:exported="false"/>
 
         <activity
-            android:name=".ui.InspectionActivity"
+            android:name=".ui.inspection.InspectionActivity"
             android:label="@string/title_activity_inspection"
             android:parentActivityName=".ui.TaskManagerActivity"
             android:theme="@style/AppTheme.NoActionBar">

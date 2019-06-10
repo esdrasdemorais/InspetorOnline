@@ -10,6 +10,7 @@ import com.esdrasmorais.inspetoronline.data.model.Company;
 import com.esdrasmorais.inspetoronline.data.model.Inspection;
 import com.esdrasmorais.inspetoronline.data.model.InspectionReport;
 import com.esdrasmorais.inspetoronline.data.model.Line;
+import com.esdrasmorais.inspetoronline.data.model.Rate;
 import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 import com.esdrasmorais.inspetoronline.data.repository.InspectionReportRepository;
 import com.esdrasmorais.inspetoronline.data.repository.InspectionRepository;
@@ -22,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.esdrasmorais.inspetoronline.R;
@@ -64,18 +66,36 @@ public class InspectionActivity extends AppCompatActivity {
     AutoCompleteTextView editTextPersonalObjectsDropdown;
     AutoCompleteTextView editTextVehicleObjectsDropdown;
     AutoCompleteTextView editTextEmployeeIdentificationDropdown;
-    AutoCompleteTextView editTextPWeelchairSeatDropdown;
+    AutoCompleteTextView editTextWeelchairSeatDropdown;
     AutoCompleteTextView editTextObjectsForbidenDropdown;
     AutoCompleteTextView editTextVehicleSecurityDropdown;
     AutoCompleteTextView editTextImpedimentDropdown;
     AutoCompleteTextView editTextRateDropdown;
+    EditText editTextComments;
     Button save;
     FloatingActionButton fab;
     TextInputLayout inputLayoutLine;
     TextInputLayout inputLayoutPrefix;
+    TextInputLayout inputLayoutLocation;
+    TextInputLayout inputLayoutVehicleState;
+    TextInputLayout inputLayoutPresentationEmployees;
+    TextInputLayout inputLayoutVehicleIdentification;
+    TextInputLayout inputLayoutPersonalObjects;
+    TextInputLayout inputLayoutVehicleObjectsConservation;
+    TextInputLayout inputLayoutEmployeeIdentification;
+    TextInputLayout inputLayoutWheelchairSeatBelt;
+    TextInputLayout inputLayoutObjectsForbidenToRole;
+    TextInputLayout inputLayoutVehicleSecurityAccessories;
+    TextInputLayout inputLayoutImpedimentToInspection;
+    TextInputLayout inputLayoutInspectionRate;
+    TextInputLayout inputLayoutComments;
+    Inspection inspection;
+    InspectionReport inspectionReport;
 
     public InspectionActivity() {
         this.getVolleyResponse = new GetVolleyResponse(this);
+        this.inspection = new Inspection();
+        this.inspectionReport = new InspectionReport();
     }
 
     private Location getLocation() {
@@ -166,9 +186,10 @@ public class InspectionActivity extends AppCompatActivity {
                     AdapterView<?> parent, View view, int position, long id
                 ) {
                 Line selected = (Line) parent.getAdapter().getItem(position);
-                Toast.makeText(getApplicationContext(), "Clicked" +
-                    "position = " + position + " line = " +
-                     selected.getShortName(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Clicked" +
+//                    "position = " + position + " line = " +
+//                     selected.getShortName(), Toast.LENGTH_LONG).show();
+                inspectionReport.setLine(selected);
                 }
             }
         );
@@ -280,7 +301,7 @@ public class InspectionActivity extends AppCompatActivity {
                 ));
 
                 SimpleDateFormat sdf = new SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                "yyyy-MM-dd'T'HH:mm:ss'Z'"
                 );
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                 Date localizedAt = sdf.parse(
@@ -353,9 +374,10 @@ public class InspectionActivity extends AppCompatActivity {
                 ) {
                 Vehicle selected = (Vehicle)
                     parent.getAdapter().getItem(position);
-                Toast.makeText(getApplicationContext(), "Clicked " +
-                    position + " prefix: " + selected.getPrefix(),
-                    Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Clicked " +
+//                    position + " prefix: " + selected.getPrefix(),
+//                    Toast.LENGTH_LONG).show();
+                inspectionReport.setPrefix(selected);
                 }
             }
         );
@@ -374,56 +396,138 @@ public class InspectionActivity extends AppCompatActivity {
                 locations
         );
         editTextLocationDropdown.setAdapter(adapter);
+        editTextLocationDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    String selected = (String)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setLocation(getLocation());
+                }
+            }
+        );
     }
 
     private void setVehicleStateAdapter() {
-        String[] prefixes = new String[] { "ÓTIMO", "BOM", "REGULAR", "RUIM" };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        Rate[] rates = new Rate[] {
+            Rate.GREAT, Rate.GOOD, Rate.REGULATE, Rate.BAD
+        };
+        ArrayAdapter<Rate> adapter = new ArrayAdapter<Rate>(
             getApplicationContext(),
             R.layout.dropdown_vehicle_state_menu_popup_item,
-            prefixes
+            rates
         );
         editTextVehicleStateDropdown.setAdapter(adapter);
+        editTextVehicleStateDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Rate selected = (Rate)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setVehicleState(selected);
+                }
+            }
+        );
     }
 
     private void setPresentationEmployeesAdapter() {
-        String[] prefixes = new String[] { "ÓTIMO", "BOM", "REGULAR", "RUIM" };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        Rate[] rates = new Rate[] {
+            Rate.GREAT, Rate.GOOD, Rate.REGULATE, Rate.BAD
+        };
+        ArrayAdapter<Rate> adapter = new ArrayAdapter<Rate>(
             getApplicationContext(),
             R.layout.dropdown_presentation_employees_menu_popup_item,
-            prefixes
+            rates
         );
         editTextPresentationEmployeesDropdown.setAdapter(adapter);
+        editTextPresentationEmployeesDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Rate selected = (Rate)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setPresentationEmployees(selected);
+                }
+            }
+        );
     }
 
     private void setVehicleIdentificationAdapter() {
-        String[] prefixes = new String[] { "SIM", "NAO" };
+        String[] question = new String[] { "SIM", "NAO" };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
             getApplicationContext(),
             R.layout.dropdown_vehicle_identification_menu_popup_item,
-            prefixes
+            question
         );
         editTextVehicleIdentificationDropdown.setAdapter(adapter);
+        editTextVehicleIdentificationDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    String selected = (String)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setVehicleIdentification(
+                        selected == "SIM" ? true : false
+                    );
+                }
+            }
+        );
     }
 
     private void setPersonalObjectsCleaningAdapter() {
-        String[] prefixes = new String[] { "ÓTIMO", "BOM", "REGULAR", "RUIM" };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        Rate[] rates = new Rate[] {
+            Rate.GREAT, Rate.GOOD, Rate.REGULATE, Rate.BAD
+        };
+        ArrayAdapter<Rate> adapter = new ArrayAdapter<Rate>(
             getApplicationContext(),
             R.layout.dropdown_objects_cleaning_menu_popup_item,
-            prefixes
+            rates
         );
         editTextPersonalObjectsDropdown.setAdapter(adapter);
+        editTextPersonalObjectsDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Rate selected = (Rate)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setPersonalObjectsCleaning(selected);
+                }
+            }
+        );
     }
 
     private void setVehicleObjectsConservationAdapter() {
-        String[] prefixes = new String[] { "ÓTIMO", "BOM", "REGULAR", "RUIM" };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        Rate[] rates = new Rate[] {
+            Rate.GREAT, Rate.GOOD, Rate.REGULATE, Rate.BAD
+        };
+        ArrayAdapter<Rate> adapter = new ArrayAdapter<Rate>(
             getApplicationContext(),
             R.layout.dropdown_objects_conservation_menu_popup_item,
-            prefixes
+            rates
         );
         editTextVehicleObjectsDropdown.setAdapter(adapter);
+        editTextVehicleObjectsDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Rate selected = (Rate)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setVehicleObjectsConservation(selected);
+                }
+            }
+        );
     }
 
     private void setEmployeeIdentificationAdapter() {
@@ -434,6 +538,20 @@ public class InspectionActivity extends AppCompatActivity {
             prefixes
         );
         editTextEmployeeIdentificationDropdown.setAdapter(adapter);
+        editTextEmployeeIdentificationDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    String selected = (String)
+                            parent.getAdapter().getItem(position);
+                    inspectionReport.setEmployeeIdentification(
+                        selected == "SIM" ? true : false
+                    );
+                }
+            }
+        );
     }
 
     private void setWheelchairSeatBeltAdapter() {
@@ -443,7 +561,21 @@ public class InspectionActivity extends AppCompatActivity {
             R.layout.dropdown_wheelchair_seat_belt_menu_popup_item,
             prefixes
         );
-        editTextPWeelchairSeatDropdown.setAdapter(adapter);
+        editTextWeelchairSeatDropdown.setAdapter(adapter);
+        editTextWeelchairSeatDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    String selected = (String)
+                            parent.getAdapter().getItem(position);
+                    inspectionReport.setWheelchairSeatBelt(
+                        selected == "SIM" ? true : false
+                    );
+                }
+            }
+        );
     }
 
     private void setObjectsForbidenToRoleAdapter() {
@@ -454,6 +586,20 @@ public class InspectionActivity extends AppCompatActivity {
             prefixes
         );
         editTextObjectsForbidenDropdown.setAdapter(adapter);
+        editTextObjectsForbidenDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    String selected = (String)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setObjectsForbidenToRole(
+                        selected == "SIM" ? true : false
+                    );
+                }
+            }
+        );
     }
 
     private void setVehicleSecurityAccessoriesAdapter() {
@@ -464,6 +610,20 @@ public class InspectionActivity extends AppCompatActivity {
             prefixes
         );
         editTextVehicleSecurityDropdown.setAdapter(adapter);
+        editTextVehicleSecurityDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    String selected = (String)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setVehicleSecurityAccessories(
+                        selected == "SIM" ? true : false
+                    );
+                }
+            }
+        );
     }
 
     private void setImpedimentToInspectionAdapter() {
@@ -474,21 +634,47 @@ public class InspectionActivity extends AppCompatActivity {
             prefixes
         );
         editTextImpedimentDropdown.setAdapter(adapter);
+        editTextImpedimentDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    String selected = (String)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setImpedimentToInspection(
+                        selected == "SIM" ? true : false
+                    );
+                }
+            }
+        );
     }
 
     private void setInspectionRateAdapter() {
-        String[] prefixes = new String[] {
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
+        Short[] prefixes = new Short[] {
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<Short> adapter = new ArrayAdapter<Short>(
             getApplicationContext(),
             R.layout.dropdown_inspection_rate_menu_popup_item,
             prefixes
         );
         editTextRateDropdown.setAdapter(adapter);
+        editTextRateDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Short selected = (Short)
+                        parent.getAdapter().getItem(position);
+                    inspectionReport.setRate(selected);
+                }
+            }
+        );
     }
 
-    private void initializeWidgets() {
+    private void initializeTextDropDowns() {
         this.editTextLineDropdown = findViewById(R.id.line_dropdown);
         this.editTextPrefixDropdown = findViewById(R.id.prefix_dropdown);
         this.editTextLocationDropdown = findViewById(R.id.location_dropdown);
@@ -504,19 +690,52 @@ public class InspectionActivity extends AppCompatActivity {
             findViewById(R.id.vehicle_objects_conservation);
         this.editTextEmployeeIdentificationDropdown =
             findViewById(R.id.employee_identification);
-        this.editTextPWeelchairSeatDropdown =
+        this.editTextWeelchairSeatDropdown =
             findViewById(R.id.wheelchair_seat_belt);
         this.editTextObjectsForbidenDropdown =
             findViewById(R.id.objects_forbiden_to_role);
         this.editTextVehicleSecurityDropdown =
             findViewById(R.id.vehicle_security_accessories);
         this.editTextImpedimentDropdown =
-           findViewById(R.id.impediment_to_inspection);
+            findViewById(R.id.impediment_to_inspection);
         this.editTextRateDropdown = findViewById(R.id.inspection_rate);
-        this.save = findViewById(R.id.button_save);
-        this.fab = findViewById(R.id.fab);
+    }
+
+    private void initializeInputLayouts() {
         this.inputLayoutLine = findViewById(R.id.input_layout_line);
         this.inputLayoutPrefix = findViewById(R.id.input_layout_prefix);
+        this.inputLayoutLocation = findViewById(R.id.input_layout_location);
+        this.inputLayoutVehicleState =
+            findViewById(R.id.input_layout_vehicle_state);
+        this.inputLayoutPresentationEmployees =
+            findViewById(R.id.input_layout_presentation_employees);
+        this.inputLayoutVehicleIdentification =
+            findViewById(R.id.input_layout_vehicle_identification);
+        this.inputLayoutPersonalObjects =
+            findViewById(R.id.input_layout_personal_objects);
+        this.inputLayoutVehicleObjectsConservation =
+            findViewById(R.id.input_layout_vehicle_objects_conservation);
+        this.inputLayoutEmployeeIdentification =
+            findViewById(R.id.input_layout_employee_identification);
+        this.inputLayoutWheelchairSeatBelt =
+            findViewById(R.id.input_layout_wheelchair_seat_belt);
+        this.inputLayoutObjectsForbidenToRole =
+            findViewById(R.id.input_layout_objects_forbiden_to_role);
+        this.inputLayoutVehicleSecurityAccessories =
+            findViewById(R.id.input_layout_vehicle_security_accessories);
+        this.inputLayoutImpedimentToInspection =
+            findViewById(R.id.input_layout_impediment_to_inspection);
+        this.inputLayoutInspectionRate =
+            findViewById(R.id.input_layout_inspection_rate);
+        this.inputLayoutComments = findViewById(R.id.input_layout_comments);
+    }
+
+    private void initializeWidgets() {
+        this.initializeTextDropDowns();
+        this.initializeInputLayouts();
+
+        this.save = findViewById(R.id.button_save);
+        this.fab = findViewById(R.id.fab);
     }
 
     private void initializeAdapters() {
@@ -564,9 +783,84 @@ public class InspectionActivity extends AppCompatActivity {
     private Boolean validate() {
         Boolean isValid = false;
         if (editTextLineDropdown.getText().toString().isEmpty()) {
-            inputLayoutLine.setError(getString(R.string.error_message_line));
+            inputLayoutLine.setError(getString(R.string.error_line));
         } else if (editTextPrefixDropdown.getText().toString().isEmpty()) {
-            inputLayoutPrefix.setError(getString(R.string.error_message_prefix));
+            inputLayoutPrefix.setError(getString(R.string.error_prefix));
+        } else if (editTextLocationDropdown.getText().toString().isEmpty()) {
+            inputLayoutLocation.setError(getString(R.string.error_location));
+        } else if (
+            editTextVehicleStateDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutVehicleState.setError(
+                getString(R.string.error_vehicle_state)
+            );
+        } else if (
+            editTextPresentationEmployeesDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutPresentationEmployees.setError(
+                    getString(R.string.error_presentation_employees)
+            );
+        } else if (
+            editTextVehicleIdentificationDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutVehicleIdentification.setError(
+                getString(R.string.error_vehicle_identification)
+            );
+        } else if (
+            editTextPersonalObjectsDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutPersonalObjects.setError(
+                getString(R.string.error_personal_objects_cleaning)
+            );
+        } else if (
+            editTextVehicleObjectsDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutVehicleObjectsConservation.setError(
+                getString(R.string.error_vehicle_objects_conservation)
+            );
+        } else if (
+            editTextEmployeeIdentificationDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutEmployeeIdentification.setError(
+                getString(R.string.error_employee_identification)
+            );
+        } else if (
+            editTextWeelchairSeatDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutWheelchairSeatBelt.setError(
+                getString(R.string.error_wheelchair_seat_belt)
+            );
+        } else if (
+            editTextObjectsForbidenDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutObjectsForbidenToRole.setError(
+                getString(R.string.error_objects_forbiden_to_role)
+            );
+        } else if (
+            editTextVehicleSecurityDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutVehicleSecurityAccessories.setError(
+                getString(R.string.error_vehicle_security_accessories)
+            );
+        } else if (
+            editTextImpedimentDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutImpedimentToInspection.setError(
+                getString(R.string.error_impediment_to_inspection)
+            );
+        } else if (
+            editTextRateDropdown.getText().toString().isEmpty()
+        ) {
+            inputLayoutInspectionRate.setError(
+                getString(R.string.error_inspection_rate)
+            );
+        } else if (
+            editTextComments.getText().toString().trim().length() > 0 &&
+            editTextComments.getText().toString().trim().length() < 5
+        ) {
+            inputLayoutComments.setError(
+                getString(R.string.error_comments)
+            );
         } else {
             isValid = true;
         }
@@ -580,18 +874,16 @@ public class InspectionActivity extends AppCompatActivity {
     private InspectionReport setInspectionReport(
         InspectionReport inspectionReport
     ) {
+        inspectionReport.setComments(editTextComments.getText().toString());
         return inspectionReport;
     }
 
     private Boolean saveInspection() {
         Boolean isSaved = false;
-
-        Inspection inspection = new Inspection();
         inspection = setInspection(inspection);
         InspectionRepository inspectionRepository = new InspectionRepository();
 
         if (inspectionRepository.set(inspection)) {
-            InspectionReport inspectionReport = new InspectionReport();
             inspectionReport = setInspectionReport(inspectionReport);
             InspectionReportRepository inspectionReportRepository =
                 new InspectionReportRepository();

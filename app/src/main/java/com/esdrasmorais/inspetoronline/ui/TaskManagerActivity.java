@@ -138,6 +138,15 @@ public class TaskManagerActivity extends AppCompatActivity
             }
         });
 
+        FloatingActionButton fabInspectionReport =
+            findViewById(R.id.fab_inspection_report);
+        fabAddInspection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            new OpenInspectionListener(view);
+            }
+        });
+
         createLocationCallback();
         buildGoogleApiClient();
 

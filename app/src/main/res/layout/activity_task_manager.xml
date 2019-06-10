@@ -24,12 +24,12 @@
     <include layout="@layout/content_task_manager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_list_inspections"
+        android:id="@+id/fab_inspection_report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_agenda" />
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_inspection"

@@ -18,7 +18,7 @@ public class InspectionReport {
     private Boolean objectsForbidenToRole;
     private Boolean vehicleSecurityAccessories;
     private Boolean impedimentToInspection;
-    private Short rate;
+    private Integer rate;
     private String comments;
 
     public Long getId() {
@@ -141,11 +141,11 @@ public class InspectionReport {
         this.impedimentToInspection = impedimentToInspection;
     }
 
-    public Short getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(Short rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 

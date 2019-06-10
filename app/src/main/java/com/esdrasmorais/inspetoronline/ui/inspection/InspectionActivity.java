@@ -373,7 +373,7 @@ public class InspectionActivity extends AppCompatActivity {
                     AdapterView<?> parent, View view, int position, long id
                 ) {
                 Vehicle selected = (Vehicle)
-                    parent.getAdapter().getItem(position);
+                parent.getAdapter().getItem(position);
 //                Toast.makeText(getApplicationContext(), "Clicked " +
 //                    position + " prefix: " + selected.getPrefix(),
 //                    Toast.LENGTH_LONG).show();
@@ -402,11 +402,11 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    String selected = (String)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setLocation(getLocation());
+                String selected = (String)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setLocation(getLocation());
                 }
-            }
+        }
         );
     }
 
@@ -426,9 +426,9 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    Rate selected = (Rate)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setVehicleState(selected);
+                Rate selected = (Rate)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setVehicleState(selected);
                 }
             }
         );
@@ -450,9 +450,9 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    Rate selected = (Rate)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setPresentationEmployees(selected);
+                Rate selected = (Rate)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setPresentationEmployees(selected);
                 }
             }
         );
@@ -472,11 +472,11 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    String selected = (String)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setVehicleIdentification(
-                        selected == "SIM" ? true : false
-                    );
+                String selected = (String)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setVehicleIdentification(
+                    selected == "SIM" ? true : false
+                );
                 }
             }
         );
@@ -498,9 +498,9 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    Rate selected = (Rate)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setPersonalObjectsCleaning(selected);
+                Rate selected = (Rate)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setPersonalObjectsCleaning(selected);
                 }
             }
         );
@@ -522,9 +522,9 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    Rate selected = (Rate)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setVehicleObjectsConservation(selected);
+                Rate selected = (Rate)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setVehicleObjectsConservation(selected);
                 }
             }
         );
@@ -544,11 +544,11 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    String selected = (String)
-                            parent.getAdapter().getItem(position);
-                    inspectionReport.setEmployeeIdentification(
-                        selected == "SIM" ? true : false
-                    );
+                String selected = (String)
+                        parent.getAdapter().getItem(position);
+                inspectionReport.setEmployeeIdentification(
+                    selected == "SIM" ? true : false
+                );
                 }
             }
         );
@@ -568,11 +568,11 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    String selected = (String)
-                            parent.getAdapter().getItem(position);
-                    inspectionReport.setWheelchairSeatBelt(
-                        selected == "SIM" ? true : false
-                    );
+                String selected = (String)
+                        parent.getAdapter().getItem(position);
+                inspectionReport.setWheelchairSeatBelt(
+                    selected == "SIM" ? true : false
+                );
                 }
             }
         );
@@ -592,11 +592,11 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    String selected = (String)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setObjectsForbidenToRole(
-                        selected == "SIM" ? true : false
-                    );
+                String selected = (String)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setObjectsForbidenToRole(
+                    selected == "SIM" ? true : false
+                );
                 }
             }
         );
@@ -616,11 +616,11 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    String selected = (String)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setVehicleSecurityAccessories(
-                        selected == "SIM" ? true : false
-                    );
+                String selected = (String)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setVehicleSecurityAccessories(
+                    selected == "SIM" ? true : false
+                );
                 }
             }
         );
@@ -640,21 +640,21 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    String selected = (String)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setImpedimentToInspection(
-                        selected == "SIM" ? true : false
-                    );
+                String selected = (String)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setImpedimentToInspection(
+                    selected == "SIM" ? true : false
+                );
                 }
             }
         );
     }
 
     private void setInspectionRateAdapter() {
-        Short[] prefixes = new Short[] {
+        Integer[] prefixes = new Integer[] {
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         };
-        ArrayAdapter<Short> adapter = new ArrayAdapter<Short>(
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(
             getApplicationContext(),
             R.layout.dropdown_inspection_rate_menu_popup_item,
             prefixes
@@ -666,9 +666,9 @@ public class InspectionActivity extends AppCompatActivity {
                 public void onItemClick(
                     AdapterView<?> parent, View view, int position, long id
                 ) {
-                    Short selected = (Short)
-                        parent.getAdapter().getItem(position);
-                    inspectionReport.setRate(selected);
+                Integer selected = (Integer)
+                    parent.getAdapter().getItem(position);
+                inspectionReport.setRate(selected);
                 }
             }
         );
@@ -734,6 +734,7 @@ public class InspectionActivity extends AppCompatActivity {
         this.initializeTextDropDowns();
         this.initializeInputLayouts();
 
+        this.editTextComments = findViewById(R.id.edit_text_comments);
         this.save = findViewById(R.id.button_save);
         this.fab = findViewById(R.id.fab);
     }
@@ -781,89 +782,159 @@ public class InspectionActivity extends AppCompatActivity {
     }
 
     private Boolean validate() {
-        Boolean isValid = false;
+        Boolean isValid = true;
         if (editTextLineDropdown.getText().toString().isEmpty()) {
             inputLayoutLine.setError(getString(R.string.error_line));
-        } else if (editTextPrefixDropdown.getText().toString().isEmpty()) {
+            isValid = false;
+        } else {
+            inputLayoutLine.setErrorEnabled(false);
+        }
+
+        if (editTextPrefixDropdown.getText().toString().isEmpty()) {
             inputLayoutPrefix.setError(getString(R.string.error_prefix));
-        } else if (editTextLocationDropdown.getText().toString().isEmpty()) {
+            isValid = false;
+        } else {
+            inputLayoutPrefix.setErrorEnabled(false);
+        }
+
+        if (editTextLocationDropdown.getText().toString().isEmpty()) {
             inputLayoutLocation.setError(getString(R.string.error_location));
-        } else if (
-            editTextVehicleStateDropdown.getText().toString().isEmpty()
-        ) {
+            isValid = false;
+        } else {
+            inputLayoutLocation.setErrorEnabled(false);
+        }
+
+        if (editTextVehicleStateDropdown.getText().toString().isEmpty()) {
             inputLayoutVehicleState.setError(
                 getString(R.string.error_vehicle_state)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutVehicleState.setErrorEnabled(false);
+        }
+
+        if (
             editTextPresentationEmployeesDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutPresentationEmployees.setError(
-                    getString(R.string.error_presentation_employees)
+                getString(R.string.error_presentation_employees)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutPresentationEmployees.setErrorEnabled(false);
+        }
+
+        if (
             editTextVehicleIdentificationDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutVehicleIdentification.setError(
                 getString(R.string.error_vehicle_identification)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutVehicleIdentification.setErrorEnabled(false);
+        }
+
+        if (
             editTextPersonalObjectsDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutPersonalObjects.setError(
                 getString(R.string.error_personal_objects_cleaning)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutPersonalObjects.setErrorEnabled(false);
+        }
+
+        if (
             editTextVehicleObjectsDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutVehicleObjectsConservation.setError(
                 getString(R.string.error_vehicle_objects_conservation)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutVehicleObjectsConservation.setErrorEnabled(false);
+        }
+
+        if (
             editTextEmployeeIdentificationDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutEmployeeIdentification.setError(
                 getString(R.string.error_employee_identification)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutEmployeeIdentification.setErrorEnabled(false);
+        }
+
+        if (
             editTextWeelchairSeatDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutWheelchairSeatBelt.setError(
-                getString(R.string.error_wheelchair_seat_belt)
+                    getString(R.string.error_wheelchair_seat_belt)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutWheelchairSeatBelt.setErrorEnabled(false);
+        }
+
+        if (
             editTextObjectsForbidenDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutObjectsForbidenToRole.setError(
                 getString(R.string.error_objects_forbiden_to_role)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutObjectsForbidenToRole.setErrorEnabled(false);
+        }
+
+        if (
             editTextVehicleSecurityDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutVehicleSecurityAccessories.setError(
                 getString(R.string.error_vehicle_security_accessories)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutVehicleSecurityAccessories.setErrorEnabled(false);
+        }
+
+        if (
             editTextImpedimentDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutImpedimentToInspection.setError(
                 getString(R.string.error_impediment_to_inspection)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutImpedimentToInspection.setErrorEnabled(false);
+        }
+
+        if (
             editTextRateDropdown.getText().toString().isEmpty()
         ) {
             inputLayoutInspectionRate.setError(
                 getString(R.string.error_inspection_rate)
             );
-        } else if (
+            isValid = false;
+        } else {
+            inputLayoutInspectionRate.setErrorEnabled(false);
+        }
+
+        if (
             editTextComments.getText().toString().trim().length() > 0 &&
             editTextComments.getText().toString().trim().length() < 5
         ) {
             inputLayoutComments.setError(
                 getString(R.string.error_comments)
             );
+            isValid = false;
         } else {
-            isValid = true;
+            inputLayoutComments.setErrorEnabled(false);
         }
+
         return isValid;
     }
 
@@ -875,6 +946,7 @@ public class InspectionActivity extends AppCompatActivity {
         InspectionReport inspectionReport
     ) {
         inspectionReport.setComments(editTextComments.getText().toString());
+        inspectionReport.setInspection(inspection);
         return inspectionReport;
     }
 

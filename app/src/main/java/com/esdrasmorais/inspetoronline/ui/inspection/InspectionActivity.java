@@ -9,9 +9,11 @@ import com.esdrasmorais.inspetoronline.data.SpTrans;
 import com.esdrasmorais.inspetoronline.data.model.Company;
 import com.esdrasmorais.inspetoronline.data.model.Inspection;
 import com.esdrasmorais.inspetoronline.data.model.InspectionReport;
+import com.esdrasmorais.inspetoronline.data.model.InspectionType;
 import com.esdrasmorais.inspetoronline.data.model.Line;
 import com.esdrasmorais.inspetoronline.data.model.Rate;
 import com.esdrasmorais.inspetoronline.data.model.Vehicle;
+import com.esdrasmorais.inspetoronline.data.model.WorkDaySchedule;
 import com.esdrasmorais.inspetoronline.data.repository.InspectionReportRepository;
 import com.esdrasmorais.inspetoronline.data.repository.InspectionRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +32,7 @@ import com.esdrasmorais.inspetoronline.R;
 import com.esdrasmorais.inspetoronline.data.GoogleDirections;
 import com.esdrasmorais.inspetoronline.data.SecurityPreferences;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.FieldValue;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -91,11 +94,14 @@ public class InspectionActivity extends AppCompatActivity {
     TextInputLayout inputLayoutComments;
     Inspection inspection;
     InspectionReport inspectionReport;
+    InspectionReportRepository inspectionReportRepositoryC;
 
     public InspectionActivity() {
         this.getVolleyResponse = new GetVolleyResponse(this);
         this.inspection = new Inspection();
         this.inspectionReport = new InspectionReport();
+        inspectionReportRepositoryC =
+            new InspectionReportRepository(InspectionReport.class);
     }
 
     private Location getLocation() {
@@ -111,7 +117,7 @@ public class InspectionActivity extends AppCompatActivity {
 
     private String getLocationAddress() {
         SecurityPreferences securityPreferences = new SecurityPreferences(
-            this
+    this
         );
         String addressLocation =
             securityPreferences.getStoredString("last_know_location_address");
@@ -939,6 +945,18 @@ public class InspectionActivity extends AppCompatActivity {
     }
 
     private Inspection setInspection(Inspection inspection) {
+        inspection.setId(1L);
+
+        inspection.setStartTime(new Date());
+        Date endTime = new Date();
+        endTime.setHours(8);
+
+        inspection.setEndTime(endTime);
+        inspection.setAddress(this.getLocation());
+        inspection.setNote("teste");
+        inspection.setType(InspectionType.REPORT);
+        inspection.setSchedule(new WorkDaySchedule());
+
         return inspection;
     }
 
@@ -953,13 +971,17 @@ public class InspectionActivity extends AppCompatActivity {
     private Boolean saveInspection() {
         Boolean isSaved = false;
         inspection = setInspection(inspection);
-        InspectionRepository inspectionRepository = new InspectionRepository();
+        InspectionRepository inspectionRepository = new InspectionRepository(
+            Inspection.class
+        );
 
         if (inspectionRepository.set(inspection)) {
-            inspectionReport = setInspectionReport(inspectionReport);
-            InspectionReportRepository inspectionReportRepository =
-                new InspectionReportRepository();
-            isSaved = inspectionReportRepository.set(inspectionReport);
+            List<Inspection> i = new ArrayList<Inspection>();
+            inspectionRepository.search(i);
+//            inspectionReport = setInspectionReport(inspectionReport);
+//            InspectionReportRepository inspectionReportRepository =
+//                new InspectionReportRepository(InspectionReport.class);
+//            isSaved = inspectionReportRepository.set(inspectionReport);
         }
 
         return isSaved;

@@ -2,16 +2,24 @@ package com.esdrasmorais.inspetoronline.data.model;
 
 import android.location.Location;
 
-import java.util.Date;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.GeoPoint;
 
-public class Inspection {
-    private Long id;
-    private Date startTime;
-    private Date endTime;
-    private Location address;
-    private String note;
-    private InspectionType type;
-    private WorkDaySchedule schedule;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Inspection extends Object {
+    Long id;
+    Date startTime;
+    Date endTime;
+    GeoPoint address;
+    String note;
+    InspectionType type;
+    WorkDaySchedule schedule;
+
+    public Inspection() {
+    }
 
     public Long getId() {
         return id;
@@ -38,10 +46,17 @@ public class Inspection {
     }
 
     public Location getAddress() {
-        return address;
+        Location location = new Location("");
+        location.setLatitude(this.address.getLatitude());
+        location.setLongitude(this.address.getLongitude());
+        return location;
     }
 
-    public void setAddress(Location address) {
+    public void setAddress(Location location) {
+        GeoPoint address = new GeoPoint(
+            location.getLatitude(),
+            location.getLongitude()
+        );
         this.address = address;
     }
 
@@ -67,5 +82,18 @@ public class Inspection {
 
     public void setSchedule(WorkDaySchedule schedule) {
         this.schedule = schedule;
+    }
+
+    public Map<String, Object> toObject() {
+        Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put("id", FieldValue.increment(1));
+        objectMap.put("startTime", this.getStartTime());
+        objectMap.put("endTime", this.getEndTime());
+        objectMap.put("address", this.getAddress());
+        objectMap.put("note", this.getNote());
+        objectMap.put("type", this.type);
+        objectMap.put("schedule", this.schedule);
+
+        return objectMap;
     }
 }

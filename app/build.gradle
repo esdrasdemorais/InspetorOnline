@@ -97,7 +97,6 @@ dependencies {
     testImplementation "androidx.room:room-testing:2.+"
     implementation "androidx.lifecycle:lifecycle-extensions:2.+"
     androidTestImplementation "androidx.arch.core:core-testing:2.+"
-
 }
 
 apply plugin: 'com.google.gms.google-services'

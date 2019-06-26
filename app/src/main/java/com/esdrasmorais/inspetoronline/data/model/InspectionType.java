@@ -10,7 +10,8 @@ public enum InspectionType {
     DELAY("Delay", 7),
     LOSS("Loss", 8),
     CLEANING("Cleaning", 9),
-    HOLE("Hole", 10);
+    HOLE("Hole", 10),
+    REPORT("Report", 11);
 
     private String stringValue;
     private Integer intValue;

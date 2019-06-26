@@ -11,6 +11,10 @@ public class InspectionReportRepository
     extends Repository<InspectionReport>
     implements IInspectionRepository
 {
+    public InspectionReportRepository(Class<InspectionReport> clas) {
+        super(clas);
+    }
+
     @Override
     public List<Inspection> findByLocation(Location location) {
         return null;

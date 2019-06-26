@@ -43,9 +43,9 @@ public abstract class Repository<T> implements IRepository<T> {
 
     public Boolean set(T object) {
         try {
-            db.collection(Constants.DATABASE_NAME).document(
+            db.collection(
                 object.getClass().getSimpleName()
-            ).set(object);
+            ).document().set(object);
             return true;
         } catch (Exception ex) {
             Log.e(

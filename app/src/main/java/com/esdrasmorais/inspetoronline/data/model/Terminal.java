@@ -2,17 +2,26 @@ package com.esdrasmorais.inspetoronline.data.model;
 
 import android.location.Location;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class Terminal {
     private Long id;
     private String name;
-    private Location location = new Location("Taboao");
+    //private Location location = new Location("Taboao");
+    private GeoPoint location;
     private String address = "Praca 8";
     private String city = "Guarulhos";
     private String state = "SP";
 
     public Terminal() {
+        Location location = new Location("Taboao");
         location.setLatitude(-23.435083);
         location.setLongitude(-46.4974829);
+        GeoPoint address = new GeoPoint(
+            location.getLatitude(),
+            location.getLongitude()
+        );
+        this.location = address;
     }
 
     public Long getId() {
@@ -24,11 +33,18 @@ public class Terminal {
     }
 
     public Location getLocation() {
+        Location location = new Location("");
+        location.setLatitude(this.location.getLatitude());
+        location.setLongitude(this.location.getLongitude());
         return location;
     }
 
     public void setLocation(Location location) {
-        this.location = location;
+        GeoPoint address = new GeoPoint(
+            location.getLatitude(),
+            location.getLongitude()
+        );
+        this.location = address;
     }
 
     public String getAddress() {

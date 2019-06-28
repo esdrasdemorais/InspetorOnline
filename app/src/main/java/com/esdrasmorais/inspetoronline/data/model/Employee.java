@@ -2,13 +2,15 @@ package com.esdrasmorais.inspetoronline.data.model;
 
 import android.location.Location;
 
+import com.google.firebase.firestore.GeoPoint;
+
 import java.util.List;
 
 public class Employee {
     private Long id;
     private String username;
     private String password;
-    private Location address;
+    private GeoPoint address;
     private EmployeeType type;
     private List<Line> lines;
 
@@ -37,11 +39,18 @@ public class Employee {
     }
 
     public Location getAddress() {
+        Location address = new Location("");
+        address.setLatitude(this.address.getLatitude());
+        address.setLongitude(this.address.getLongitude());
         return address;
     }
 
     public void setAddress(Location address) {
-        this.address = address;
+        GeoPoint location = new GeoPoint(
+            address.getLatitude(),
+            address.getLongitude()
+        );
+        this.address = location;
     }
 
     public EmployeeType getType() {

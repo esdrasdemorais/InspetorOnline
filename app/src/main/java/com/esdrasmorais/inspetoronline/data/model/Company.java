@@ -5,6 +5,8 @@ public class Company {
     private Integer companyReferenceCode;
     private String companyName;
 
+    public Company() {}
+
     public Integer getOperationAreaCode() {
         return operationAreaCode;
     }

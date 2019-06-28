@@ -9,6 +9,10 @@ public class WorkDaySchedule {
     private Employee employee = new Employee();
     private Terminal terminal = new Terminal();
 
+    public WorkDaySchedule() {
+
+    }
+
     public Long getId() {
         return id;
     }

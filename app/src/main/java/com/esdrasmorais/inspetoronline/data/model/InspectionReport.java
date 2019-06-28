@@ -21,6 +21,10 @@ public class InspectionReport {
     private Integer rate;
     private String comments;
 
+    public InspectionReport() {
+
+    }
+
     public Long getId() {
         return id;
     }

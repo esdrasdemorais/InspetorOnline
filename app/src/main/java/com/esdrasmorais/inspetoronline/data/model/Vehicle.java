@@ -10,6 +10,10 @@ public class Vehicle {
     private Double latitude;
     private Double longitude;
 
+    public Vehicle() {
+
+    }
+
     public long getId() {
         return id;
     }

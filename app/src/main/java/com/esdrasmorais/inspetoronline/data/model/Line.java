@@ -11,6 +11,10 @@ public class Line {
     private String lineOriginMarker;
     private Integer vehiclesQuantityLocalized;
 
+    public Line() {
+
+    }
+
     public Long getId() {
         return id;
     }

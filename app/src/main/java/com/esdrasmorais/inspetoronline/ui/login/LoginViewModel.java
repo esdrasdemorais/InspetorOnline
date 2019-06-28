@@ -9,6 +9,7 @@ import com.esdrasmorais.inspetoronline.data.LoginRepository;
 import com.esdrasmorais.inspetoronline.data.Result;
 import com.esdrasmorais.inspetoronline.data.model.LoggedInUser;
 import com.esdrasmorais.inspetoronline.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginViewModel extends ViewModel {
 

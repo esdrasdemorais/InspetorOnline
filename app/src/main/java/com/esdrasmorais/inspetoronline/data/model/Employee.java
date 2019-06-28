@@ -14,6 +14,10 @@ public class Employee {
     private EmployeeType type;
     private List<Line> lines;
 
+    public Employee() {
+
+    }
+
     public Long getId() {
         return id;
     }

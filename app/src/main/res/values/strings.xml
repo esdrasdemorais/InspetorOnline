@@ -1,9 +1,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name" android:textColor="@android:color/white">InspetorOnline</string>
     <!-- Strings related to login InspetorOnline-->
-    <string name="prompt_email">Login</string>
+    <string name="prompt_email">Email ou Telefone (5511000000000)</string>
     <string name="prompt_password">Senha</string>
+    <string name="prompt_verification">Codigo Verificacao</string>
     <string name="action_sign_in">Acessar</string>
+    <string name="action_verify">Verificar</string>
+    <string name="action_resend">Reenviar</string>
     <string name="action_sign_in_short">Logar</string>
     <string name="welcome">"Bem Vindo!"</string>
     <string name="invalid_username">Login Invalido</string>
@@ -104,4 +107,10 @@
     <string name="address_found">Address Found</string>
     <string name="no_geocoder_available">GeoCoder Unavailability</string>
     <string name="no_location_data_provided">No Location Found</string>
+    <string name="status_code_sent">Code Sent</string>
+    <string name="status_verification_failed">Verification failed</string>
+    <string name="status_verification_succeeded">Verification succeeded</string>
+    <string name="status_sign_in_failed">Sign-in failed</string>
+    <string name="instant_validation">(instant validation)</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
 </resources>

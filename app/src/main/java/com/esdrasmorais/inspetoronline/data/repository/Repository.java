@@ -26,6 +26,8 @@ public abstract class Repository<T> implements IRepository<T> {
     protected Class<T> clas = null;
     protected ObservableArrayList<T> objects;
 
+    public Repository() {}
+
     public Repository(Class<T> clas) {
         this.clas = clas;
         this.className = this.setClassName();

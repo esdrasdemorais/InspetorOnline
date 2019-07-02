@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import android.util.Patterns;
 
-import com.esdrasmorais.inspetoronline.data.LoginRepository;
+import com.esdrasmorais.inspetoronline.data.repository.LoginRepository;
 import com.esdrasmorais.inspetoronline.data.Result;
-import com.esdrasmorais.inspetoronline.data.model.LoggedInUser;
+import com.esdrasmorais.inspetoronline.data.model.Login;
 import com.esdrasmorais.inspetoronline.R;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginViewModel extends ViewModel {
-
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
@@ -31,10 +29,10 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        Result<Login> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+            Login data = ((Result.Success<Login>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
@@ -42,10 +40,26 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void loginDataChanged(String username, String password) {
-        if (!isUserNameValid(username)) {
-            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
-        } else if (!isPasswordValid(password)) {
-            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
+        Boolean isValid = false;
+        try {
+            username = username.replace("\"", "");
+            Long phone = Long.parseLong(username);
+            if (username.length() == 13 && phone > 0)
+                isValid = true;
+        } catch (Exception ex) {
+            isValid = false;
+        }
+
+        if (!isValid && !isUserNameValid(username)) {
+            loginFormState.setValue(
+                new LoginFormState(R.string.invalid_username, null)
+            );
+        } else if (!isValid && !isPasswordValid(password)) {
+            loginFormState.setValue(
+                new LoginFormState(
+                    null, R.string.invalid_password
+                )
+            );
         } else {
             loginFormState.setValue(new LoginFormState(true));
         }
@@ -59,7 +73,8 @@ public class LoginViewModel extends ViewModel {
         if (username.contains("@")) {
             return Patterns.EMAIL_ADDRESS.matcher(username).matches();
         } else {
-            return !username.trim().isEmpty();
+            return !username.trim().isEmpty()
+                && username.trim().length() == 13;
         }
     }
 

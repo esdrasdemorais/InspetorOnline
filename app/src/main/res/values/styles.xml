@@ -18,11 +18,11 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
-        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimary">#171717</item>
         <item name="colorPrimaryVariant">#000000</item>
         <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">#2962FF</item>
-        <item name="colorSecondaryVariant">#0039CB</item>
+        <item name="colorSecondary">#000000</item>
+        <item name="colorSecondaryVariant">#FFFFFF</item>
         <item name="colorOnSecondary">#FFFFFF</item>
         <item name="colorError">#F44336</item>
         <item name="colorOnError">#FFFFFF</item>
@@ -41,6 +41,6 @@
 
     </style>
 
-    <color name="background">#FAFAFA</color>
+    <color name="background">#F7F7F7</color>
 
 </resources>

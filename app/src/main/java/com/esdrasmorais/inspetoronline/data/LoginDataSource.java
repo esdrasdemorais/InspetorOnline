@@ -9,17 +9,18 @@ import java.io.IOException;
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource {
-    Login user;
-    public LoginDataSource(Login login) {
-        user = login;
+
+    public LoginDataSource() {
+
     }
 
-    public Result<Login> login() {
+    public Result<Login> login(String username, String password) {
         try {
 //                new Login(
 //                    java.util.UUID.randomUUID().toString(),
 //                    "Jane Doe");
-            return new Result.Success<>(user);
+
+            return new Result.Success<>(login);
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }

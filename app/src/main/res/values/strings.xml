@@ -8,7 +8,7 @@
     <string name="action_verify">Verificar</string>
     <string name="action_resend">Reenviar</string>
     <string name="action_sign_in_short">Logar</string>
-    <string name="welcome">"Bem Vindo!"</string>
+    <string name="welcome">"Bem Vindo "</string>
     <string name="invalid_username">Login Invalido</string>
     <string name="invalid_password">Senha dever ser maior que 5 caracteres</string>
     <string name="login_failed">Login Falhou</string>

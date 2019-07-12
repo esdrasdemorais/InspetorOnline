@@ -5,21 +5,19 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 
-import com.esdrasmorais.inspetoronline.data.Constants;
+import com.esdrasmorais.inspetoronline.data.Result;
+import com.esdrasmorais.inspetoronline.data.model.Default;
+import com.esdrasmorais.inspetoronline.data.model.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public abstract class Repository<T> implements IRepository<T> {
+public abstract class Repository<T extends Default> implements IRepository<T> {
     private static final String TAG = "Repository";
     protected FirebaseFirestore db;
     protected String className;
@@ -45,9 +43,14 @@ public abstract class Repository<T> implements IRepository<T> {
 
     public Boolean set(T object) {
         try {
-            db.collection(
+            DocumentReference documentReference = db.collection(
                 object.getClass().getSimpleName()
-            ).document().set(object);
+            ).document();
+
+            object.setId(documentReference.getId());
+
+            documentReference.set(object);
+
             return true;
         } catch (Exception ex) {
             Log.e(
@@ -87,8 +90,12 @@ public abstract class Repository<T> implements IRepository<T> {
         return this.objects;
     }
 
-    public Boolean update(T object) {
+    public Boolean update(T object, String id) {
         try {
+            db.collection(object.getClass().getSimpleName())
+                .document(id).set(
+                    object
+                );
             return true;
         } catch (Exception ex) {
             Log.e(

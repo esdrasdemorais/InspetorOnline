@@ -104,7 +104,7 @@ public class LoginActivity
         setContentView(R.layout.activity_login);
 
         loginViewModel = ViewModelProviders.of(
-    this, new LoginViewModelFactory()
+            this, new LoginViewModelFactory()
         ).get(LoginViewModel.class);
 
         firebaseAuth = FirebaseAuth.getInstance();

@@ -7,7 +7,7 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.List;
 
 public class Employee {
-    private Long id;
+    private String id;
     private String username;
     private String password;
     private GeoPoint address;
@@ -18,11 +18,11 @@ public class Employee {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

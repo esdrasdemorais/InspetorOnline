@@ -34,7 +34,7 @@ public class LoginRepository
     }
 
     public static LoginRepository getInstance(LoginDataSource dataSource) {
-        if(instance == null){
+        if (instance == null) {
             instance = new LoginRepository(dataSource);
         }
         return instance;
@@ -57,10 +57,15 @@ public class LoginRepository
 
     public Result<Login> login(String username, String password) {
         // handle login
-        Result<Login> result = dataSource.login();
+        Result<Login> result = dataSource.login(username, password);
         if (result instanceof Result.Success) {
             setLoggedInUser(((Result.Success<Login>) result).getData());
         }
         return result;
+    }
+
+    @Override
+    public Result<Login> getByUsername(String username) {
+        return null;
     }
 }

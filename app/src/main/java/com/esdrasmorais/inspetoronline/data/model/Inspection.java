@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Inspection extends Object {
-    Long id;
+    //Long id;
     Date startTime;
     Date endTime;
     GeoPoint address;
@@ -21,13 +21,13 @@ public class Inspection extends Object {
     public Inspection() {
     }
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
+    }*/
 
     public Date getStartTime() {
         return startTime;

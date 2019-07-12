@@ -1,6 +1,6 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
-public class Line {
+public class Line extends Default {
     private Long id;
     private String name;
     private String shortName;

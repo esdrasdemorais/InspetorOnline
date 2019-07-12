@@ -1,6 +1,6 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
-public class Company {
+public class Company extends Default {
     private Integer operationAreaCode;
     private Integer companyReferenceCode;
     private String companyName;

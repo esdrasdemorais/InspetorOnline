@@ -2,7 +2,7 @@ package com.esdrasmorais.inspetoronline.data.model;
 
 import android.location.Location;
 
-public class InspectionReport {
+public class InspectionReport extends Default {
     private Long id;
     private Inspection inspection;
     private Line line;

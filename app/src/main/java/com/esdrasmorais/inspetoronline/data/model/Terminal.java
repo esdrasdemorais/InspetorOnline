@@ -4,8 +4,8 @@ import android.location.Location;
 
 import com.google.firebase.firestore.GeoPoint;
 
-public class Terminal {
-    private Long id;
+public class Terminal extends Default {
+//    private Long id;
     private String name;
     //private Location location = new Location("Taboao");
     private GeoPoint location;
@@ -24,13 +24,13 @@ public class Terminal {
         this.location = address;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public Location getLocation() {
         Location location = new Location("");

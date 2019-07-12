@@ -2,6 +2,7 @@ package com.esdrasmorais.inspetoronline.data.repository;
 
 import android.location.Location;
 
+import com.esdrasmorais.inspetoronline.data.model.Default;
 import com.esdrasmorais.inspetoronline.data.model.Inspection;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.QuerySnapshot;

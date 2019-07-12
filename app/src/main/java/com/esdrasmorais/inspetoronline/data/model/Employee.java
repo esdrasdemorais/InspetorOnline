@@ -6,7 +6,7 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.List;
 
-public class Employee {
+public class Employee extends Default {
     private String id;
     private String username;
     private String password;

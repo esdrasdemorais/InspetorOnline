@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Inspection extends Object {
+public class Inspection extends Default {
     //Long id;
     Date startTime;
     Date endTime;

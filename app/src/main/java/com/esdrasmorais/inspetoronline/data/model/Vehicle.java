@@ -2,8 +2,8 @@ package com.esdrasmorais.inspetoronline.data.model;
 
 import java.util.Date;
 
-public class Vehicle {
-    private long id;
+public class Vehicle extends Default {
+//    private long id;
     private Integer prefix;
     private Boolean isHandicappedAccessible;
     private Date localizatedAt;
@@ -14,13 +14,13 @@ public class Vehicle {
 
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public Integer getPrefix() {
         return prefix;

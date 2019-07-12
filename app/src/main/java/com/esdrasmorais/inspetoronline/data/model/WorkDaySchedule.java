@@ -2,8 +2,8 @@ package com.esdrasmorais.inspetoronline.data.model;
 
 import java.util.Date;
 
-public class WorkDaySchedule {
-    private Long id;
+public class WorkDaySchedule extends Default {
+//    private Long id;
     private Date startTime = new Date();
     private Date endTime = new Date();
     private Employee employee = new Employee();
@@ -13,13 +13,13 @@ public class WorkDaySchedule {
 
     }
 
-    public Long getId() {
-        return id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public Date getStartTime() {
         return startTime;

@@ -1,8 +1,26 @@
 package com.esdrasmorais.inspetoronline.data.repository;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.esdrasmorais.inspetoronline.data.LoginDataSource;
 import com.esdrasmorais.inspetoronline.data.Result;
+import com.esdrasmorais.inspetoronline.data.model.Employee;
+import com.esdrasmorais.inspetoronline.data.model.EmployeeType;
 import com.esdrasmorais.inspetoronline.data.model.Login;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -19,6 +37,10 @@ public class LoginRepository
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
     private Login user = null;
+
+    private Employee employee = null;
+
+    private Login login = new Login();
 
     public LoginRepository() {
 
@@ -55,17 +77,95 @@ public class LoginRepository
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<Login> login(String username, String password) {
-        // handle login
-        Result<Login> result = dataSource.login(username, password);
-        if (result instanceof Result.Success) {
-            setLoggedInUser(((Result.Success<Login>) result).getData());
-        }
-        return result;
+    public interface ICallback {
+        public void onCallback(Login login);
+    }
+
+    protected Task<QuerySnapshot> task = null;
+
+    public Task<QuerySnapshot> getTask() {
+        return task;
+    }
+
+    public void login(String username, String password) {
+        task = dataSource.callLogin(username, password);
+    }
+
+    private void setCallback(ICallback callback, QuerySnapshot snapshot) {
+        getLogin(callback, snapshot);
+    }
+
+    private void setEmployee(DocumentSnapshot snapshot) {
+        employee = new Employee();
+
+        String a = snapshot.get("address").toString();
+        //employee.setAddress();
+
+        employee.setLines(null);
+        employee.setPassword(snapshot.get("password").toString());
+        //employee.setType((EmployeeType) snapshot.get("type"));
+        employee.setUsername(snapshot.get("username").toString());
+        employee.setId(snapshot.get("id").toString());
+    }
+
+    private void getEmployee(final ICallback callback, QuerySnapshot snapshot) {
+        DocumentReference employeeDocumentReference =
+            snapshot.getDocuments().get(0).
+                getDocumentReference("employee");
+
+        EventListener<DocumentSnapshot> eventListener =
+            new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(
+                    @Nullable DocumentSnapshot documentSnapshot,
+                    @Nullable FirebaseFirestoreException ex
+                ) {
+                    if (documentSnapshot != null && documentSnapshot.exists()) {
+                        setEmployee(documentSnapshot);
+                        callback.onCallback(login);
+                    }
+                }
+            };
+
+        employeeDocumentReference.addSnapshotListener(eventListener);
+    }
+
+    private void getLogin(ICallback callback, QuerySnapshot snapshot) {
+        List<DocumentSnapshot> document = snapshot.getDocuments();
+        login.setDisplayName(document.get(0).get("displayName").toString());
+        login.setId(document.get(0).get("id").toString());
+        login.setPhone(Long.parseLong(document.get(0).get("phone").toString()));
+        getEmployee(callback, snapshot);
+    }
+
+    public void login(
+        final ICallback callback, final Task<QuerySnapshot> task
+    ) {
+        task.addOnSuccessListener(
+            new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot snapshot) {
+                    try {
+                        setCallback(callback, snapshot);
+                    } catch (Exception ex) {
+                        Log.e("LoginRepository", ex.getMessage());
+                    }
+                }
+            }
+        );
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception ex) {
+                Log.e("LoginRepository", ex.getMessage());
+            }
+        });
     }
 
     @Override
     public Result<Login> getByUsername(String username) {
-        return null;
+//        if (result instanceof Result.Success) {
+//            setLoggedInUser(((Result.Success<Login>) result).getData());
+//        }
+        return new Result.Success<>(user);
     }
 }

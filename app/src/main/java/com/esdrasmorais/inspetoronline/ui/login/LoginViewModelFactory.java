@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
 import com.esdrasmorais.inspetoronline.data.LoginDataSource;
+import com.esdrasmorais.inspetoronline.data.model.Login;
 import com.esdrasmorais.inspetoronline.data.repository.LoginRepository;
 
 /**
@@ -20,7 +21,7 @@ public class LoginViewModelFactory implements ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(LoginViewModel.class)) {
             return (T) new LoginViewModel(
                 LoginRepository.getInstance(
-                    new LoginDataSource()
+                    new LoginDataSource(Login.class)
                 )
             );
         } else {

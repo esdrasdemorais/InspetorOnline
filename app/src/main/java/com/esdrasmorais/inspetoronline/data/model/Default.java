@@ -1,6 +1,6 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
-public class Default extends Object {
+public abstract class Default extends Object {
     private String id;
 
     public String getId() {

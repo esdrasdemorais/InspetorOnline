@@ -96,13 +96,13 @@ public class InspectionActivity extends AppCompatActivity {
     TextInputLayout inputLayoutComments;
     Inspection inspection;
     InspectionReport inspectionReport;
-    InspectionReportRepository inspectionReportRepositoryC;
+    InspectionReportRepository inspectionReportRepository;
 
     public InspectionActivity() {
         this.getVolleyResponse = new GetVolleyResponse(this);
         this.inspection = new Inspection();
         this.inspectionReport = new InspectionReport();
-        inspectionReportRepositoryC =
+        inspectionReportRepository =
             new InspectionReportRepository(InspectionReport.class);
     }
 
@@ -947,7 +947,7 @@ public class InspectionActivity extends AppCompatActivity {
     }
 
     private Inspection setInspection(Inspection inspection) {
-        inspection.setId(1L);
+//        inspection.setId(1L);
 
         inspection.setStartTime(new Date());
         Date endTime = new Date();

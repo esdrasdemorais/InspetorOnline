@@ -3,28 +3,41 @@ package com.esdrasmorais.inspetoronline.data.model;
 import android.location.Location;
 
 import com.google.firebase.firestore.GeoPoint;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Map;
 
 public class Employee extends Default {
-    private String id;
+    //private String id;
+    @SerializedName("username")
+    @Expose
     private String username;
+    @SerializedName("password")
+    @Expose
     private String password;
+    @SerializedName("address")
+    @Expose
     private GeoPoint address;
+    @SerializedName("type")
+    @Expose
     private EmployeeType type;
-    private List<Line> lines;
+    @SerializedName("lines")
+    @Expose
+    private Map<Integer, Line> lines;
 
     public Employee() {
 
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public String getUsername() {
         return username;
@@ -65,11 +78,16 @@ public class Employee extends Default {
         this.type = type;
     }
 
-    public List<Line> getLines() {
+    public Map<Integer, Line> getLines() {
         return lines;
     }
 
-    public void setLines(List<Line> lines) {
+    public void setLines(Map<Integer, Line> lines) {
         this.lines = lines;
+    }
+
+    @Override
+    public String toString() {
+        return username + " - " + type;
     }
 }

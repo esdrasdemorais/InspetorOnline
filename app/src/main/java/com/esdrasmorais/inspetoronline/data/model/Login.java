@@ -5,7 +5,6 @@ package com.esdrasmorais.inspetoronline.data.model;
  */
 public class Login extends Default {
 //    private Long id;
-    private String userId;
     private String displayName;
     private Employee employee;
     private Long phone;
@@ -14,14 +13,10 @@ public class Login extends Default {
 
     }
 
-    public Login(String userId, String displayName) {
-        this.userId = userId;
+    public Login(String displayName) {
         this.displayName = displayName;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
     public String getDisplayName() {
         return displayName;
@@ -34,10 +29,6 @@ public class Login extends Default {
 //    public void setId(Long id) {
 //        this.id = id;
 //    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;

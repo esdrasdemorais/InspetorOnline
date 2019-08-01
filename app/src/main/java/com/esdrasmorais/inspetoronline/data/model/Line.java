@@ -1,27 +1,46 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Line extends Default {
-    private Long id;
+    //private Long id;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("shortName")
+    @Expose
     private String shortName;
+    @SerializedName("type")
+    @Expose
     private LineType type;
+    @SerializedName("lineCode")
+    @Expose
     private Integer lineCode;
+    @SerializedName("direction")
+    @Expose
     private Direction direction;
+    @SerializedName("lineDestinationMarker")
+    @Expose
     private String lineDestinationMarker;
+    @SerializedName("lineOriginMarker")
+    @Expose
     private String lineOriginMarker;
+    @SerializedName("vehiclesQuantityLocalized")
+    @Expose
     private Integer vehiclesQuantityLocalized;
 
     public Line() {
 
     }
 
-    public Long getId() {
-        return id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;

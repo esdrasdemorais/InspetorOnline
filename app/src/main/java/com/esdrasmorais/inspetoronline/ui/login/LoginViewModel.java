@@ -27,16 +27,34 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
+    Result<Login> user = null;
+
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<Login> result = loginRepository.login(username, password);
-
+        loginRepository.login(username, password);
+        loginRepository.login(
+            new LoginRepository.ICallback() {
+                @Override
+                public void onCallback(Login login) {
+                    user = new Result.Success<>(login);
+                    loginResult.setValue(
+                        new LoginResult(
+                            new LoggedInUserView(
+                                login.getDisplayName()
+                            )
+                        )
+                    );
+                }
+            },
+            loginRepository.getTask()
+        );
+        /*
         if (result instanceof Result.Success) {
             Login data = ((Result.Success<Login>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
-        }
+        }*/
     }
 
     public void loginDataChanged(String username, String password) {

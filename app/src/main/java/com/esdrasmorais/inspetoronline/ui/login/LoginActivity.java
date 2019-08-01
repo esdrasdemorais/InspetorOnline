@@ -51,7 +51,7 @@ public class LoginActivity
     private String verificationId;
     private PhoneAuthProvider.ForceResendingToken resendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
-    FirebaseUser currentUser;
+    FirebaseUser currentUser = null;
     ProgressBar loadingProgressBar;
 
     private static final String KEY_VERIFY_IN_PROGRESS =
@@ -318,7 +318,6 @@ public class LoginActivity
                 detailText.setText(R.string.status_code_sent);
                 break;
             case STATE_VERIFY_FAILED:
-
                 // Verification has failed, show all options
                 enableViews(loginButton, verifyButton, resendButton,
                     usernameEditText, verificationField);
@@ -346,8 +345,10 @@ public class LoginActivity
                 break;
             case STATE_SIGNIN_SUCCESS:
                 loadingProgressBar.setVisibility(View.GONE);
-//                loginViewModel.login(usernameEditText.getText().toString(),
-//                    verificationField.getText().toString());
+                loginViewModel.login(
+                    usernameEditText.getText().toString(),
+                    verificationField.getText().toString()
+                );
                 break;
         }
 

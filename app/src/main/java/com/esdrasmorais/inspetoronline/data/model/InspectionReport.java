@@ -3,7 +3,7 @@ package com.esdrasmorais.inspetoronline.data.model;
 import android.location.Location;
 
 public class InspectionReport extends Default {
-    private Long id;
+    //private Long id;
     private Inspection inspection;
     private Line line;
     private Vehicle prefix;

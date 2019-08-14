@@ -46,6 +46,7 @@ public class Inspection extends Default {
     }
 
     public Location getAddress() {
+        if (this.address == null) return null;
         Location location = new Location("");
         location.setLatitude(this.address.getLatitude());
         location.setLongitude(this.address.getLongitude());
@@ -53,6 +54,7 @@ public class Inspection extends Default {
     }
 
     public void setAddress(Location location) {
+        if (location == null) return;
         GeoPoint address = new GeoPoint(
             location.getLatitude(),
             location.getLongitude()

@@ -56,6 +56,7 @@ public class Employee extends Default {
     }
 
     public Location getAddress() {
+        if (this.address == null) return null;
         Location address = new Location("");
         address.setLatitude(this.address.getLatitude());
         address.setLongitude(this.address.getLongitude());
@@ -63,6 +64,7 @@ public class Employee extends Default {
     }
 
     public void setAddress(Location address) {
+        if (address == null) return;
         GeoPoint location = new GeoPoint(
             address.getLatitude(),
             address.getLongitude()

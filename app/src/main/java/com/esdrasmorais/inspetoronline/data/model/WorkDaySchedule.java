@@ -1,5 +1,7 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
+import android.location.Location;
+
 import java.util.Date;
 
 public class WorkDaySchedule extends Default {
@@ -10,7 +12,10 @@ public class WorkDaySchedule extends Default {
     private Terminal terminal = new Terminal();
 
     public WorkDaySchedule() {
-
+        Location location = new Location("");
+        location.setLatitude(1.7);
+        location.setLongitude(1.7);
+        employee.setAddress(location);
     }
 
 //    public Long getId() {

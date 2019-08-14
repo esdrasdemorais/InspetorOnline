@@ -9,11 +9,14 @@ import com.esdrasmorais.inspetoronline.data.Result;
 import com.esdrasmorais.inspetoronline.data.model.Default;
 import com.esdrasmorais.inspetoronline.data.model.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.List;
 
@@ -42,23 +45,36 @@ public abstract class Repository<T extends Default> implements IRepository<T> {
     }
 
     public Boolean set(T object) {
-        try {
+        //try {
             DocumentReference documentReference = db.collection(
                 object.getClass().getSimpleName()
             ).document();
 
             object.setId(documentReference.getId());
 
-            documentReference.set(object);
+            documentReference.set(object);/*.addOnSuccessListener(
+                new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        return;
+                    }
+                }
+            ).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception ex) {
+                    Log.d("Repository", ex.getMessage());
+                }
+            });*/
 
             return true;
-        } catch (Exception ex) {
-            Log.e(
-                "Repository<" + object.getClass().getName() + ">",
-                ex.getMessage()
-            );
-        }
-        return false;
+
+//        } catch (Exception ex) {
+//            Log.e(
+//                "Repository<" + object.getClass().getName() + ">",
+//                ex.getMessage()
+//            );
+//        }
+//        return false;
     }
 
     public void search(List<T> result) {

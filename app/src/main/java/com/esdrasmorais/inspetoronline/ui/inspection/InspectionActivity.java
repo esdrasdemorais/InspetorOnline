@@ -978,12 +978,12 @@ public class InspectionActivity extends AppCompatActivity {
         );
 
         if (inspectionRepository.set(inspection)) {
-            List<Inspection> i = new ArrayList<Inspection>();
-            inspectionRepository.search(i);
-//            inspectionReport = setInspectionReport(inspectionReport);
-//            InspectionReportRepository inspectionReportRepository =
-//                new InspectionReportRepository(InspectionReport.class);
-//            isSaved = inspectionReportRepository.set(inspectionReport);
+//            List<Inspection> i = new ArrayList<Inspection>();
+//            inspectionRepository.search(i);
+            inspectionReport = setInspectionReport(inspectionReport);
+            InspectionReportRepository inspectionReportRepository =
+                new InspectionReportRepository(InspectionReport.class);
+            isSaved = inspectionReportRepository.set(inspectionReport);
         }
 
         return isSaved;

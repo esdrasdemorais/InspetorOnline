@@ -52,7 +52,7 @@ public abstract class Repository<T extends Default> implements IRepository<T> {
 
             object.setId(documentReference.getId());
 
-            documentReference.set(object);/*.addOnSuccessListener(
+            documentReference.set(object).addOnSuccessListener(
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -64,7 +64,7 @@ public abstract class Repository<T extends Default> implements IRepository<T> {
                 public void onFailure(@NonNull Exception ex) {
                     Log.d("Repository", ex.getMessage());
                 }
-            });*/
+            });
 
             return true;
 

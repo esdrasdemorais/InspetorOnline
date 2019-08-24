@@ -48,12 +48,13 @@ public class GoogleDirections extends BaseObservable {
 
     public GoogleDirections(Context context, Location location) {
         this.context = context;
-
-        url = "https://maps.googleapis.com/maps/api/directions/json?origin="+
-            location.getLatitude() + "," + location.getLongitude() +
+        Double latitude = location == null ? -23.6726295 : location.getLatitude();
+        Double longitude = location == null ? -46.7536235 : location.getLongitude();
+        url = "https://maps.googleapis.com/maps/api/directions/json?origin=" +
+            + latitude + "," + longitude +
             "&destination=Centro%20SP&avoid=highways|tolls|ferries&region=br" +
-            "&departure_time=now&mode=transit&transit_mode=bus&key=" + this.getGoogleApiKey();
-
+            "&departure_time=now&mode=transit&transit_mode=bus&key=" +
+            this.getGoogleApiKey();
         //setGoogleDirections();
     }
 

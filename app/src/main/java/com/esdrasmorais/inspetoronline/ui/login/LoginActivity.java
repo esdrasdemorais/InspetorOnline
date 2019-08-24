@@ -455,7 +455,10 @@ public class LoginActivity
                     verificationField.setError("Cannot be empty.");
                     return;
                 }
-                verifyPhoneNumberWithCode(verificationId, code);
+                if (verificationId != null && verificationId.length() > 0 &&
+                    code != null && code.length() > 0
+                )
+                    verifyPhoneNumberWithCode(verificationId, code);
                 break;
             case R.id.resend:
                 loadingProgressBar.setVisibility(View.VISIBLE);

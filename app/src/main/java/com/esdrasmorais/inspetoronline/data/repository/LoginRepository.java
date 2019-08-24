@@ -141,6 +141,7 @@ public class LoginRepository
     public void login(
         final ICallback callback, final Task<QuerySnapshot> task
     ) {
+        if (task == null) return;
         task.addOnSuccessListener(
             new OnSuccessListener<QuerySnapshot>() {
                 @Override

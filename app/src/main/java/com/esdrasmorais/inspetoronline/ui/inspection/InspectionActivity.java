@@ -154,10 +154,11 @@ public class InspectionActivity extends AppCompatActivity {
     private void setLinesFromGoogleDirections() {
         final JsonArray routes = googleDirections.getJson().get("routes").getAsJsonArray();
 
-        if (!routes.isJsonArray() ||
-            routes.get(0).getAsJsonObject().getAsJsonArray("legs") == null
+        if (routes == null || !routes.isJsonArray() || routes.size() <= 0 /*||
+            routes.get(0).getAsJsonObject().getAsJsonArray("legs") == null*/
         )
-            throw new IllegalArgumentException("json is not an array");
+            return;
+            //throw new IllegalArgumentException("json is not an array");
 
         final JsonObject legsObject = routes.get(0).getAsJsonObject();
         final JsonArray legs = legsObject.getAsJsonArray("legs");

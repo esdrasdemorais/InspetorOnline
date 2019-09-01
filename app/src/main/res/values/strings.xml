@@ -1,7 +1,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name" android:textColor="@android:color/white">InspetorOnline</string>
     <!-- Strings related to login InspetorOnline-->
-    <string name="prompt_email">Email ou Telefone (5511000000000)</string>
+    <string name="prompt_email">Email ou Telefone (5511999999999)</string>
     <string name="prompt_password">Senha</string>
     <string name="prompt_verification">Codigo Verificacao</string>
     <string name="action_sign_in">Acessar</string>

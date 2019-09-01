@@ -24,11 +24,21 @@
     <include layout="@layout/content_task_manager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_inspection_report"
-        android:layout_width="wrap_content"
+        android:id="@+id/fab_"
+        android:layout_width="36dp"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginTop="77dp"
+        android:layout_marginRight="17dp"
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_inspection_report"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="77dp"
+        android:layout_marginRight="17dp"
         app:srcCompat="@android:drawable/ic_menu_report_image" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -3,7 +3,7 @@ package com.esdrasmorais.inspetoronline.data.model;
 public enum InspectionType {
     PERMANENCE("Permanence", 1),
     GUIDANCE("Guidance", 2),
-    VIOLATION("Violation", 3),
+    VIOLATION("ViolationType", 3),
     OCCURRENCE("Occurrence", 4),
     INTERFERENCE_ROUNDABOUT("InterferenceRoundabout", 5),
     SMOKE("Smoke", 6),
@@ -11,7 +11,8 @@ public enum InspectionType {
     LOSS("Loss", 8),
     CLEANING("Cleaning", 9),
     HOLE("Hole", 10),
-    REPORT("Report", 11);
+    REPORT("Report", 11),
+    SUPERVISOR("Supervisor", 12);
 
     private String stringValue;
     private Integer intValue;

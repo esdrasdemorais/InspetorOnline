@@ -10,9 +10,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.esdrasmorais.inspetoronline.data.AddressResultReceiver;
 import com.esdrasmorais.inspetoronline.data.Constants;
 import com.esdrasmorais.inspetoronline.data.FetchAddressIntentService;
+import com.esdrasmorais.inspetoronline.ui.listeners.InspectionReportListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -40,318 +40,23 @@ import android.widget.Toast;
 import com.esdrasmorais.inspetoronline.R;
 import com.esdrasmorais.inspetoronline.data.MySingleton;
 import com.esdrasmorais.inspetoronline.data.SecurityPreferences;
-import com.esdrasmorais.inspetoronline.ui.listeners.OpenInspectionListener;
+import com.esdrasmorais.inspetoronline.ui.listeners.InspectionListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
-public class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-TaskManagerActivity extends AppCompatActivity
-    implements OnMapReadyCallback,
-        ConnectionCallbacks, OnConnectionFailedListener
+public class TaskManagerActivity
+    extends AppCompatActivity
+    implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener
 {
     Boolean mLocationPermissionGranted = false;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100;
@@ -411,6 +116,25 @@ TaskManagerActivity extends AppCompatActivity
         }
     }
 
+    private void setFabButtons() {
+        FloatingActionButton fabInspectionReport =
+                findViewById(R.id.fab_inspection_report);
+        fabInspectionReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new InspectionReportListener(view);
+            }
+        });
+
+        FloatingActionButton fabAddInspection = findViewById(R.id.fab_add_inspection);
+        fabAddInspection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new InspectionListener(view);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -420,22 +144,7 @@ TaskManagerActivity extends AppCompatActivity
 
         setUpMap();
 
-        FloatingActionButton fabAddInspection = findViewById(R.id.fab_add_inspection);
-        fabAddInspection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            new OpenInspectionListener(view);
-            }
-        });
-
-        FloatingActionButton fabInspectionReport =
-            findViewById(R.id.fab_inspection_report);
-        fabAddInspection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            new OpenInspectionListener(view);
-            }
-        });
+        setFabButtons();
 
         createLocationCallback();
         buildGoogleApiClient();

@@ -26,15 +26,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.esdrasmorais.inspetoronline.R;
 import com.esdrasmorais.inspetoronline.data.GoogleDirections;
 import com.esdrasmorais.inspetoronline.data.SecurityPreferences;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -43,16 +39,13 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
-import java.util.Vector;
 
-public class InspectionActivity extends AppCompatActivity {
+public class InspectionReportActivity extends AppCompatActivity {
     public static final String TAG = "Inspecao";
     private GoogleDirections googleDirections;
     private SpTrans spTrans;
@@ -98,7 +91,7 @@ public class InspectionActivity extends AppCompatActivity {
     InspectionReport inspectionReport;
     InspectionReportRepository inspectionReportRepository;
 
-    public InspectionActivity() {
+    public InspectionReportActivity() {
         this.getVolleyResponse = new GetVolleyResponse(this);
         this.inspection = new Inspection();
         this.inspectionReport = new InspectionReport();
@@ -768,7 +761,7 @@ public class InspectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inspection);
+        setContentView(R.layout.activity_inspection_report);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

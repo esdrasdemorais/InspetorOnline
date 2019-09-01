@@ -2,7 +2,8 @@ package com.esdrasmorais.inspetoronline.data.model;
 
 public enum Direction {
     MAIN_TERMINAL("TP", 1),
-    SECONDARY_TERMINAL("TS", 2);
+    SECONDARY_TERMINAL("TS", 2),
+    GARAGE("G", 3);
 
     private String stringValue;
     private Integer intValue;

@@ -15,7 +15,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="1dp"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -24,21 +24,12 @@
     <include layout="@layout/content_task_manager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_"
-        android:layout_width="36dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_marginTop="77dp"
-        android:layout_marginRight="17dp"
-        app:srcCompat="@android:drawable/ic_menu_report_image" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_inspection_report"
-        android:layout_width="36dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_marginTop="77dp"
-        android:layout_marginRight="17dp"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="17dp"
+        android:layout_marginBottom="17dp"
         app:srcCompat="@android:drawable/ic_menu_report_image" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -48,5 +39,26 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="17dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/mr_media_play_light" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="17dp"
+        android:layout_marginRight="17dp"
+        android:clickable="true"
+        app:layout_anchor="@+id/fab_start"
+        app:layout_anchorGravity="center"
+        app:srcCompat="@drawable/ic_media_stop_light" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

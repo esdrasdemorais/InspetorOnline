@@ -113,4 +113,9 @@
     <string name="status_sign_in_failed">Sign-in failed</string>
     <string name="instant_validation">(instant validation)</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
+
+    <string name="hint_permanence_note">Observacao</string>
+    <string name="hint_permanence_department">Setor</string>
+
+    <string name="inspection_type">Selecione um Tipo:</string>
 </resources>

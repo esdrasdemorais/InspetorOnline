@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="inspection_type">
+        <item>Permanência</item>
+        <item>Orientação</item>
+        <item>Infração</item>
+        <item>Ocorrência</item>
+        <item>Interferência/Desvio</item>
+        <item>Fumaça</item>
+        <item>Atrasos</item>
+        <item>Perdas</item>
+        <item>Falta/Dispensa Fiscal</item>
+        <item>Fiscalização SPTrans</item>
+        <item>Limpeza</item>
+        <item>Buraco</item>
+    </string-array>
+</resources>

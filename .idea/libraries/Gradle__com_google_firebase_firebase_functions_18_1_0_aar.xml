@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-functions:18.1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b3db82d43c1ee67d76bb391d2447c179/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b3db82d43c1ee67d76bb391d2447c179/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62d99b5b3342aa1513f1c5d43c3b867f/jetified-firebase-functions-18.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62d99b5b3342aa1513f1c5d43c3b867f/jetified-firebase-functions-18.1.0/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-functions/18.1.0/6762c0908afb61c00ff372da69de0c5f85ad2e37/firebase-functions-18.1.0-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-functions/18.1.0/fefb2e09d65427bcf104d09a7934a51c454c1907/firebase-functions-18.1.0-sources.jar!/" />
     </SOURCES>

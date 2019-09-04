@@ -118,11 +118,11 @@ public class TaskManagerActivity
 
     private void setFabButtons() {
         FloatingActionButton fabInspectionReport =
-                findViewById(R.id.fab_inspection_report);
+            findViewById(R.id.fab_inspection_report);
         fabInspectionReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new InspectionReportListener(view);
+            new InspectionReportListener(view);
             }
         });
 
@@ -130,7 +130,7 @@ public class TaskManagerActivity
         fabAddInspection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new InspectionListener(view);
+            new InspectionListener(view);
             }
         });
     }
@@ -479,7 +479,7 @@ public class TaskManagerActivity
     }
 
     @Override
-    protected  void onStart() {
+    protected void onStart() {
         super.onStart();
         googleApiClient.connect();
     }

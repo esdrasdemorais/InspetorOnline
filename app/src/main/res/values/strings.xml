@@ -58,6 +58,7 @@
     <string name="hint_comments">Comentarios</string>
 
     <string name="text_save">SALVAR</string>
+    <string name="cancel_text">CANCELAR</string>
 
     <string name="error_line">Informe a Linha</string>
     <string name="error_prefix">Informe o Prefixo</string>

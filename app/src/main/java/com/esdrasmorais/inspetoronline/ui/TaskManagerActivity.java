@@ -30,6 +30,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -122,17 +123,26 @@ public class TaskManagerActivity
         fabInspectionReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            new InspectionReportListener(view);
+                new InspectionReportListener(view);
             }
         });
 
         FloatingActionButton fabAddInspection = findViewById(R.id.fab_add_inspection);
-        fabAddInspection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            new InspectionListener(view);
+        fabAddInspection.setOnClickListener(new InspectionListener(this));
+        /*fabAddInspection.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DialogFragment inspectionDialogFragment =
+                            new InspectionDialogFragment();
+
+                    inspectionDialogFragment.show(
+                            getSupportFragmentManager(),
+                            "InspectionDialogFragment"
+                    );
+                }
             }
-        });
+        );*/
     }
 
     @Override

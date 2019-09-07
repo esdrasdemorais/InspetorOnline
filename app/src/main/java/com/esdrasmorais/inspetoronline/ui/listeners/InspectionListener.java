@@ -9,21 +9,21 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.esdrasmorais.inspetoronline.ui.InspectionDialogFragment;
 
-public class InspectionListener
-    extends FragmentActivity
-    implements View.OnClickListener
-{
-    public InspectionListener(View v) {
+public class InspectionListener implements View.OnClickListener {
+    private FragmentActivity fragmentActivity;
+
+    public InspectionListener(FragmentActivity fragmentActivity) {
 //        Intent intent = new Intent(v.getContext(), .class);
 //        v.getContext().startActivity(intent);
 
-        DialogFragment inspectionDialogFragment =
+        /*DialogFragment inspectionDialogFragment =
             new InspectionDialogFragment();
 
         inspectionDialogFragment.show(
-            getSupportFragmentManager(),
+            v.getSupportFragmentManager(),
             "InspectionDialogFragment"
-        );
+        );*/
+        this.fragmentActivity = fragmentActivity;
     }
 
     @Override
@@ -32,10 +32,10 @@ public class InspectionListener
 //        v.getContext().startActivity(intent);
 
         DialogFragment inspectionDialogFragment =
-            new InspectionDialogFragment();
+            new InspectionDialogFragment(fragmentActivity);
 
         inspectionDialogFragment.show(
-            getSupportFragmentManager(),
+            fragmentActivity.getSupportFragmentManager(),
             "InspectionDialogFragment"
         );
     }

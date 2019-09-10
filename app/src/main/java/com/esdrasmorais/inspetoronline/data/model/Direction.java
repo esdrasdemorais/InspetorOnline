@@ -17,4 +17,13 @@ public enum Direction {
     public String toString() {
         return this.stringValue;
     }
+
+    public static Direction of(String direction) {
+        switch (direction) {
+            case "TP": return MAIN_TERMINAL;
+            case "TS": return SECONDARY_TERMINAL;
+            case "G": return GARAGE;
+            default: return null;
+        }
+    }
 }

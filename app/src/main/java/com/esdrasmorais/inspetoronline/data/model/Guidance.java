@@ -1,5 +1,7 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
+import android.location.Location;
+
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Date;
@@ -58,7 +60,12 @@ public class Guidance extends Default {
         return address;
     }
 
-    public void setAddress(GeoPoint address) {
+    public void setAddress(Location location) {
+        if (location == null) return;
+        GeoPoint address = new GeoPoint(
+            location.getLatitude(),
+            location.getLongitude()
+        );
         this.address = address;
     }
 

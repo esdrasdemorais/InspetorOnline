@@ -12,7 +12,7 @@ public enum Department {
     private String stringValue;
     private Integer intValue;
 
-    private Department(String stringValue, Integer intValue) {
+    Department(String stringValue, Integer intValue) {
         this.stringValue = stringValue;
         this.intValue = intValue;
     }
@@ -20,5 +20,18 @@ public enum Department {
     @Override
     public String toString() {
         return this.stringValue;
+    }
+
+    public static Department of(Integer departmentNumber) {
+        switch (departmentNumber) {
+            case 1: return ONE;
+            case 2: return TWO;
+            case 3: return THREE;
+            case 4: return FOUR;
+            case 5: return FIVE;
+            case 6: return SIX;
+            case 7: return SEVEN;
+            default: return null;
+        }
     }
 }

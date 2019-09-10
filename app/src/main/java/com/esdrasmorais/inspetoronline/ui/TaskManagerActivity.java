@@ -36,6 +36,7 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.esdrasmorais.inspetoronline.R;
@@ -51,13 +52,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
 public class TaskManagerActivity
     extends AppCompatActivity
-    implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener
+    implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,
+        PermanenceDialogFragment.PermanenceDialogListener
 {
     Boolean mLocationPermissionGranted = false;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100;
@@ -413,6 +416,16 @@ public class TaskManagerActivity
 
     protected void displayAddressOutput() {
         showToast(addressOutput);
+    }
+
+    @Override
+    public Boolean showPermanenceMessage(View view, String message) {
+        //view = getWindow().getDecorView().findViewById(android.R.id.content);
+        //view = ((ViewGroup) this.findViewById(android.R.id.content))
+        //    .getChildAt(0);
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+            .setAction("Action", null).show();
+        return true;
     }
 
     class AddressResultReceiver extends ResultReceiver {

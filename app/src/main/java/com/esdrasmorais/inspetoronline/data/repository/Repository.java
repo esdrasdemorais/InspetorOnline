@@ -62,7 +62,7 @@ public abstract class Repository<T extends Default> implements IRepository<T> {
             ).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception ex) {
-                    Log.d("Repository", ex.getMessage());
+                Log.d("Repository", ex.getMessage());
                 }
             });
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.esdrasmorais.inspetoronline.R;
+import com.esdrasmorais.inspetoronline.ui.listeners.GuidanceListener;
 import com.esdrasmorais.inspetoronline.ui.listeners.PermanenceListener;
 
 public class InspectionDialogFragment extends DialogFragment {
@@ -25,15 +26,19 @@ public class InspectionDialogFragment extends DialogFragment {
         new PermanenceListener(this.fragmentActivity).onClick(null);
     }
 
+    private void openGuidance() {
+        new GuidanceListener(this.fragmentActivity).onClick(null);
+    }
+
     private void openDialog(String inspectionType) {
         switch(inspectionType) {
             case "Permanência":
                 openPermanence();
                 break;
-            /*case "Orientação":
+            case "Orientação":
                 openGuidance();
                 break;
-            case "Infração":
+            /*case "Infração":
                 openViolation();
                 break;
             case "Ocorrência":

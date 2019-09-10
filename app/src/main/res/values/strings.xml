@@ -115,8 +115,27 @@
     <string name="instant_validation">(instant validation)</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
 
-    <string name="hint_permanence_note">Observacao</string>
-    <string name="hint_permanence_department">Setor</string>
+
 
     <string name="inspection_type">Selecione um Tipo:</string>
+
+    <string name="hint_permanence_note">Observacao</string>
+    <string name="hint_permanence_department">Setor</string>
+    <string name="error_permanence_department">Selecione um Setor</string>
+    <string name="error_permanence_note">
+        Informe ao menos 5 caracteres para a Observacao
+    </string>
+
+
+
+    <string name="hint_guidance_line">Linha</string>
+    <string name="hint_guidance_direction">Sentido</string>
+    <string name="hint_guidance_subject">Assunto</string>
+    <string name="error_guidance_line">Selecione uma Linha</string>
+    <string name="error_guidance_direction">Selecione um Sentido</string>
+    <string name="error_guidance_subject">
+        Informe ao menos 5 caracteres para o Assunto
+    </string>
+
+
 </resources>

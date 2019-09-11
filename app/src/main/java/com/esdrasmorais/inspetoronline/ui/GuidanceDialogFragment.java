@@ -227,6 +227,16 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
 
     private Boolean validate() {
         Boolean isValid = true;
+
+        if (lineDropdown.getText().toString().isEmpty()) {
+            inputLayoutLines.setError(
+                getString(R.string.error_guidance_line)
+            );
+            isValid = false;
+        } else {
+            inputLayoutLines.setErrorEnabled(false);
+        }
+
         if (direction.getText().toString().isEmpty()) {
             inputLayoutDirection.setError(
                 getString(R.string.error_guidance_direction)
@@ -318,15 +328,17 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
     }
 
     private void setDirectionAdapter() {
-        /*Integer[] departments = new Integer[] {
-                1, 2, 3, 4, 5, 6, 7
+        Direction[] directions = new Direction[] {
+            Direction.MAIN_TERMINAL,
+            Direction.SECONDARY_TERMINAL,
+            Direction.GARAGE
         };
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(
+        ArrayAdapter<Direction> adapter = new ArrayAdapter<Direction>(
             this.view.getContext(),
-            R.layout.dropdown_department_menu_popup_item,
-            departments
-        );*/
-        //direction.setAdapter(adapter);
+            R.layout.dropdown_guidance_directions_menu_popup_item,
+            directions
+        );
+        direction.setAdapter(adapter);
 //        permanenceDepartment.setOnItemClickListener(
 //            new AdapterView.OnItemClickListener() {
 //                @Override
@@ -346,11 +358,12 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
             R.id.input_layout_guidance_lines
         );
         this.lineDropdown = view.findViewById(R.id.guidance_lines_dropdown);
-        /*this.inputLayoutDirection =
+        this.inputLayoutDirection =
             view.findViewById(R.id.input_layout_guidance_direction);
-        this.inputLayoutSubject = view.findViewById(R.id.input_layout_subject);
-        this.direction = view.findViewById(R.id.direction_dropdown);
-        this.editTextSubject = view.findViewById(R.id.edit_text_subject);*/
+        this.inputLayoutSubject =
+            view.findViewById(R.id.input_layout_guidance_subject);
+        this.direction = view.findViewById(R.id.guidance_directions_dropdown);
+        this.editTextSubject = view.findViewById(R.id.edit_text_guidance_subject);
         this.save = view.findViewById(R.id.guidance_button_save);
     }
 
@@ -366,7 +379,7 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
     private void initializeAdapters() {
         this.setGoogleDirections();
         this.setSpTrans();
-        //setDirectionAdapter();
+        setDirectionAdapter();
     }
 
     @Override

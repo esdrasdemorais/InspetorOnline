@@ -46,10 +46,10 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
     private FragmentActivity fragmentActivity;
     private GoogleDirections googleDirections;
     private SpTrans spTrans;
-    String cookie;
-    GetVolleyResponse getVolleyResponse;
-    List<Company> companies = new ArrayList<Company>();
-    Integer countCompanies = 1;
+    private String cookie;
+    private GetVolleyResponse getVolleyResponse;
+    private List<Company> companies = new ArrayList<Company>();
+    private Integer countCompanies = 1;
     private List<Line> lines = new ArrayList<Line>();
     private TextInputLayout inputLayoutDirection;
     private TextInputLayout inputLayoutSubject;
@@ -60,7 +60,7 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
     private View view;
     private Guidance guidance;
     private GuidanceRepository guidanceRepository;
-    private GuidanceDialogFragment.GuidanceDialogListener listener;
+//    private GuidanceDialogFragment.GuidanceDialogListener listener;
     private Button save;
 
     public GuidanceDialogFragment(FragmentActivity fragmentActivity) {
@@ -73,8 +73,8 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
             this.view.getContext(),
             this.getLocation()
         );
-        GetVolleyResponse getVolleyResponse =
-            new GetVolleyResponse(this.view.getContext());
+//        GetVolleyResponse getVolleyResponse =
+//            new GetVolleyResponse(this.view.getContext());
         getVolleyResponse.getResponse(
             Request.Method.GET, googleDirections.getUrl(), null,
             new GetVolleyResponse(this.view.getContext()) {
@@ -350,8 +350,8 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
             view.findViewById(R.id.input_layout_guidance_direction);
         this.inputLayoutSubject = view.findViewById(R.id.input_layout_subject);
         this.direction = view.findViewById(R.id.direction_dropdown);
-        this.editTextSubject = view.findViewById(R.id.edit_text_subject);
-        this.save = view.findViewById(R.id.guidance_button_save);*/
+        this.editTextSubject = view.findViewById(R.id.edit_text_subject);*/
+        this.save = view.findViewById(R.id.guidance_button_save);
     }
 
     private void setListener() {
@@ -364,10 +364,9 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
     }
 
     private void initializeAdapters() {
-       // this.setGoogleDirections();
-    //    this.setSpTrans();
-        //setLinesAdapter();
-        setDirectionAdapter();
+        this.setGoogleDirections();
+        this.setSpTrans();
+        //setDirectionAdapter();
     }
 
     @Override
@@ -376,6 +375,7 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         this.view = inflater.inflate(R.layout.guidance_dialog, null);
+        this.getVolleyResponse = new GetVolleyResponse(this.view.getContext());
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -398,14 +398,14 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
 
         initializeFields();
         initializeAdapters();
-        //setListener();
+        setListener();
 
         return builder.create();
     }
 
-    public interface GuidanceDialogListener {
-        public Boolean showGuidanceMessage(View view, String message);
-    }
+//    public interface GuidanceDialogListener {
+//        public Boolean showGuidanceMessage(View view, String message);
+//    }
 
 //    @Override
 //    public void onAttach(Context context) {

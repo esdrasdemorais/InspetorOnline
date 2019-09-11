@@ -146,6 +146,23 @@ public class TaskManagerActivity
                 }
             }
         );*/
+
+        final FloatingActionButton fabStart = findViewById(R.id.fab_start);
+        final FloatingActionButton fabStop = findViewById(R.id.fab_stop);
+        fabStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabStart.setVisibility(View.INVISIBLE);
+                fabStop.setVisibility(View.VISIBLE);
+            }
+        });
+        fabStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabStop.setVisibility(View.INVISIBLE);
+                fabStart.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override

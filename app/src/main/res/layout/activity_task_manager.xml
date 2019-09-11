@@ -44,21 +44,25 @@
         android:id="@+id/fab_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
         android:layout_marginLeft="17dp"
+        android:layout_marginTop="17dp"
         android:clickable="true"
+        app:layout_anchor="@+id/fab_start"
+        android:layout_gravity="top|left"
+        app:layout_anchorGravity="end|center"
         app:srcCompat="@drawable/mr_media_play_light" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
+        android:layout_gravity="top|left"
         android:layout_marginTop="17dp"
         android:layout_marginRight="17dp"
         android:clickable="true"
         app:layout_anchor="@+id/fab_start"
-        app:layout_anchorGravity="center"
-        app:srcCompat="@drawable/ic_media_stop_light" />
+        app:layout_anchorGravity="end|center"
+        app:srcCompat="@drawable/ic_media_stop_light"
+        android:visibility="invisible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

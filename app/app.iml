@@ -158,7 +158,7 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-storage:18.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-database:18.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.room:room-guava:2.2.0-rc01@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-cast:17.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-cast:17.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.mediarouter:mediarouter:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-inappmessaging-display:18.0.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.viewpager2:viewpager2:1.0.0-alpha02@aar" level="project" />

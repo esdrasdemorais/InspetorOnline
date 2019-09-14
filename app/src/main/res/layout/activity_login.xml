@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.esdrasmorais.inspetoronline.ui.login.LoginActivity">
 
-    <!--24395-->
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="0dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_username"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:hint="@string/prompt_email"
-        android:inputType="text"
-        android:padding="17px"
-        android:selectAllOnFocus="true"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="17dp"
+        android:padding="17px">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="8dp"
-        android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:padding="17px"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        android:text="" />
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/prompt_email"
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:text=""
+            android:padding="7px"
+            android:textSize="17sp"/>
 
-    <EditText
-        android:id="@+id/verification"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="8dp"
-        android:hint="@string/prompt_verification"
-        android:imeActionLabel="@string/action_verify"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:padding="17px"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toEndOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/detail"
-        android:layout_width="0dp"
-        android:minHeight="40dp"
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/input_layout_password"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="17dp"-->
+<!--        android:padding="17px">-->
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/prompt_password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:padding="7px"
+            android:selectAllOnFocus="true"
+            android:text=""
+            android:textSize="17sp"
+            android:visibility="invisible"/>
+
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_verification"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="8dp"
-        android:hint=""
-        android:imeActionLabel=""
-        android:imeOptions="actionDone"
-        android:inputType=""
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verification" />
+        android:layout_marginBottom="17dp"
+        android:padding="17px">
+
+        <EditText
+            android:id="@+id/verification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/prompt_verification"
+            android:imeActionLabel="@string/action_verify"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:padding="7px"
+            android:selectAllOnFocus="true"
+            android:textSize="17sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
         android:id="@+id/loading"
@@ -94,69 +94,121 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        android:layout_marginBottom="10dp"
+    />
 
-    <Button
+    <!--    <Button-->
+<!--        android:id="@+id/login"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginBottom="64dp"-->
+<!--        android:enabled="false"-->
+<!--        android:padding="7px"-->
+<!--        android:text="@string/action_sign_in"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/detail"-->
+<!--        app:layout_constraintVertical_bias="0.076" />-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        android:minHeight="37dp">>
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="8dp"
+            android:hint=""
+            android:imeActionLabel=""
+            android:imeOptions="actionDone"
+            android:inputType=""
+            android:minHeight="40dp"
+            android:selectAllOnFocus="true"
+            android:textSize="17sp" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--    <Button-->
+<!--        android:id="@+id/verify"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="47dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginBottom="64dp"-->
+<!--        android:enabled="false"-->
+<!--        android:padding="7px"-->
+<!--        android:text="@string/action_verify"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/detail"-->
+<!--        app:layout_constraintVertical_bias="0.103" />-->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
-        android:enabled="false"
-        android:padding="7px"
+        android:layout_marginBottom="17px"
         android:text="@string/action_sign_in"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.076" />
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:padding="7dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
-        android:enabled="false"
-        android:padding="7px"
         android:text="@string/action_verify"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.103" />
+        android:layout_marginBottom="17px"
+        android:textAlignment="center"
+        android:padding="7dp"
+        android:textAllCaps="true"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
-    <Button
+<!--    <Button-->
+<!--        android:id="@+id/resend"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="87dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginBottom="64dp"-->
+<!--        android:enabled="false"-->
+<!--        android:padding="7px"-->
+<!--        android:text="@string/action_resend"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.529"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/detail"-->
+<!--        app:layout_constraintVertical_bias="0.131" />-->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/resend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="87dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
-        android:enabled="false"
-        android:padding="7px"
         android:text="@string/action_resend"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.131" />
+        android:layout_marginBottom="17px"
+        android:textAlignment="center"
+        android:padding="7dp"
+        android:textAllCaps="true"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+</LinearLayout>

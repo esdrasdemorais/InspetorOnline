@@ -1,10 +1,10 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
 public enum Rate {
-    GREAT("Great", 1),
-    GOOD("Good", 2),
-    REGULATE("Regulate", 3),
-    BAD("Bad", 4);
+    GREAT("Otimo", 1),
+    GOOD("Bom", 2),
+    REGULATE("Regular", 3),
+    BAD("Ruim", 4);
 
     private String stringValue;
     private Integer intValue;

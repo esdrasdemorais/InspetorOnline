@@ -101,8 +101,8 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
             dateFinal = format.parse(
                 dateTime
             );
-            if (dateFinal.after(new Date()) ||
-                dateFinal.getTime() >= System.currentTimeMillis() + 7400 * 1000
+            if (dateFinal.after(new Date()) /*||
+                dateFinal.getTime() >= System.currentTimeMillis() + 7200 * 1000*/
             ) {
                 inputLayoutFinalDate.setError(
                     getString(R.string.error_permanence_final_date)

@@ -27,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.esdrasmorais.inspetoronline.ui.PermanenceDialogFragment.*;
@@ -37,17 +38,84 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
 
     private TextInputLayout inputLayoutDepartment;
     private TextInputLayout inputLayoutNote;
+    private TextInputLayout inputLayoutInitialDate;
+    private TextInputLayout inputLayoutFinalDate;
     private AutoCompleteTextView permanenceDepartment;
     private EditText editTextNote;
+    private EditText editTextInitialDate;
+    private EditText editTextFinalDate;
     private View view;
     private Permanence permanence;
     private PermanenceRepository permanenceRepository;
     private PermanenceDialogListener listener;
     private Button save;
+    private Date dateInicial;
+    private Date dateFinal;
+
 
     public PermanenceDialogFragment(FragmentActivity fragmentActivity) {
         this.fragmentActivity = fragmentActivity;
         this.permanence = new Permanence();
+    }
+
+    private Boolean validateInitialDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String editTextInitialDate =
+            this.editTextInitialDate.getText().toString();
+
+        if (editTextInitialDate.length() != 5) return false;
+
+        try {
+            String dateTime = dateFormat.format(new Date()) +
+                " " + editTextInitialDate;
+            dateInicial = format.parse(dateTime);
+            if (dateInicial.after(new Date()) ||
+                dateInicial.getTime() >= System.currentTimeMillis() - 7200 * 1000
+            ) {
+                inputLayoutInitialDate.setError(
+                    getString(R.string.error_permanence_initial_date)
+                );
+                return false;
+            } else {
+                inputLayoutInitialDate.setErrorEnabled(false);
+                return true;
+            }
+        } catch (Exception ex) {
+            Log.e("PermanenceDialog", ex.getMessage());
+        }
+        return false;
+    }
+
+    private Boolean validateFinalDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String editTextFinalDate =
+            this.editTextFinalDate.getText().toString();
+
+        if (editTextFinalDate.length() != 5) return false;
+
+        try {
+            String dateTime = dateFormat.format(new Date()) +
+                    " " + editTextFinalDate;
+            dateFinal = format.parse(
+                dateTime
+            );
+            if (dateFinal.after(new Date()) ||
+                dateFinal.getTime() >= System.currentTimeMillis() + 7400 * 1000
+            ) {
+                inputLayoutFinalDate.setError(
+                    getString(R.string.error_permanence_final_date)
+                );
+                return false;
+            } else {
+                inputLayoutFinalDate.setErrorEnabled(false);
+                return true;
+            }
+        } catch (Exception ex) {
+            Log.e("PermanenceDialog", ex.getMessage());
+        }
+        return false;
     }
 
     private Boolean validate() {
@@ -69,7 +137,8 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
         } else {
             inputLayoutNote.setErrorEnabled(false);
         }
-        return isValid;
+
+        return isValid && validateInitialDate() && validateFinalDate();
     }
 
     private Location getLocation() {
@@ -96,7 +165,8 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
 
         permanence.setNote(editTextNote.getText().toString());
         permanence.setAddress(this.getLocation());
-        permanence.setInitialDate(new Date());
+        permanence.setInitialDate(dateInicial);
+        permanence.setFinalDate(dateFinal);
 
         return permanence;
     }
@@ -149,8 +219,16 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
         this.inputLayoutDepartment =
             view.findViewById(R.id.input_layout_permanence_department);
         this.inputLayoutNote = view.findViewById(R.id.input_layout_note);
+        this.inputLayoutInitialDate = view.findViewById(
+            R.id.input_layout_initial_date
+        );
+        this.inputLayoutFinalDate = view.findViewById(
+            R.id.input_layout_final_date
+        );
         this.permanenceDepartment = view.findViewById(R.id.permanence_department);
         this.editTextNote = view.findViewById(R.id.edit_text_note);
+        this.editTextInitialDate = view.findViewById(R.id.edit_text_initial_date);
+        this.editTextFinalDate = view.findViewById(R.id.edit_text_final_date);
         this.save = view.findViewById(R.id.permanence_button_save);
     }
 

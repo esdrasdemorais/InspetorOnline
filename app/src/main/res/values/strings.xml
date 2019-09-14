@@ -121,10 +121,14 @@
 
     <string name="hint_permanence_note">Observacao</string>
     <string name="hint_permanence_department">Setor</string>
+    <string name="hint_permanence_initial_date">Date Inicial</string>
+    <string name="hint_permanence_final_date">Date Final</string>
     <string name="error_permanence_department">Selecione um Setor</string>
     <string name="error_permanence_note">
         Informe ao menos 5 caracteres para a Observacao
     </string>
+    <string name="error_permanence_initial_date">Date Inicial Invalida</string>
+    <string name="error_permanence_final_date">Date Final Invalida</string>
 
 
 

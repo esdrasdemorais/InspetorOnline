@@ -34,7 +34,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_permanence_note"
-            android:inputType="textMultiLine" /><!--android:maxLines="10" android:minLines="5"-->
+            android:inputType="textImeMultiLine"
+            android:maxLines="10"
+            android:minLines="5" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_initial_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp">
+
+        <EditText
+            android:id="@+id/edit_text_initial_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_permanence_initial_date"
+            android:inputType="time"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_final_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp">
+
+        <EditText
+            android:id="@+id/edit_text_final_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_permanence_final_date"
+            android:inputType="time"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

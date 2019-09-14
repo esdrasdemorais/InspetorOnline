@@ -245,8 +245,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_comments"
-            android:inputType="textMultiLine" /><!--android:maxLines="10"
-            android:minLines="5"-->
+            android:inputType="textImeMultiLine"
+            android:textSize="17sp"
+            android:importantForAccessibility="yes"
+            android:maxLines="7"
+            android:minLines="5"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

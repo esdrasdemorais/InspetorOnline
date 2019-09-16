@@ -2,6 +2,7 @@ package com.esdrasmorais.inspetoronline.data.repository;
 
 import android.location.Location;
 
+import com.esdrasmorais.inspetoronline.data.model.Guidance;
 import com.esdrasmorais.inspetoronline.data.model.Violation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -12,6 +13,10 @@ public class ViolationRepository
     extends Repository<Violation>
     implements IViolationRepository
 {
+    public ViolationRepository(Class<Violation> clas) {
+        super(clas);
+    }
+
     @Override
     public List<Violation> findByLocation(Location location) {
         db.collectionGroup(clas.getName())

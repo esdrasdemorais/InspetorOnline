@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.core.app.DialogCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.Request;
@@ -24,6 +25,8 @@ import com.esdrasmorais.inspetoronline.data.SpTrans;
 import com.esdrasmorais.inspetoronline.data.model.Company;
 import com.esdrasmorais.inspetoronline.data.model.Department;
 import com.esdrasmorais.inspetoronline.data.model.Direction;
+import com.esdrasmorais.inspetoronline.data.model.Employee;
+import com.esdrasmorais.inspetoronline.data.model.EmployeeType;
 import com.esdrasmorais.inspetoronline.data.model.Guidance;
 import com.esdrasmorais.inspetoronline.data.model.Line;
 import com.esdrasmorais.inspetoronline.data.model.Vehicle;
@@ -46,7 +49,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-public class ViolationDialogFragment extends AppCompatDialogFragment {
+public class ViolationDialogFragment extends DialogCompat {
     private FragmentActivity fragmentActivity;
     private GoogleDirections googleDirections;
     private SpTrans spTrans;
@@ -56,26 +59,31 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
     private Integer countCompanies = 1;
     private List<Line> lines = new ArrayList<Line>();
     List<Vehicle> prefixes = new ArrayList<Vehicle>();
-    private TextInputLayout inputLayoutDirection;
-    private TextInputLayout inputLayoutSubject;
+    private TextInputLayout inputLayoutWorkTime;
+    private TextInputLayout inputLayoutNote;
     private TextInputLayout inputLayoutLines;
     private TextInputLayout inputLayoutDepartment;
     private TextInputLayout inputLayoutPrefixes;
+    private TextInputLayout inputLayoutEmployeeType;
     private AutoCompleteTextView lineDropdown;
     private AutoCompleteTextView prefixDropdown;
     private AutoCompleteTextView direction;
     private AutoCompleteTextView violationDepartment;
-    private EditText editTextSubject;
+    private AutoCompleteTextView employeeTypesDropdown;
+    private AutoCompleteTextView workTimeDroddown;
+    private EditText editTextNote;
     private View view;
     private Violation violation;
     private ViolationRepository violationRepository;
     //    private GuidanceDialogFragment.GuidanceDialogListener listener;
     private Button save;
 
-    public ViolationDialogFragment(FragmentActivity fragmentActivity) {
-        this.fragmentActivity = fragmentActivity;
-        this.violation = new Violation();
-    }
+//    public ViolationDialogFragment() {}
+//
+//    public ViolationDialogFragment(FragmentActivity fragmentActivity) {
+//        this.fragmentActivity = fragmentActivity;
+//        this.violation = new Violation();
+//    }
 
     private void setGoogleDirections() {
         this.googleDirections = new GoogleDirections(
@@ -346,27 +354,27 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
         return location;
     }
 
-    private Guidance setViolation(Violation violation) {
+    private Violation setViolation(Violation violation) {
         String department =
             this.violationDepartment.getText().toString();
         violation.setDepartment(Department.of(Integer.parseInt(department)));
         violation.setAddress(this.getLocation());
         violation.setDate(new Date());
 
-        return guidance;
+        return violation;
     }
 
-    private Boolean saveGuidance() {
+    private Boolean saveViolation() {
         Boolean isSaved = false;
-        violation = setGuidance(guidance);
-        guidanceRepository = new GuidanceRepository(Guidance.class);
-        isSaved = guidanceRepository.set(guidance);
+        violation = setViolation(violation);
+        violationRepository = new ViolationRepository(Violation.class);
+        isSaved = violationRepository.set(violation);
         return isSaved;
     }
 
     private void save(View view) {
         //Boolean isSaved = false;
-        if (validate() && saveGuidance()) {
+        if (validate() && saveViolation()) {
             Snackbar.make(view, "Salvo com Sucesso.", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             //PermanenceDialogFragment.this.getDialog().cancel();
@@ -380,7 +388,7 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
     private void setLinesAdapter() {
         ArrayAdapter<Line> adapter = new ArrayAdapter<Line>(
                 this.view.getContext(),
-                R.layout.dropdown_guidance_lines_menu_popup_item,
+                R.layout.dropdown_violation_lines_menu_popup_item,
                 lines
         );
         lineDropdown.setAdapter(adapter);
@@ -400,18 +408,22 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
         );*/
     }
 
-    private void setDirectionAdapter() {
-        Direction[] directions = new Direction[] {
-                Direction.MAIN_TERMINAL,
-                Direction.SECONDARY_TERMINAL,
-                Direction.GARAGE
+    private void setEmployeeTypeAdapter() {
+        EmployeeType[] employeeTypes = new EmployeeType[] {
+            EmployeeType.DRIVER,
+            EmployeeType.TICKET_COLLECTOR,
+            EmployeeType.SUPERVISOR,
+            EmployeeType.COORDINATOR,
+            EmployeeType.VALET_PARKING,
+            EmployeeType.PLANTONIST,
+            EmployeeType.LIFEGUARD
         };
-        ArrayAdapter<Direction> adapter = new ArrayAdapter<Direction>(
-                this.view.getContext(),
-                R.layout.dropdown_guidance_directions_menu_popup_item,
-                directions
+        ArrayAdapter<EmployeeType> adapter = new ArrayAdapter<EmployeeType>(
+            this.view.getContext(),
+            R.layout.dropdown_violation_employee_type_menu_popup_item,
+            employeeTypes
         );
-        direction.setAdapter(adapter);
+        employeeTypesDropdown.setAdapter(adapter);
 //        permanenceDepartment.setOnItemClickListener(
 //            new AdapterView.OnItemClickListener() {
 //                @Override

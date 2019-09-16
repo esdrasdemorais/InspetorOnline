@@ -52,7 +52,6 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
     private Date dateInicial;
     private Date dateFinal;
 
-
     public PermanenceDialogFragment(FragmentActivity fragmentActivity) {
         this.fragmentActivity = fragmentActivity;
         this.permanence = new Permanence();
@@ -70,16 +69,16 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
             String dateTime = dateFormat.format(new Date()) +
                 " " + editTextInitialDate;
             dateInicial = format.parse(dateTime);
-            if (dateInicial.after(new Date()) ||
+            if (dateInicial.before(new Date()) &&
                 dateInicial.getTime() >= System.currentTimeMillis() - 7200 * 1000
             ) {
-                inputLayoutInitialDate.setError(
-                    getString(R.string.error_permanence_initial_date)
-                );
-                return false;
-            } else {
                 inputLayoutInitialDate.setErrorEnabled(false);
                 return true;
+            } else {
+                inputLayoutInitialDate.setError(
+                        getString(R.string.error_permanence_initial_date)
+                );
+                return false;
             }
         } catch (Exception ex) {
             Log.e("PermanenceDialog", ex.getMessage());
@@ -101,16 +100,16 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
             dateFinal = format.parse(
                 dateTime
             );
-            if (dateFinal.after(new Date()) /*||
-                dateFinal.getTime() >= System.currentTimeMillis() + 7200 * 1000*/
+            if (dateFinal.before(new Date()) &&
+                dateFinal.getTime() >= dateInicial.getTime()
             ) {
-                inputLayoutFinalDate.setError(
-                    getString(R.string.error_permanence_final_date)
-                );
-                return false;
-            } else {
                 inputLayoutFinalDate.setErrorEnabled(false);
                 return true;
+            } else {
+                inputLayoutFinalDate.setError(
+                        getString(R.string.error_permanence_final_date)
+                );
+                return false;
             }
         } catch (Exception ex) {
             Log.e("PermanenceDialog", ex.getMessage());

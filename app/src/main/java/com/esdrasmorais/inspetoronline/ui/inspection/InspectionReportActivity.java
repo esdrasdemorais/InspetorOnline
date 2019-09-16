@@ -375,7 +375,7 @@ public class InspectionReportActivity extends AppCompatActivity {
                     AdapterView<?> parent, View view, int position, long id
                 ) {
                 Vehicle selected = (Vehicle)
-                parent.getAdapter().getItem(position);
+                    parent.getAdapter().getItem(position);
 //                Toast.makeText(getApplicationContext(), "Clicked " +
 //                    position + " prefix: " + selected.getPrefix(),
 //                    Toast.LENGTH_LONG).show();

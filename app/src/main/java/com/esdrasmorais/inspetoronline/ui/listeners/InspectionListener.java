@@ -53,6 +53,26 @@ public class InspectionListener implements View.OnClickListener
         new GuidanceListener(this.fragmentActivity).onClick(null);
     }
 
+    private void openViolation() { new ViolationListener(this.fragmentActivity).onClick(null); }
+
+    private void openOccurrence() {}
+
+    private void openRouteDiversion() {}
+
+    private void openSmoke() {}
+
+    private void openDelay() {}
+
+    private void openLoss() {}
+
+    private void openSupervisor() {}
+
+    private void openSpTransSupervision() {}
+
+    private void openCleaning() {}
+
+    private void openHole() {}
+
     private void openDialog(String inspectionType) {
         switch(inspectionType) {
             case "Permanência":
@@ -61,7 +81,7 @@ public class InspectionListener implements View.OnClickListener
             case "Orientação":
                 openGuidance();
                 break;
-            /*case "Infração":
+            case "Infração":
                 openViolation();
                 break;
             case "Ocorrência":
@@ -90,7 +110,7 @@ public class InspectionListener implements View.OnClickListener
                 break;
             case "Buraco":
                 openHole();
-                break;*/
+                break;
         }
     }
 
@@ -138,9 +158,9 @@ public class InspectionListener implements View.OnClickListener
                 public void onItemClick(
                         AdapterView<?> parent, View view, int position, long id
                 ) {
-                    openDialog(
-                        inspectionTypeImageModels.get(position).getName()
-                    );
+                openDialog(
+                    inspectionTypeImageModels.get(position).getName()
+                );
                 }
             }
         );

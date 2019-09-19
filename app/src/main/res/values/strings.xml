@@ -144,4 +144,7 @@
     </string>
 
 
+    <string name="error_violation_line">Selecione uma Linha</string>
+    <string name="error_violation_prefix">Selecione um Prefixo</string>
+
 </resources>

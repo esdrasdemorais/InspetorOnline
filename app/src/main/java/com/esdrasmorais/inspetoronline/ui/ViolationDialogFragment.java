@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.core.app.DialogCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.Request;
@@ -49,7 +50,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-public class ViolationDialogFragment extends DialogCompat {
+public class ViolationDialogFragment extends AppCompatDialogFragment {
     private FragmentActivity fragmentActivity;
     private GoogleDirections googleDirections;
     private SpTrans spTrans;
@@ -78,12 +79,10 @@ public class ViolationDialogFragment extends DialogCompat {
     //    private GuidanceDialogFragment.GuidanceDialogListener listener;
     private Button save;
 
-//    public ViolationDialogFragment() {}
-//
-//    public ViolationDialogFragment(FragmentActivity fragmentActivity) {
-//        this.fragmentActivity = fragmentActivity;
-//        this.violation = new Violation();
-//    }
+    public ViolationDialogFragment(FragmentActivity fragmentActivity) {
+        this.fragmentActivity = fragmentActivity;
+        this.violation = new Violation();
+    }
 
     private void setGoogleDirections() {
         this.googleDirections = new GoogleDirections(
@@ -223,14 +222,15 @@ public class ViolationDialogFragment extends DialogCompat {
             R.layout.dropdown_prefix_menu_popup_item,
             prefixes
         );
+        prefixDropdown.setAdapter(adapter);
         prefixDropdown.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(
-                        AdapterView<?> parent, View view, int position, long id
+                    AdapterView<?> parent, View view, int position, long id
                 ) {
                     Vehicle selected = (Vehicle)
-                            parent.getAdapter().getItem(position);
+                        parent.getAdapter().getItem(position);
 //                Toast.makeText(getApplicationContext(), "Clicked " +
 //                    position + " prefix: " + selected.getPrefix(),
 //                    Toast.LENGTH_LONG).show();
@@ -314,32 +314,32 @@ public class ViolationDialogFragment extends DialogCompat {
 
         if (lineDropdown.getText().toString().isEmpty()) {
             inputLayoutLines.setError(
-                    getString(R.string.error_guidance_line)
+                getString(R.string.error_violation_line)
             );
             isValid = false;
         } else {
             inputLayoutLines.setErrorEnabled(false);
         }
 
-        if (direction.getText().toString().isEmpty()) {
-            inputLayoutDirection.setError(
+        if (prefixDropdown.getText().toString().isEmpty()) {
+            inputLayoutLines.setError(
                     getString(R.string.error_guidance_direction)
             );
             isValid = false;
         } else {
-            inputLayoutDirection.setErrorEnabled(false);
+            inputLayoutLines.setErrorEnabled(false);
         }
 
-        if (editTextSubject.getText().toString().trim().length() >= 0 &&
-                editTextSubject.getText().toString().trim().length() < 5
-        ) {
-            inputLayoutSubject.setError(getString(
-                    R.string.error_guidance_subject)
-            );
-            isValid = false;
-        } else {
-            inputLayoutSubject.setErrorEnabled(false);
-        }
+//        if (editTextSubject.getText().toString().trim().length() >= 0 &&
+//                editTextSubject.getText().toString().trim().length() < 5
+//        ) {
+//            inputLayoutSubject.setError(getString(
+//                    R.string.error_guidance_subject)
+//            );
+//            isValid = false;
+//        } else {
+//            inputLayoutSubject.setErrorEnabled(false);
+//        }
         return isValid;
     }
 
@@ -376,7 +376,7 @@ public class ViolationDialogFragment extends DialogCompat {
         //Boolean isSaved = false;
         if (validate() && saveViolation()) {
             Snackbar.make(view, "Salvo com Sucesso.", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+                .setAction("Action", null).show();
             //PermanenceDialogFragment.this.getDialog().cancel();
             //listener.showPermanenceMessage(view,"Salvo com Sucesso.");
             //isSaved = true;
@@ -392,20 +392,17 @@ public class ViolationDialogFragment extends DialogCompat {
                 lines
         );
         lineDropdown.setAdapter(adapter);
-        /*lineDropdown.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(
-                            AdapterView<?> parent, View view, int position, long id
-                    ) {
-                        Line selected = (Line) parent.getAdapter().getItem(position);
-//                Toast.makeText(getApplicationContext(), "Clicked" +
-//                    "position = " + position + " line = " +
-//                     selected.getShortName(), Toast.LENGTH_LONG).show();
-                        inspectionReport.setLine(selected);
-                    }
+        lineDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                        AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Line selected = (Line) parent.getAdapter().getItem(position);
+                    violation.setLine(selected);
                 }
-        );*/
+            }
+        );
     }
 
     private void setEmployeeTypeAdapter() {
@@ -446,30 +443,29 @@ public class ViolationDialogFragment extends DialogCompat {
         this.inputLayoutPrefixes = view.findViewById(
             R.id.input_layout_violation_prefixes
         );
-        this.prefixDropdown = view.findViewById(R.id.violation_lines_dropdown);
-        this.inputLayoutDepartment =
-            view.findViewById(R.id.input_layout_violation_department);
-        this.departmentDropdown =
-            view.findViewById(R.id.violation_department_dropdown);
-        this.inputLayoutSubject =
-            view.findViewById(R.id.input_layout_guidance_subject);
-        this.editTextNote = view.findViewById(R.id.edit_text_violation_note);
-        this.save = view.findViewById(R.id.violation_button_save);
+        this.prefixDropdown = view.findViewById(R.id.violation_prefixes_dropdown);
+//        this.inputLayoutDepartment =
+//            view.findViewById(R.id.input_layout_violation_department);
+//        this.departmentDropdown =
+//            view.findViewById(R.id.violation_department_dropdown);
+//        this.inputLayoutSubject =
+//            view.findViewById(R.id.input_layout_guidance_subject);
+//        this.editTextNote = view.findViewById(R.id.edit_text_violation_note);
+//        this.save = view.findViewById(R.id.violation_button_save);
     }
 
     private void setListener() {
-        this.save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save(view);
-            }
-        });
+//        this.save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                save(view);
+//            }
+//        });
     }
 
     private void initializeAdapters() {
         this.setGoogleDirections();
         this.setSpTrans();
-        setDirectionAdapter();
     }
 
     @Override
@@ -477,13 +473,13 @@ public class ViolationDialogFragment extends DialogCompat {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        this.view = inflater.inflate(R.layout.guidance_dialog, null);
+        this.view = inflater.inflate(R.layout.violation_dialog, null);
         this.getVolleyResponse = new GetVolleyResponse(this.view.getContext());
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(view)
-                .setTitle("Infração");
+            .setTitle("Infração");
         // Add action buttons
             /*.setNegativeButton(R.string.cancel_text, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {

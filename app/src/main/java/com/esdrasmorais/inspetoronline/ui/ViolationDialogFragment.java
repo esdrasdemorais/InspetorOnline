@@ -231,9 +231,6 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
                 ) {
                     Vehicle selected = (Vehicle)
                         parent.getAdapter().getItem(position);
-//                Toast.makeText(getApplicationContext(), "Clicked " +
-//                    position + " prefix: " + selected.getPrefix(),
-//                    Toast.LENGTH_LONG).show();
                     violation.setPrefix(selected);
                 }
             }

@@ -9,7 +9,8 @@
     android:layout_marginTop="57dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_permanence_department"
@@ -24,6 +25,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@color/background"
         android:id="@+id/input_layout_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,6 +44,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@color/background"
         android:id="@+id/input_layout_initial_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,6 +61,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@color/background"
         android:id="@+id/input_layout_final_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_save"
+        android:textAllCaps="false"
         android:layout_marginBottom="77px"
         android:textAlignment="center"/>
 

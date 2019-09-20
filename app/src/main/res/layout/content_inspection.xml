@@ -22,7 +22,8 @@
     tools:context="com.esdrasmorais.inspetoronline.ui.inspection.InspectionReportActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_line"
@@ -37,7 +38,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_prefix"
@@ -53,7 +55,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_location"
@@ -68,7 +71,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_vehicle_state"
@@ -83,7 +87,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_presentation_employees"
@@ -99,7 +104,8 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_vehicle_identification"
@@ -115,7 +121,8 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_personal_objects_cleaning"
@@ -130,7 +137,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_vehicle_objects_conservation"
@@ -145,7 +153,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_employee_identification"
@@ -160,7 +169,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_wheelchair_seat_belt"
@@ -175,7 +185,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_objects_forbiden_to_role"
@@ -190,7 +201,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_vehicle_security_accessories"
@@ -205,7 +217,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_impediment_to_inspection"
@@ -220,7 +233,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_inspection_rate"
@@ -235,6 +249,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@color/background"
         android:id="@+id/input_layout_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

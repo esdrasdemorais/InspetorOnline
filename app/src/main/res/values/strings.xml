@@ -57,8 +57,8 @@
     </string>
     <string name="hint_comments">Comentarios</string>
 
-    <string name="text_save">SALVAR</string>
-    <string name="cancel_text">CANCELAR</string>
+    <string name="text_save">Salvar</string>
+    <string name="cancel_text">Cancelar</string>
 
     <string name="error_line">Informe a Linha</string>
     <string name="error_prefix">Informe o Prefixo</string>
@@ -143,7 +143,11 @@
         Informe ao menos 5 caracteres para o Assunto
     </string>
 
-
+    <string name="hint_employee_type">Funcionario</string>
+    <string name="hint_work_time">Periodo</string>
+    <string name="hint_state">Situacao</string>
+    <string name="hint_violation_type">Infracao</string>
+    <string name="hint_department">Setor</string>
     <string name="error_violation_line">Selecione uma Linha</string>
     <string name="error_violation_prefix">Selecione um Prefixo</string>
 

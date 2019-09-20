@@ -311,20 +311,17 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
             lines
         );
         lineDropdown.setAdapter(adapter);
-        /*lineDropdown.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(
-                            AdapterView<?> parent, View view, int position, long id
-                    ) {
-                        Line selected = (Line) parent.getAdapter().getItem(position);
-//                Toast.makeText(getApplicationContext(), "Clicked" +
-//                    "position = " + position + " line = " +
-//                     selected.getShortName(), Toast.LENGTH_LONG).show();
-                        inspectionReport.setLine(selected);
-                    }
+        lineDropdown.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                        AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Line selected = (Line) parent.getAdapter().getItem(position);
+                    guidance.setLine(selected);
                 }
-        );*/
+            }
+        );
     }
 
     private void setDirectionAdapter() {
@@ -339,18 +336,18 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
             directions
         );
         direction.setAdapter(adapter);
-//        permanenceDepartment.setOnItemClickListener(
-//            new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(
-//                    AdapterView<?> parent, View view, int position, long id
-//                ) {
-//                    Department selected = (Department)
-//                        parent.getAdapter().getItem(position);
-//                    permanence.setDepartment(selected);
-//                }
-//            }
-//        );
+        direction.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Direction selected = (Direction)
+                        parent.getAdapter().getItem(position);
+                    guidance.setDirection(selected);
+                }
+            }
+        );
     }
 
     private void initializeFields() {

@@ -10,6 +10,7 @@ import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -63,7 +64,12 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
         String editTextInitialDate =
             this.editTextInitialDate.getText().toString();
 
-        if (editTextInitialDate.length() != 5) return false;
+        if (editTextInitialDate.length() != 5) {
+            inputLayoutInitialDate.setError(
+                getString(R.string.error_permanence_initial_date)
+            );
+            return false;
+        }
 
         try {
             String dateTime = dateFormat.format(new Date()) +
@@ -92,7 +98,12 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
         String editTextFinalDate =
             this.editTextFinalDate.getText().toString();
 
-        if (editTextFinalDate.length() != 5) return false;
+        if (editTextFinalDate.length() != 5) {
+            inputLayoutFinalDate.setError(
+                getString(R.string.error_permanence_final_date)
+            );
+            return false;
+        }
 
         try {
             String dateTime = dateFormat.format(new Date()) +
@@ -200,18 +211,21 @@ public class PermanenceDialogFragment extends AppCompatDialogFragment
             departments
         );
         permanenceDepartment.setAdapter(adapter);
-//        permanenceDepartment.setOnItemClickListener(
-//            new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(
-//                    AdapterView<?> parent, View view, int position, long id
-//                ) {
-//                    Department selected = (Department)
-//                        parent.getAdapter().getItem(position);
-//                    permanence.setDepartment(selected);
-//                }
-//            }
-//        );
+        permanenceDepartment.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                    AdapterView<?> parent, View view, int position, long id
+                ) {
+                    Department selected = Department.of(
+                        Integer.parseInt(
+                            parent.getAdapter().getItem(position).toString()
+                        )
+                    );
+                    permanence.setDepartment(selected);
+                }
+            }
+        );
     }
 
     private void initializeFields() {

@@ -231,7 +231,7 @@ public class InspectionReportActivity extends AppCompatActivity {
     private void setCompanies() {
         Company company = new Company();
         company.setOperationAreaCode(1);
-        company.setCompanyReferenceCode(38);
+        company.setCompanyReferenceCode(37);//38
         company.setCompanyName("SANTA BRIGIDA");
         companies.add(company);
     }

@@ -1,6 +1,10 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
+import androidx.room.Entity;
+
+@Entity
 public class Company extends Default {
+
     private Integer operationAreaCode;
     private Integer companyReferenceCode;
     private String companyName;

@@ -20,13 +20,14 @@
         android:id="@+id/input_layout_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="7dp">
 
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
+            android:capitalize="words"
             android:textSize="17sp"
             android:inputType="number"
             android:selectAllOnFocus="true"/>
@@ -64,13 +65,14 @@
         android:id="@+id/input_layout_verification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="7dp">
 
         <EditText
             android:id="@+id/verification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_verification"
+            android:capitalize="words"
             android:inputType="textPassword"
             android:textSize="17sp"
             android:selectAllOnFocus="true"/>
@@ -85,10 +87,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
     />
 
     <!--    <Button-->
@@ -113,9 +115,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/mtrl_card_spacing"
-        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="7dp"
         android:layout_marginRight="@dimen/mtrl_card_spacing"
-        android:minHeight="37dp">>
+        android:minHeight="17dp">>
 
         <TextView
             android:id="@+id/detail"
@@ -125,10 +127,11 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="8dp"
             android:hint=""
+            android:capitalize="words"
             android:imeActionLabel=""
             android:imeOptions="actionDone"
             android:inputType=""
-            android:minHeight="40dp"
+            android:minHeight="27dp"
             android:selectAllOnFocus="true"
             android:textSize="17sp" />
 
@@ -160,6 +163,7 @@
         android:textAlignment="center"
         android:textAllCaps="true"
         android:padding="7dp"
+        android:capitalize="words"
         style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
     <com.google.android.material.button.MaterialButton
@@ -171,6 +175,7 @@
         android:textAlignment="center"
         android:padding="7dp"
         android:textAllCaps="true"
+        android:capitalize="words"
         style="@style/Widget.MaterialComponents.Button"/>
 
 <!--    <Button-->

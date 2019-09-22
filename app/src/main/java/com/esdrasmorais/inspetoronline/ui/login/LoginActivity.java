@@ -100,6 +100,7 @@ public class LoginActivity
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         if (currentUser != null) return;
 
         super.onCreate(savedInstanceState);

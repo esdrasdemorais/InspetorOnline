@@ -1,33 +1,26 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
+import androidx.room.Entity;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import com.esdrasmorais.inspetoronline.data.converters.DirectionConverter;
+import com.esdrasmorais.inspetoronline.data.converters.LineTypeConverter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity
 public class Line extends Default {
     //private Long id;
-    @SerializedName("name")
-    @Expose
     private String name;
-    @SerializedName("shortName")
-    @Expose
     private String shortName;
-    @SerializedName("type")
-    @Expose
+    //@TypeConverters(LineTypeConverter.class)
     private LineType type;
-    @SerializedName("lineCode")
-    @Expose
     private Integer lineCode;
-    @SerializedName("direction")
-    @Expose
+    //@TypeConverters(DirectionConverter.class)
     private Direction direction;
-    @SerializedName("lineDestinationMarker")
-    @Expose
     private String lineDestinationMarker;
-    @SerializedName("lineOriginMarker")
-    @Expose
     private String lineOriginMarker;
-    @SerializedName("vehiclesQuantityLocalized")
-    @Expose
     private Integer vehiclesQuantityLocalized;
 
     public Line() {

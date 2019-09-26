@@ -8,7 +8,7 @@ import android.util.Log;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
+//import androidx.databinding.library.baseAdapters.BR;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -71,7 +71,7 @@ public class GoogleDirections extends BaseObservable {
                     try {
                         JSONObject response = new JSONObject(result);
                         json = new Gson().fromJson(result, JsonObject.class);
-                        notifyPropertyChanged(BR.json);
+                        notifyPropertyChanged(com.esdrasmorais.inspetoronline.BR.json);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

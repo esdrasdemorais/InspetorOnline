@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,6 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esdrasmorais.inspetoronline.R;
+import com.esdrasmorais.inspetoronline.data.AppDatabase;
+import com.esdrasmorais.inspetoronline.data.AppExecutors;
+import com.esdrasmorais.inspetoronline.data.BasicApp;
 import com.esdrasmorais.inspetoronline.ui.TaskManagerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -98,8 +102,14 @@ public class LoginActivity
             );
     }
 
+    private void startDb() {
+        BasicApp basicApp = new BasicApp(getApplicationContext());
+        basicApp.getDatabase();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        startDb();
 
         if (currentUser != null) return;
 

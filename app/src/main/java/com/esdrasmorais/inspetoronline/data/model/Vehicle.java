@@ -1,7 +1,9 @@
 package com.esdrasmorais.inspetoronline.data.model;
 
+import androidx.room.Entity;
 import java.util.Date;
 
+@Entity
 public class Vehicle extends Default {
 //    private long id;
     private Integer prefix;

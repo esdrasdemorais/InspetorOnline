@@ -1,8 +1,10 @@
 package com.esdrasmorais.inspetoronline.data.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -13,23 +15,23 @@ import java.util.List;
 @Dao
 public interface CompanyDao {
     @Query("SELECT * FROM Company")
-    List<Company> getAll();
+    LiveData<List<Company>> getAll();
 
     @Query("SELECT * FROM Company WHERE id = :id LIMIT 1")
-    Company findById(String id);
+    LiveData<Company> findById(String id);
 
     @Query("SELECT * FROM Company WHERE id IN (:companyIds)")
-    List<Company> loadAllByIds(int[] companyIds);
+    LiveData<List<Company>> loadAllByIds(int[] companyIds);
 
     @Query("SELECT * FROM Company WHERE companyName " +
         "LIKE :companyName LIMIT 1")
-    Company findByName(String companyName);
+    LiveData<Company> findByName(String companyName);
 
     @Query("SELECT * FROM Company WHERE companyReferenceCode " +
-            "LIKE :companyReferenceCode LIMIT 1")
-    Company findByCompanyReferenceCode(String companyReferenceCode);
+            "= :companyReferenceCode LIMIT 1")
+    LiveData<Company> findByCompanyReferenceCode(Integer companyReferenceCode);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Company> companies); //void insertAll(Company... companies);
 
     @Delete

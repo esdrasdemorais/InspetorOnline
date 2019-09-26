@@ -5,6 +5,8 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.esdrasmorais.inspetoronline.data.model.Company;
+import com.esdrasmorais.inspetoronline.data.model.Line;
+import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 
 import java.io.File;
 import java.io.FileReader;
@@ -40,7 +42,7 @@ public class CsvUtil {
         }
     }
 
-    static List<String>  values = null;
+    static List<String> values = null;
 
     private static void importCompanyFromCsv(String tableName) {
         String[] nextLine;
@@ -74,5 +76,57 @@ public class CsvUtil {
     public static List<Company> getCompanies() {
         importCompanyFromCsv("companies.csv");
         return companies;
+    }
+
+    private static void importLineFromCsv(String tableName) {
+        String[] nextLine;
+        try {
+            CsvReader csvReader = new CsvReader(
+                new FileReader(
+                    Environment.getExternalStorageDirectory() + "/" + tableName
+                )
+            );
+            csvReader.readNext();
+            // nextLine[] is an array of values from the line
+            while ((nextLine = csvReader.readNext()) != null) {
+                values = new ArrayList<>();
+                setLine(nextLine);
+            }
+        } catch (Exception ex) {
+            Log.d("CsvUtil", ex.getMessage());
+        }
+    }
+
+    static List<Line> lines = new ArrayList<Line>();
+
+    public static List<Line> getLines() {
+        importLineFromCsv("lines.csv");
+        return lines;
+    }
+
+    private static void importVehicleFromCsv(String tableName) {
+        String[] nextLine;
+        try {
+            CsvReader csvReader = new CsvReader(
+                new FileReader(
+                        Environment.getExternalStorageDirectory() + "/" + tableName
+                )
+            );
+            csvReader.readNext();
+            // nextLine[] is an array of values from the line
+            while ((nextLine = csvReader.readNext()) != null) {
+                values = new ArrayList<>();
+                setVehicle(nextLine);
+            }
+        } catch (Exception ex) {
+            Log.d("CsvUtil", ex.getMessage());
+        }
+    }
+
+    static List<Vehicle> vehicles = new ArrayList<Vehicle>();
+
+    public static List<Vehicle> getVehicles() {
+        importVehicleFromCsv("vehicles.csv");
+        return vehicles;
     }
 }

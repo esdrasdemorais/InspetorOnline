@@ -101,12 +101,12 @@ public abstract class AppDatabase extends RoomDatabase {
         return isDatabaseCreated;
     }
 
-    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    /*private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             //database.execSQL("");
         }
-    };
+    };*/
 
     private static void insertData(
         final AppDatabase appDatabase, final List<Company> companies,
@@ -122,7 +122,9 @@ public abstract class AppDatabase extends RoomDatabase {
     private static List<Line> getLines() {
         List<Line> lines = null;
         try {
-           lines = spTrans.getLineList();
+           //lines = spTrans.getLineList();
+           if (lines == null)
+               lines = CsvUtil.getLines();
         } catch (Exception ex) {
             Log.e("AppDatabase", ex.getMessage());
             lines = CsvUtil.getLines();
@@ -133,7 +135,9 @@ public abstract class AppDatabase extends RoomDatabase {
     private static List<Vehicle> getVehicles() {
         List<Vehicle> vehicles = null;
         try {
-            vehicles = spTrans.getVehicle();
+            //vehicles = spTrans.getVehicleList();
+            if (vehicles == null)
+                vehicles = CsvUtil.getVehicles();
         } catch (Exception ex) {
             Log.e("AppDatabase", ex.getMessage());
             vehicles = CsvUtil.getVehicles();
@@ -144,14 +148,16 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase buildDatabase(
         final Context appContext, final AppExecutors executors
     ) {
+        List<Company> companies = CsvUtil.getCompanies();
         return Room.databaseBuilder(
             appContext, AppDatabase.class, DATABASE_NAME
         )
-        .addCallback(new RoomDatabase.Callback() {
+        .addCallback(new Callback() {
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
                 executors.diskIO().execute(() -> {
+                    addDelay();
                     AppDatabase appDatabase = AppDatabase.getInstance(
                         appContext, executors
                     );
@@ -160,7 +166,6 @@ public abstract class AppDatabase extends RoomDatabase {
                     List<Vehicle> vehicles = getVehicles();
                     insertData(appDatabase, companies, lines, vehicles);
                     appDatabase.setDatabaseCreated();
-                    //addDelay();
                 });
             }
         })

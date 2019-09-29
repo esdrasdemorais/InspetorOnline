@@ -1,5 +1,6 @@
 package com.esdrasmorais.inspetoronline.data.repository;
 
+import android.location.Location;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -95,17 +97,24 @@ public class LoginRepository
         getLogin(callback, snapshot);
     }
 
+    private void setEmployeeAddress(Employee employee, GeoPoint address) {
+        if (address == null) return;
+        Location location = new Location("address employee");
+        location.setLatitude(address.getLatitude());
+        location.setLongitude(address.getLongitude());
+        employee.setAddress(location);
+    }
+
     private void setEmployee(DocumentSnapshot snapshot) {
         employee = new Employee();
 
-        String a = snapshot.get("address").toString();
-        //employee.setAddress();
-
         employee.setLines(null);
         employee.setPassword(snapshot.get("password").toString());
-        //employee.setType((EmployeeType) snapshot.get("type"));
+        employee.setType(EmployeeType.of(snapshot.get("type").toString()));
         employee.setUsername(snapshot.get("username").toString());
         employee.setId(snapshot.get("id").toString());
+
+        setEmployeeAddress(employee, (GeoPoint) snapshot.get("address"));
     }
 
     private void getEmployee(final ICallback callback, QuerySnapshot snapshot) {

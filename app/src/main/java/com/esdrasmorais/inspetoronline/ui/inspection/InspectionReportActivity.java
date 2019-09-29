@@ -590,7 +590,7 @@ public class InspectionReportActivity extends AppCompatActivity {
 
         this.editTextComments = findViewById(R.id.edit_text_comments);
         this.save = findViewById(R.id.button_save);
-        this.fab = findViewById(R.id.fab);
+        //this.fab = findViewById(R.id.fab);
     }
 
     private void initializeAdapters() {
@@ -620,12 +620,12 @@ public class InspectionReportActivity extends AppCompatActivity {
         this.initializeWidgets();
         this.initializeAdapters();
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 save(view);
             }
-        });
+        });*/
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -43,10 +43,10 @@ public class GetVolleyResponse implements VolleyCallback {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError e) {
-                    Log.e("GetVolleyResponse", e.getMessage());
-                    e.printStackTrace();
-                    Toast.makeText(context, e + "error",
-                       Toast.LENGTH_LONG).show();
+                    //Log.d("GetVolleyResponse", e.getMessage());
+                    //e.printStackTrace();
+//                    Toast.makeText(context, e + "error",
+//                       Toast.LENGTH_LONG).show();
                 }
             }
         ) {

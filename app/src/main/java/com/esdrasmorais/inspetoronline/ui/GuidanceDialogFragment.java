@@ -1,6 +1,7 @@
 package com.esdrasmorais.inspetoronline.ui;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.location.Location;
@@ -14,11 +15,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
 import com.android.volley.Request;
 import com.esdrasmorais.inspetoronline.R;
+import com.esdrasmorais.inspetoronline.data.BasicApp;
+import com.esdrasmorais.inspetoronline.data.DataRepository;
 import com.esdrasmorais.inspetoronline.data.GetVolleyResponse;
 import com.esdrasmorais.inspetoronline.data.GoogleDirections;
 import com.esdrasmorais.inspetoronline.data.SecurityPreferences;
@@ -50,7 +56,7 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
     private GetVolleyResponse getVolleyResponse;
     private List<Company> companies = new ArrayList<Company>();
     private Integer countCompanies = 1;
-    private List<Line> lines = new ArrayList<Line>();
+    private LiveData<List<Line>> lines = null;
     private TextInputLayout inputLayoutDirection;
     private TextInputLayout inputLayoutSubject;
     private TextInputLayout inputLayoutLines;
@@ -63,9 +69,19 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
 //    private GuidanceDialogFragment.GuidanceDialogListener listener;
     private Button save;
 
+    @NonNull
+    private Application application;
+
+    @NonNull
+    private DataRepository dataReposity;
+
     public GuidanceDialogFragment(FragmentActivity fragmentActivity) {
         this.fragmentActivity = fragmentActivity;
         this.guidance = new Guidance();
+        application = fragmentActivity.getApplication();
+        dataReposity = ((BasicApp) application).getRepository();
+        dataReposity.getCompanies();
+        lines = dataReposity.getLines();
     }
 
     private void setGoogleDirections() {
@@ -121,108 +137,8 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
             line.setShortName(shortName.replace("\"", ""));
             line.setName(headSign);
             line.setLineDestinationMarker(headSign);
-            lines.add(line);
+            //lines.add(line);
         }
-    }
-
-    private void setLines() {
-        final JsonArray lines = spTrans.getJson().get("l").getAsJsonArray();
-
-        if (!lines.isJsonArray())
-            throw new IllegalArgumentException("json is not an array");
-
-        for (JsonElement line : lines) {
-            JsonObject lineObject = line.getAsJsonObject();
-
-            Line lineModel = new Line();
-            String shortName = lineObject.get("c").toString();
-            lineModel.setShortName(shortName.replace("\"", ""));
-            lineModel.setLineCode(Integer.parseInt(lineObject.get("cl").toString()));
-            lineModel.setName(
-                    lineObject.get("lt0").toString().replace("\"", "")
-            );
-            lineModel.setLineDestinationMarker(
-                    lineObject.get("lt0").toString().replace("\"", "")
-            );
-            lineModel.setLineOriginMarker(
-                    lineObject.get("lt1").toString().replace("\"", "")
-            );
-            lineModel.setVehiclesQuantityLocalized(
-                    Integer.parseInt(lineObject.get("qv").toString())
-            );
-            this.lines.add(lineModel);
-
-//            final JsonArray prefixes = lineObject.getAsJsonArray("vs");
-//            this.setPrefixes(prefixes);
-        }
-    }
-
-    private void setLinesFromCompanies() {
-        for (Company company : companies) {
-            getVolleyResponse.getResponse(
-                Request.Method.GET, spTrans.getUrl() +
-                    "/Posicao/Garagem?codigoEmpresa=" +
-                    company.getCompanyReferenceCode(), null,
-                new GetVolleyResponse(this.view.getContext()) {
-                    @Override
-                    public void onSuccessResponse(String result) {
-                        try {
-                            JSONObject response = new JSONObject(result);
-                            spTrans.setJson(
-                                new Gson().fromJson(result, JsonObject.class)
-                            );
-                            setLines();
-                            if (countCompanies == companies.size()) {
-                                setLinesAdapter();
-                            }
-                            countCompanies++;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            );
-        }
-    }
-
-    private void authenticate() {
-        String url = this.spTrans.getUrl() + "/Login/Autenticar?token=" +
-            this.spTrans.getApiToken();
-        getVolleyResponse.getResponse(Request.Method.POST, url, null,
-            new GetVolleyResponse(this.view.getContext()) {
-                @Override
-                public void onSuccessResponse(String result) {
-                    try {
-                        //JSONObject response = new JSONObject(result);
-                        //spTrans.setJson(new Gson().fromJson(result, JsonObject.class));
-                        if (Boolean.parseBoolean(result) == true) {
-                            cookie = getVolleyResponse.getCookie();
-                            setCompanies();
-                            setLinesFromCompanies();
-                        }
-                        //notifyPropertyChanged(BR.json);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        );
-    }
-
-    private void setSpTrans() {
-        this.spTrans = new SpTrans(
-            this.view.getContext(),
-            this.getLocation()
-        );
-        this.authenticate();
-    }
-
-    private void setCompanies() {
-        Company company = new Company();
-        company.setOperationAreaCode(1);
-        company.setCompanyReferenceCode(37);//38
-        company.setCompanyName("SANTA BRIGIDA");
-        companies.add(company);
     }
 
     private Boolean validate() {
@@ -308,7 +224,7 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
         ArrayAdapter<Line> adapter = new ArrayAdapter<Line>(
             this.view.getContext(),
             R.layout.dropdown_guidance_lines_menu_popup_item,
-            lines
+            lines.getValue()
         );
         lineDropdown.setAdapter(adapter);
         lineDropdown.setOnItemClickListener(
@@ -375,7 +291,6 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
 
     private void initializeAdapters() {
         this.setGoogleDirections();
-        this.setSpTrans();
         setDirectionAdapter();
     }
 

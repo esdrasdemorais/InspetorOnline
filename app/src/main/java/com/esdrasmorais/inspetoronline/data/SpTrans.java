@@ -9,6 +9,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.esdrasmorais.inspetoronline.data.model.Company;
+import com.esdrasmorais.inspetoronline.data.model.Direction;
 import com.esdrasmorais.inspetoronline.data.model.Line;
 import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 import com.google.gson.Gson;
@@ -78,7 +79,7 @@ public class SpTrans {
         return this.lines;
     }
 
-    public List<Vehicle> getPrefixList() {
+    public List<Vehicle> getVehicleList() {
         return this.prefixes;
     }
 
@@ -138,6 +139,7 @@ public class SpTrans {
             String shortName = lineObject.get("c").toString();
             lineModel.setShortName(shortName.replace("\"", ""));
             lineModel.setLineCode(Integer.parseInt(lineObject.get("cl").toString()));
+            lineModel.setDirection(Direction.of(lineObject.get("sl").toString()));
             lineModel.setName(
                     lineObject.get("lt0").toString().replace("\"", "")
             );
@@ -159,26 +161,30 @@ public class SpTrans {
 
     private void setLinesFromCompanies() {
         for (Company company : companies) {
-            getVolleyResponse.getResponse(
-                Request.Method.GET, this.getUrl() +
-                    "/Posicao/Garagem?codigoEmpresa=" +
-                    company.getCompanyReferenceCode(), null,
-                new GetVolleyResponse(this.context) {
-                    @Override
-                    public void onSuccessResponse(String result) {
-                        try {
-                            JSONObject response = new JSONObject(result);
-                            setJson(
-                                new Gson().fromJson(result, JsonObject.class)
-                            );
-                            setLines();
-                            countCompanies++;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+            try {
+                getVolleyResponse.getResponse(
+                    Request.Method.GET, this.getUrl() +
+                        "/Posicao/Garagem?codigoEmpresa=" +
+                        company.getCompanyReferenceCode(), null,
+                    new GetVolleyResponse(this.context) {
+                        @Override
+                        public void onSuccessResponse(String result) {
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                setJson(
+                                    new Gson().fromJson(result, JsonObject.class)
+                                );
+                                setLines();
+                                countCompanies++;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-                }
-            );
+                );
+            } catch (Exception ex) {
+                Log.d("SpTrans", ex.getMessage());
+            }
         }
     }
 

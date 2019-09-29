@@ -19,14 +19,14 @@ public interface VehicleDao {
     @Query("SELECT * FROM Vehicle")
     LiveData<List<Vehicle>> getAll();
 
-    @Query("SELECT * FROM Vehicle WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM Vehicle WHERE id MATCH :id LIMIT 1")
     LiveData<Vehicle> findById(String id);
 
     @Query("SELECT * FROM Vehicle WHERE id IN (:vehicleIds)")
-    LiveData<List<Vehicle>> loadAllByIds(int[] vehicleIds);
+    LiveData<List<Vehicle>> loadAllByIds(String[] vehicleIds);
 
     @Query("SELECT * FROM Vehicle WHERE prefix " +
-            "LIKE :prefix LIMIT 1")
+            "MATCH :prefix LIMIT 1")
     LiveData<Vehicle> findByPrefix(String prefix);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

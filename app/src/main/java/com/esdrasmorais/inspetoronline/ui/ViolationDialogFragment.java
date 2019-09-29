@@ -141,38 +141,6 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
         }
     }
 
-    private void setLines() {
-        final JsonArray lines = spTrans.getJson().get("l").getAsJsonArray();
-
-        if (!lines.isJsonArray())
-            throw new IllegalArgumentException("json is not an array");
-
-        for (JsonElement line : lines) {
-            JsonObject lineObject = line.getAsJsonObject();
-
-            Line lineModel = new Line();
-            String shortName = lineObject.get("c").toString();
-            lineModel.setShortName(shortName.replace("\"", ""));
-            lineModel.setLineCode(Integer.parseInt(lineObject.get("cl").toString()));
-            lineModel.setName(
-                    lineObject.get("lt0").toString().replace("\"", "")
-            );
-            lineModel.setLineDestinationMarker(
-                    lineObject.get("lt0").toString().replace("\"", "")
-            );
-            lineModel.setLineOriginMarker(
-                    lineObject.get("lt1").toString().replace("\"", "")
-            );
-            lineModel.setVehiclesQuantityLocalized(
-                    Integer.parseInt(lineObject.get("qv").toString())
-            );
-            this.lines.add(lineModel);
-
-            final JsonArray prefixes = lineObject.getAsJsonArray("vs");
-            this.setPrefixes(prefixes);
-        }
-    }
-
     private void setPrefixes(JsonArray prefixes) {
         try {
             for (JsonElement prefix : prefixes) {
@@ -237,73 +205,11 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
         );
     }
 
-    private void setLinesFromCompanies() {
-        for (Company company : companies) {
-            getVolleyResponse.getResponse(
-                    Request.Method.GET, spTrans.getUrl() +
-                            "/Posicao/Garagem?codigoEmpresa=" +
-                            company.getCompanyReferenceCode(), null,
-                    new GetVolleyResponse(this.view.getContext()) {
-                        @Override
-                        public void onSuccessResponse(String result) {
-                            try {
-                                JSONObject response = new JSONObject(result);
-                                spTrans.setJson(
-                                        new Gson().fromJson(result, JsonObject.class)
-                                );
-                                setLines();
-                                if (countCompanies == companies.size()) {
-                                    setLinesAdapter();
-                                    setPrefixesAdapter();
-                                }
-                                countCompanies++;
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-            );
-        }
-    }
-
-    private void authenticate() {
-        String url = this.spTrans.getUrl() + "/Login/Autenticar?token=" +
-                this.spTrans.getApiToken();
-        getVolleyResponse.getResponse(Request.Method.POST, url, null,
-                new GetVolleyResponse(this.view.getContext()) {
-                    @Override
-                    public void onSuccessResponse(String result) {
-                        try {
-                            //JSONObject response = new JSONObject(result);
-                            //spTrans.setJson(new Gson().fromJson(result, JsonObject.class));
-                            if (Boolean.parseBoolean(result) == true) {
-                                cookie = getVolleyResponse.getCookie();
-                                setCompanies();
-                                setLinesFromCompanies();
-                            }
-                            //notifyPropertyChanged(BR.json);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        );
-    }
-
     private void setSpTrans() {
         this.spTrans = new SpTrans(
-                this.view.getContext(),
-                this.getLocation()
+            this.view.getContext(),
+            this.getLocation()
         );
-        this.authenticate();
-    }
-
-    private void setCompanies() {
-        Company company = new Company();
-        company.setOperationAreaCode(1);
-        company.setCompanyReferenceCode(37);//38
-        company.setCompanyName("SANTA BRIGIDA");
-        companies.add(company);
     }
 
     private Boolean validate() {

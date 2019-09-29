@@ -18,14 +18,14 @@ public interface LineDao {
     @Query("SELECT * FROM Line")
     LiveData<List<Line>> getAll();
 
-    @Query("SELECT * FROM Line WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM Line WHERE id MATCH :id LIMIT 1")
     LiveData<Line> findById(String id);
 
     @Query("SELECT * FROM Line WHERE id IN (:lineIds)")
-    LiveData<List<Line>> loadAllByIds(int[] lineIds);
+    LiveData<List<Line>> loadAllByIds(String[] lineIds);
 
     @Query("SELECT * FROM Line WHERE shortName " +
-            "LIKE :shortName LIMIT 1")
+            "MATCH :shortName LIMIT 1")
     LiveData<Line> findByName(String shortName);
 
     @Query("SELECT * FROM Line WHERE lineCode " +

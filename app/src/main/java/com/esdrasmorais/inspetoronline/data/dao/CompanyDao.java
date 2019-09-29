@@ -17,14 +17,14 @@ public interface CompanyDao {
     @Query("SELECT * FROM Company")
     LiveData<List<Company>> getAll();
 
-    @Query("SELECT * FROM Company WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM Company WHERE id MATCH :id LIMIT 1")
     LiveData<Company> findById(String id);
 
     @Query("SELECT * FROM Company WHERE id IN (:companyIds)")
-    LiveData<List<Company>> loadAllByIds(int[] companyIds);
+    LiveData<List<Company>> loadAllByIds(String[] companyIds);
 
     @Query("SELECT * FROM Company WHERE companyName " +
-        "LIKE :companyName LIMIT 1")
+        "MATCH :companyName LIMIT 1")
     LiveData<Company> findByName(String companyName);
 
     @Query("SELECT * FROM Company WHERE companyReferenceCode " +

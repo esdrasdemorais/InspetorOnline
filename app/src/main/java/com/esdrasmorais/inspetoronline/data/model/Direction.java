@@ -20,9 +20,9 @@ public enum Direction {
 
     public static Direction of(String direction) {
         switch (direction) {
-            case "TP": return MAIN_TERMINAL;
-            case "TS": return SECONDARY_TERMINAL;
-            case "G": return GARAGE;
+            case "TP" : case "1": return MAIN_TERMINAL;
+            case "TS": case "2" : return SECONDARY_TERMINAL;
+            case "G": case "3": return GARAGE;
             default: return null;
         }
     }

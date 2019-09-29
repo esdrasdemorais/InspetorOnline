@@ -5,6 +5,9 @@ import android.app.Activity;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -28,6 +31,7 @@ import com.esdrasmorais.inspetoronline.R;
 import com.esdrasmorais.inspetoronline.data.AppDatabase;
 import com.esdrasmorais.inspetoronline.data.AppExecutors;
 import com.esdrasmorais.inspetoronline.data.BasicApp;
+import com.esdrasmorais.inspetoronline.data.DataRepository;
 import com.esdrasmorais.inspetoronline.ui.TaskManagerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -70,12 +74,21 @@ public class LoginActivity
 
     private static final String TAG = "LoginActivity";
 
+    @NonNull
+    private Application application;
+
+    @NonNull
+    private DataRepository dataReposity;
+
     private EditText verificationField;
     private Button loginButton;
     private Button verifyButton;
     private Button resendButton;
     private TextView detailText;
     private EditText passwordEditText;
+
+    public LoginActivity() {
+    }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         firebaseAuth.signInWithCredential(credential)
@@ -103,8 +116,10 @@ public class LoginActivity
     }
 
     private void startDb() {
-        BasicApp basicApp = new BasicApp(getApplicationContext());
-        basicApp.getDatabase();
+        //BasicApp basicApp = new BasicApp(getApplicationContext());
+        //basicApp.getDatabase();
+        this.application = (Application) this.getApplicationContext();
+        this.dataReposity = ((BasicApp) application).getRepository();
     }
 
     @Override
@@ -195,17 +210,18 @@ public class LoginActivity
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(usernameEditText.getText().toString(),
-                    passwordEditText.getText().toString());
+        passwordEditText.setOnEditorActionListener(
+            new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    loginViewModel.login(usernameEditText.getText().toString(),
+                        passwordEditText.getText().toString());
+                }
+                return false;
+                }
             }
-            return false;
-            }
-        });
+        );
 
 //        loginButton.setOnClickListener(new View.OnClickListener() {
 //            @Override

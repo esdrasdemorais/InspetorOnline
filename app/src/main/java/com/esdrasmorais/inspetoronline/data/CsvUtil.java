@@ -1,8 +1,16 @@
 package com.esdrasmorais.inspetoronline.data;
 
 import android.database.Cursor;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Observer;
 
 import com.esdrasmorais.inspetoronline.data.model.Company;
 import com.esdrasmorais.inspetoronline.data.model.Direction;
@@ -21,6 +29,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CsvUtil {
     private static void exportTableToCsv(
@@ -53,7 +62,6 @@ public class CsvUtil {
     static List<String> values = null;
 
     private static Reader getCompaniesCsvFile(String tableName) {
-        //Environment.getExternalStorageDirectory()
         BufferedReader r = null;
         try {
             URL url = new URL(
@@ -72,20 +80,38 @@ public class CsvUtil {
         return r;
     }
 
-    private static void importCompanyFromCsv(String tableName) {
+    private static class GetCompaniesCsvFile
+        extends AsyncTask<String, Integer, Reader>
+    {
+        @Override
+        protected Reader doInBackground(String... tableName) {
+            return getCompaniesCsvFile(tableName[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Reader reader) {
+            importCompanyFromCsv(reader);
+        }
+    }
+
+    private static void importCompanyFromCsv(Reader reader) {
         String[] nextLine;
         try {
-            CsvReader csvReader = new CsvReader(
-                getCompaniesCsvFile(tableName)
-            );
+            CsvReader csvReader = new CsvReader(reader);
             csvReader.readNext();
             // nextLine[] is an array of values from the line
-            while ((nextLine = csvReader.readNext()) != null) {
-                setCompany(nextLine);
+            while (csvReader.getHasNext()) {
+                csvReader.readNext();
+                if (csvReader.getReadNext().getValue() != null)
+                    setCompany(csvReader.getReadNext().getValue());
             }
-        } catch (Exception ex) {
-            Log.d("CsvUtil", "Error: " +
-                ex.getMessage() + ex.getStackTrace());
+            companies.postValue(companies.getValue());
+        } catch (IOException ex) {
+            try {
+                throw new IOException(ex.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -94,13 +120,13 @@ public class CsvUtil {
         company.setOperationAreaCode(Integer.parseInt(nextLine[0]));
         company.setCompanyReferenceCode(Integer.parseInt(nextLine[1]));
         company.setCompanyName(nextLine[2]);
-        companies.add(company);
+        Objects.requireNonNull(companies.getValue()).add(company);
     }
 
-    static List<Company> companies = new ArrayList<Company>();
+    private static MediatorLiveData<List<Company>> companies = new MediatorLiveData<>();
 
-    public static List<Company> getCompanies() {
-        importCompanyFromCsv("companies.csv");
+    public static LiveData<List<Company>> getCompanies() {
+        new GetCompaniesCsvFile().execute("companies.csv");
         return companies;
     }
 
@@ -129,8 +155,10 @@ public class CsvUtil {
             );
             csvReader.readNext();
             // nextLine[] is an array of values from the line
-            while ((nextLine = csvReader.readNext()) != null) {
-                setLine(nextLine);
+            while (csvReader.getHasNext()) {
+                csvReader.readNext();
+                if (csvReader.getReadNext().getValue() != null)
+                    setLine(csvReader.getReadNext().getValue());
             }
         } catch (Exception ex) {
             Log.d("CsvUtil", ex.getMessage());
@@ -168,8 +196,10 @@ public class CsvUtil {
             );
             csvReader.readNext();
             // nextLine[] is an array of values from the line
-            while ((nextLine = csvReader.readNext()) != null) {
-                setVehicle(nextLine, 6);
+            while (csvReader.getHasNext()) {
+                csvReader.readNext();
+                if (csvReader.getReadNext().getValue() != null)
+                    setVehicle(csvReader.getReadNext().getValue(), 6);
             }
         } catch (Exception ex) {
             Log.d("CsvUtil", ex.getMessage());

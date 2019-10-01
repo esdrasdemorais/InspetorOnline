@@ -109,11 +109,11 @@ public abstract class AppDatabase extends RoomDatabase {
     };*/
 
     private static void insertData(
-        final AppDatabase appDatabase, final List<Company> companies,
+        final AppDatabase appDatabase, final LiveData<List<Company>> companies,
         final List<Line> lines, final List<Vehicle> prefixes
     ) {
         appDatabase.runInTransaction(() -> {
-            appDatabase.getCompanyDao().insertAll(companies);
+            appDatabase.getCompanyDao().insertAll(companies.getValue());
             appDatabase.getLineDao().insertAll(lines);
             appDatabase.getVehicleDao().insertAll(prefixes);
         });
@@ -148,7 +148,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase buildDatabase(
         final Context appContext, final AppExecutors executors
     ) {
-        List<Company> companies = CsvUtil.getCompanies();
+        LiveData<List<Company>> companies = CsvUtil.getCompanies();
         return Room.databaseBuilder(
             appContext, AppDatabase.class, DATABASE_NAME
         )
@@ -161,7 +161,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     AppDatabase appDatabase = AppDatabase.getInstance(
                         appContext, executors
                     );
-                    List<Company> companies = CsvUtil.getCompanies();
+                    LiveData<List<Company>> companies = CsvUtil.getCompanies();
                     List<Line> lines = getLines();
                     List<Vehicle> vehicles = getVehicles();
                     insertData(appDatabase, companies, lines, vehicles);

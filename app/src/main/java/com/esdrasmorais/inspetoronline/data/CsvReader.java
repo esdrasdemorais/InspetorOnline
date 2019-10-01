@@ -1,5 +1,11 @@
 package com.esdrasmorais.inspetoronline.data;
 
+import android.os.AsyncTask;
+import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -41,7 +47,11 @@ public class CsvReader {
      */
     public CsvReader(Reader reader) {
         this(reader, DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER,
-                DEFAULT_SKIP_LINES);
+            DEFAULT_SKIP_LINES);
+    }
+
+    public Boolean getHasNext() {
+        return hasNext;
     }
 
     /**
@@ -63,6 +73,12 @@ public class CsvReader {
         this.skipLines = line;
     }
 
+    private MediatorLiveData<String[]> readNext = new MediatorLiveData<>();
+
+    public LiveData<String[]> getReadNext() {
+        return readNext;
+    }
+
     /**
      * Reads the next line from the buffer and converts to a string array.
      *
@@ -72,10 +88,10 @@ public class CsvReader {
      * @throws IOException
      *             if bad things happen during the read
      */
-    public String[] readNext() throws IOException {
-
-        String nextLine = getNextLine();
-        return hasNext ? parseLine(nextLine) : null;
+    public void readNext() throws IOException {
+        //String nextLine = getNextLine();
+        new GetNextLine().execute();
+        //return hasNext ? parseLine(nextLine) : null;
     }
 
     /**
@@ -99,6 +115,24 @@ public class CsvReader {
         return hasNext ? nextLine : null;
     }
 
+    private class GetNextLine extends AsyncTask<Void, Integer, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                return getNextLine();
+            } catch (IOException ex) {
+                Log.e("CsvReader", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String nextLine) {
+            if (nextLine != null) {
+                new ParseLine().execute(nextLine);
+            }
+        }
+    }
     /**
      * Parses an incoming String and returns an array of elements.
      *
@@ -158,7 +192,23 @@ public class CsvReader {
         } while (inQuotes);
         tokensOnThisLine.add(sb.toString());
         return (String[]) tokensOnThisLine.toArray(new String[0]);
+    }
 
+    private class ParseLine extends AsyncTask<String, Integer, String[]> {
+        @Override
+        protected String[] doInBackground(String... nextLine) {
+            try {
+                return parseLine(nextLine[0]);
+            } catch (IOException ex) {
+                Log.e("CsvReader", ex.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String[] parseLine) {
+            readNext.postValue(parseLine);
+        }
     }
 
     /**

@@ -3,6 +3,8 @@ package com.esdrasmorais.inspetoronline.ui.login;
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -32,6 +34,7 @@ import com.esdrasmorais.inspetoronline.data.AppDatabase;
 import com.esdrasmorais.inspetoronline.data.AppExecutors;
 import com.esdrasmorais.inspetoronline.data.BasicApp;
 import com.esdrasmorais.inspetoronline.data.DataRepository;
+import com.esdrasmorais.inspetoronline.data.model.Company;
 import com.esdrasmorais.inspetoronline.ui.TaskManagerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,6 +48,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class LoginActivity
@@ -87,7 +92,10 @@ public class LoginActivity
     private TextView detailText;
     private EditText passwordEditText;
 
+    public LiveData<List<Company>> companies;
+
     public LoginActivity() {
+
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
@@ -122,9 +130,21 @@ public class LoginActivity
         this.dataReposity = ((BasicApp) application).getRepository();
     }
 
+    private List<Company> companiesList = new ArrayList<Company>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         startDb();
+        this.dataReposity.getCompanies().
+            observe(this, new Observer<List<Company>>() {
+                @Override
+                public void onChanged(@Nullable List<Company> companies) {
+                    if (companies != null) {
+                        companiesList = companies;
+                    }
+                }
+            }
+        );
 
         if (currentUser != null) return;
 

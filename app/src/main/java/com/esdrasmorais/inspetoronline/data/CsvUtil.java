@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -32,6 +33,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class CsvUtil {
+
+    public CsvUtil() {
+        setCompanies();
+    }
+
     private static void exportTableToCsv(
         AppDatabase db, String fileName, String tableName
     ) {
@@ -95,16 +101,23 @@ public class CsvUtil {
     }
 
     private static void importCompanyFromCsv(Reader reader) {
-        String[] nextLine;
+        //String[] nextLine;
         try {
             CsvReader csvReader = new CsvReader(reader);
             csvReader.readNext();
             // nextLine[] is an array of values from the line
             while (csvReader.getHasNext()) {
                 csvReader.readNext();
-                if (csvReader.getReadNext().getValue() != null)
-                    setCompany(csvReader.getReadNext().getValue());
             }
+
+            csvReader.getReadNext().observe(null, new Observer<String[]>() {
+                @Override
+                public void onChanged(@Nullable String[] readNext) {
+                    if (readNext != null)
+                        setCompany(readNext);
+                }
+            });
+
             companies.postValue(companies.getValue());
         } catch (IOException ex) {
             try {
@@ -125,8 +138,11 @@ public class CsvUtil {
 
     private static MediatorLiveData<List<Company>> companies = new MediatorLiveData<>();
 
-    public static LiveData<List<Company>> getCompanies() {
+    private void setCompanies() {
         new GetCompaniesCsvFile().execute("companies.csv");
+    }
+
+    public static LiveData<List<Company>> getCompanies() {
         return companies;
     }
 

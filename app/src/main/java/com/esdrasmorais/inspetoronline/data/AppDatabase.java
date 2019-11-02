@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -26,6 +27,7 @@ import com.esdrasmorais.inspetoronline.data.model.Line;
 import com.esdrasmorais.inspetoronline.data.model.LineType;
 import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -34,11 +36,11 @@ import java.util.concurrent.Executors;
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase appDatabase;
 
-    public AppDatabase() {
-        if (appDatabase != null) {
-            throw new RuntimeException("Prevent Reflection Api");
-        }
-    }
+//    public AppDatabase() {
+//        if (appDatabase != null) {
+//            throw new RuntimeException("Prevent Reflection Api");
+//        }
+//    }
 
     @VisibleForTesting
     public static final String DATABASE_NAME = "InspetorOnline.db";
@@ -101,21 +103,22 @@ public abstract class AppDatabase extends RoomDatabase {
         return isDatabaseCreated;
     }
 
-    /*private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            //database.execSQL("");
+            database.execSQL("");
         }
-    };*/
+    };
 
     private static void insertData(
-        final AppDatabase appDatabase, final LiveData<List<Company>> companies,
+        final AppDatabase appDatabase, final List<Company> companies,
         final List<Line> lines, final List<Vehicle> prefixes
     ) {
         appDatabase.runInTransaction(() -> {
-            appDatabase.getCompanyDao().insertAll(companies.getValue());
-            appDatabase.getLineDao().insertAll(lines);
-            appDatabase.getVehicleDao().insertAll(prefixes);
+            if (companies != null)
+                appDatabase.getCompanyDao().insertAll(companies);
+//            appDatabase.getLineDao().insertAll(lines);
+//            appDatabase.getVehicleDao().insertAll(prefixes);
         });
     }
 
@@ -145,10 +148,13 @@ public abstract class AppDatabase extends RoomDatabase {
         return vehicles;
     }
 
+    static CsvUtil csvUtil = new CsvUtil();
+
+    static List<Company> companies;
+
     private static AppDatabase buildDatabase(
         final Context appContext, final AppExecutors executors
     ) {
-        LiveData<List<Company>> companies = CsvUtil.getCompanies();
         return Room.databaseBuilder(
             appContext, AppDatabase.class, DATABASE_NAME
         )
@@ -161,7 +167,14 @@ public abstract class AppDatabase extends RoomDatabase {
                     AppDatabase appDatabase = AppDatabase.getInstance(
                         appContext, executors
                     );
-                    LiveData<List<Company>> companies = CsvUtil.getCompanies();
+                    csvUtil.getCompanies().observe(
+                        null, new Observer<List<Company>>() {
+                            @Override
+                            public void onChanged(List<Company> companiesL) {
+                                companies = companiesL;
+                            }
+                        }
+                    );
                     List<Line> lines = getLines();
                     List<Vehicle> vehicles = getVehicles();
                     insertData(appDatabase, companies, lines, vehicles);
@@ -169,7 +182,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 });
             }
         })
-        //.addMigrations(MIGRATION_1_2)
+        .addMigrations(MIGRATION_1_2)
         .build();
     }
 }

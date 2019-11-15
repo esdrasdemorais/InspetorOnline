@@ -24,7 +24,9 @@ public class DataRepository {
         observableCompanies.addSource(
             appDatabase.getCompanyDao().getAll(),
             companies -> {
-                if (appDatabase.getDatabaseCreated().getValue() != null) {
+                if (appDatabase.getDatabaseCreated().getValue() != null
+                    && companies != null && companies.size() > 0
+                ) {
                     observableCompanies.postValue(companies);
                 }
             }

@@ -240,7 +240,7 @@ public class TaskManagerActivity
                     location.getLongitude()), DEFAULT_ZOOM
                 )
             );
-            mMap.addMarker(
+            /*mMap.addMarker(
                 new MarkerOptions()
                     .title("Voce esta")
                     .position(
@@ -248,7 +248,7 @@ public class TaskManagerActivity
                         location.getLongitude())
                     )
                     .snippet("aqui")
-            );
+            );*/
         }
     }
 

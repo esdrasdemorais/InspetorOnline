@@ -2,6 +2,8 @@ package com.esdrasmorais.inspetoronline.data;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -29,12 +31,20 @@ import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import bolts.Continuation;
+import bolts.Task;
 
 @Database(entities = {Company.class, Line.class, Vehicle.class}, version = 1)
 @TypeConverters({DateConverter.class, DirectionConverter.class, LineTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase appDatabase;
+
+    private static final String TAG = AppDatabase.class.getSimpleName();
 
 //    public AppDatabase() {
 //        if (appDatabase != null) {
@@ -163,21 +173,36 @@ public abstract class AppDatabase extends RoomDatabase {
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
                 executors.diskIO().execute(() -> {
-                    addDelay();
+                    //addDelay();
                     AppDatabase appDatabase = AppDatabase.getInstance(
                         appContext, executors
                     );
-                    csvUtil.getCompanies().observe(
-                        null, new Observer<List<Company>>() {
-                            @Override
-                            public void onChanged(List<Company> companiesL) {
-                                companies = companiesL;
-                            }
-                        }
-                    );
-                    List<Line> lines = getLines();
-                    List<Vehicle> vehicles = getVehicles();
-                    insertData(appDatabase, companies, lines, vehicles);
+                    //Task.callInBackground((Callable<Void>) () -> {
+//                    ExecutorService service =  Executors.newSingleThreadExecutor();
+//                    service.submit(new Runnable() {
+//                       @Override
+//                       public void run() {
+//                           csvUtil.getCompanies().observeForever(new Observer<List<Company>>() {
+//                               @Override
+//                               public void onChanged(List<Company> companiesL) {
+//                                   companies = companiesL;
+//                                   if (companies != null)
+//                                       insertData(appDatabase, companies, null, null);
+//                               }
+//                           });
+//                       }
+//                    });
+                    /*    return null;
+                    }).continueWith((Continuation<Void, Void>) task -> {
+                        if (task.isFaulted())
+                            Log.e(TAG, "find failed", task.getError());
+                        return null;
+                    });*/
+                    //                    List<Line> lines = getLines();
+                    //                    List<Vehicle> vehicles = getVehicles();
+                    companies = csvUtil.getCompanies();
+                    if (companies != null)
+                        insertData(appDatabase, companies, null, null);
                     appDatabase.setDatabaseCreated();
                 });
             }

@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -31,10 +33,29 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import bolts.Continuation;
+import bolts.Task;
 
 public class CsvUtil {
 
+    private static final String TAG = CsvUtil.class.getSimpleName();
+
+    private static List<String[]> companiesStringArray;
+
+    private static List<Line> lines = new ArrayList<Line>();
+
+    private static List<Vehicle> vehicles = new ArrayList<Vehicle>();
+
+    private static List<Company> companies = new ArrayList<>();
+
     public CsvUtil() {
+        companiesStringArray = new ArrayList<String[]>();
         setCompanies();
     }
 
@@ -52,7 +73,7 @@ public class CsvUtil {
             Cursor curCSV = db.query("SELECT * FROM " + tableName, null);
             csvWrite.writeNext(curCSV.getColumnNames());
             while (curCSV.moveToNext()) {
-                //Which column you want to exprort
+                //Which column you want to export
                 String arrStr[] = new String[curCSV.getColumnCount()];
                 for (int i = 0; i < curCSV.getColumnCount() - 1; i++)
                     arrStr[i] = curCSV.getString(i);
@@ -64,8 +85,6 @@ public class CsvUtil {
             Log.e("CsvUtil", sqlEx.getMessage(), sqlEx);
         }
     }
-
-    static List<String> values = null;
 
     private static Reader getCompaniesCsvFile(String tableName) {
         BufferedReader r = null;
@@ -104,21 +123,31 @@ public class CsvUtil {
         //String[] nextLine;
         try {
             CsvReader csvReader = new CsvReader(reader);
-            csvReader.readNext();
             // nextLine[] is an array of values from the line
             while (csvReader.getHasNext()) {
-                csvReader.readNext();
+                csvReader.readNext(companiesStringArray);
             }
-
-            csvReader.getReadNext().observe(null, new Observer<String[]>() {
+            /*ExecutorService service =  Executors.newSingleThreadExecutor();
+            service.submit(new Runnable() {
                 @Override
-                public void onChanged(@Nullable String[] readNext) {
-                    if (readNext != null)
-                        setCompany(readNext);
-                }
-            });
-
-            companies.postValue(companies.getValue());
+                public void run() {
+                    //Task.callInBackground((Callable<Void>) () -> {
+                        csvReader.getReadNext().observeForever(new Observer<String[]>() {
+                            @Override
+                            public void onChanged(String[] readNext) {
+                                if (readNext != null)
+                                    setCompany(readNext);
+                            }
+                        });*/
+                        /*return null;
+                    }).continueWith((Continuation<Void, Void>) task -> {
+                        if (task.isFaulted()) {
+                            Log.e(TAG, "find failed", task.getError());
+                        }
+                        return null;
+                    });*/
+              /*  }
+            });*/
         } catch (IOException ex) {
             try {
                 throw new IOException(ex.getMessage());
@@ -130,19 +159,25 @@ public class CsvUtil {
 
     private static void setCompany(String[] nextLine) {
         Company company = new Company();
-        company.setOperationAreaCode(Integer.parseInt(nextLine[0]));
-        company.setCompanyReferenceCode(Integer.parseInt(nextLine[1]));
+        company.setId(UUID.randomUUID().toString().replace("-", ""));
+        try {
+            company.setOperationAreaCode(Integer.parseInt(nextLine[0]));
+            company.setCompanyReferenceCode(Integer.parseInt(nextLine[1]));
+        } catch (NumberFormatException ex) {
+            Log.e(TAG, "setCompany(): " + ex.getMessage());
+        }
         company.setCompanyName(nextLine[2]);
-        Objects.requireNonNull(companies.getValue()).add(company);
+        companies.add(company);
     }
-
-    private static MediatorLiveData<List<Company>> companies = new MediatorLiveData<>();
 
     private void setCompanies() {
         new GetCompaniesCsvFile().execute("companies.csv");
     }
 
-    public static LiveData<List<Company>> getCompanies() {
+    public static List<Company> getCompanies() {
+        for (String[] company : companiesStringArray) {
+            setCompany(company);
+        }
         return companies;
     }
 
@@ -169,10 +204,10 @@ public class CsvUtil {
             CsvReader csvReader = new CsvReader(
                 new FileReader(getLinesCsvPath() + "/" + tableName)
             );
-            csvReader.readNext();
+            //csvReader.readNext();
             // nextLine[] is an array of values from the line
             while (csvReader.getHasNext()) {
-                csvReader.readNext();
+                //csvReader.readNext();
                 if (csvReader.getReadNext().getValue() != null)
                     setLine(csvReader.getReadNext().getValue());
             }
@@ -180,8 +215,6 @@ public class CsvUtil {
             Log.d("CsvUtil", ex.getMessage());
         }
     }
-
-    static List<Line> lines = new ArrayList<Line>();
 
     public static List<Line> getLines() {
         importLineFromCsv("lines.csv");
@@ -207,13 +240,13 @@ public class CsvUtil {
         try {
             CsvReader csvReader = new CsvReader(
                 new FileReader(
-                        Environment.getExternalStorageDirectory() + "/" + tableName
+            Environment.getExternalStorageDirectory() + "/" + tableName
                 )
             );
-            csvReader.readNext();
+            //csvReader.readNext();
             // nextLine[] is an array of values from the line
             while (csvReader.getHasNext()) {
-                csvReader.readNext();
+                //csvReader.readNext();
                 if (csvReader.getReadNext().getValue() != null)
                     setVehicle(csvReader.getReadNext().getValue(), 6);
             }
@@ -221,8 +254,6 @@ public class CsvUtil {
             Log.d("CsvUtil", ex.getMessage());
         }
     }
-
-    static List<Vehicle> vehicles = new ArrayList<Vehicle>();
 
     public static List<Vehicle> getVehicles() {
         importVehicleFromCsv("lines.csv");

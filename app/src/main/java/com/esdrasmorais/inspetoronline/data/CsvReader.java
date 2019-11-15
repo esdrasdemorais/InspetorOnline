@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,17 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CsvReader {
-    private BufferedReader br;
+    private static BufferedReader br;
 
-    private boolean hasNext = true;
+    private static boolean hasNext = true;
 
-    private char separator;
+    private static char separator;
 
-    private char quotechar;
+    private static char quotechar;
 
-    private int skipLines;
+    private static int skipLines;
 
-    private boolean linesSkiped;
+    private static boolean linesSkiped;
 
     /** The default separator to use if none is supplied to the constructor. */
     public static final char DEFAULT_SEPARATOR = ',';
@@ -73,7 +73,7 @@ public class CsvReader {
         this.skipLines = line;
     }
 
-    private MediatorLiveData<String[]> readNext = new MediatorLiveData<>();
+    private final MutableLiveData<String[]> readNext = new MutableLiveData<>();
 
     public LiveData<String[]> getReadNext() {
         return readNext;
@@ -88,9 +88,11 @@ public class CsvReader {
      * @throws IOException
      *             if bad things happen during the read
      */
-    public void readNext() throws IOException {
+    public void readNext(List<String[]> list) throws IOException {
         //String nextLine = getNextLine();
-        new GetNextLine().execute();
+
+        GetNextLine getNextLine = new GetNextLine(list);
+        getNextLine.execute();
         //return hasNext ? parseLine(nextLine) : null;
     }
 
@@ -101,12 +103,12 @@ public class CsvReader {
      * @throws IOException
      *             if bad things happen during the read
      */
-    private String getNextLine() throws IOException {
-        if (!this.linesSkiped) {
+    private static String getNextLine() throws IOException {
+        if (!linesSkiped) {
             for (int i = 0; i < skipLines; i++) {
                 br.readLine();
             }
-            this.linesSkiped = true;
+            linesSkiped = true;
         }
         String nextLine = br.readLine();
         if (nextLine == null) {
@@ -115,9 +117,17 @@ public class CsvReader {
         return hasNext ? nextLine : null;
     }
 
-    private class GetNextLine extends AsyncTask<Void, Integer, String> {
+    private static final class GetNextLine extends AsyncTask<Void, Integer, String>
+        implements ParseLine.TaskDelegate {
+
+        private List<String[]> list;
+
+        public GetNextLine(List<String[]> l) {
+            list = l;
+        }
+
         @Override
-        protected String doInBackground(Void... voids) {
+        protected String doInBackground(Void... companies) {
             try {
                 return getNextLine();
             } catch (IOException ex) {
@@ -129,8 +139,14 @@ public class CsvReader {
         @Override
         protected void onPostExecute(String nextLine) {
             if (nextLine != null) {
-                new ParseLine().execute(nextLine);
+                ParseLine parseLine = new ParseLine(this);
+                parseLine.execute(nextLine);
             }
+        }
+
+        @Override
+        public void onTaskEndWithResult(String[] parseLine) {
+            list.add(parseLine);
         }
     }
     /**
@@ -141,7 +157,7 @@ public class CsvReader {
      * @return the comma-tokenized list of elements, or null if nextLine is null
      * @throws IOException if bad things happen during the read
      */
-    private String[] parseLine(String nextLine) throws IOException {
+    private static String[] parseLine(String nextLine) throws IOException {
 
         if (nextLine == null) {
             return null;
@@ -175,9 +191,9 @@ public class CsvReader {
                         inQuotes = !inQuotes;
                         // the tricky case of an embedded quote in the middle: a,bc"d"ef,g
                         if(i>2 //not on the begining of the line
-                                && nextLine.charAt(i-1) != this.separator //not at the begining of an escape sequence
+                                && nextLine.charAt(i-1) != separator //not at the begining of an escape sequence
                                 && nextLine.length()>(i+1) &&
-                                nextLine.charAt(i+1) != this.separator //not at the	end of an escape sequence
+                                nextLine.charAt(i+1) != separator //not at the	end of an escape sequence
                         ){
                             sb.append(c);
                         }
@@ -194,7 +210,17 @@ public class CsvReader {
         return (String[]) tokensOnThisLine.toArray(new String[0]);
     }
 
-    private class ParseLine extends AsyncTask<String, Integer, String[]> {
+    public static final class ParseLine extends AsyncTask<String, Integer, String[]> {
+        private TaskDelegate delegate;
+
+        public ParseLine(TaskDelegate delegate) {
+            this.delegate = delegate;
+        }
+
+        public interface TaskDelegate {
+            public void onTaskEndWithResult(String[] parseLine);
+        }
+
         @Override
         protected String[] doInBackground(String... nextLine) {
             try {
@@ -207,7 +233,8 @@ public class CsvReader {
 
         @Override
         protected void onPostExecute(String[] parseLine) {
-            readNext.postValue(parseLine);
+            if (parseLine != null && delegate != null)
+                delegate.onTaskEndWithResult(parseLine);
         }
     }
 

@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer;
 import com.esdrasmorais.inspetoronline.data.model.Company;
 import com.esdrasmorais.inspetoronline.data.model.Direction;
 import com.esdrasmorais.inspetoronline.data.model.Line;
+import com.esdrasmorais.inspetoronline.data.model.LineType;
 import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 
 import java.io.BufferedReader;
@@ -29,7 +30,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -43,10 +46,13 @@ import bolts.Continuation;
 import bolts.Task;
 
 public class CsvUtil {
-
     private static final String TAG = CsvUtil.class.getSimpleName();
 
     private static List<String[]> companiesStringArray;
+
+    private static List<String[]> linesStringArray;
+
+    private static List<String[]> vehiclesStringArray;
 
     private static List<Line> lines = new ArrayList<Line>();
 
@@ -56,6 +62,15 @@ public class CsvUtil {
 
     public CsvUtil() {
         companiesStringArray = new ArrayList<String[]>();
+        linesStringArray = new ArrayList<String[]>();
+        vehiclesStringArray = new ArrayList<String[]>();
+//        try {
+//            Thread.sleep(5000);
+//        } catch (Exception ex) {
+//            Log.d(TAG, "CsvUtil(): " + ex.getMessage());
+//        }
+        setLines();
+        setVehicles();
         setCompanies();
     }
 
@@ -86,7 +101,7 @@ public class CsvUtil {
         }
     }
 
-    private static Reader getCompaniesCsvFile(String tableName) {
+    private Reader getCompaniesCsvFile(String tableName) {
         BufferedReader r = null;
         try {
             URL url = new URL(
@@ -105,7 +120,7 @@ public class CsvUtil {
         return r;
     }
 
-    private static class GetCompaniesCsvFile
+    private class GetCompaniesCsvFile
         extends AsyncTask<String, Integer, Reader>
     {
         @Override
@@ -119,7 +134,7 @@ public class CsvUtil {
         }
     }
 
-    private static void importCompanyFromCsv(Reader reader) {
+    private void importCompanyFromCsv(Reader reader) {
         //String[] nextLine;
         try {
             CsvReader csvReader = new CsvReader(reader);
@@ -127,6 +142,7 @@ public class CsvUtil {
             while (csvReader.getHasNext()) {
                 csvReader.readNext(companiesStringArray);
             }
+            //csvReader.close();
             /*ExecutorService service =  Executors.newSingleThreadExecutor();
             service.submit(new Runnable() {
                 @Override
@@ -157,7 +173,7 @@ public class CsvUtil {
         }
     }
 
-    private static void setCompany(String[] nextLine) {
+    private void setCompany(String[] nextLine) {
         Company company = new Company();
         company.setId(UUID.randomUUID().toString().replace("-", ""));
         try {
@@ -174,89 +190,173 @@ public class CsvUtil {
         new GetCompaniesCsvFile().execute("companies.csv");
     }
 
-    public static List<Company> getCompanies() {
+    public List<Company> getCompanies() {
+        try {
+            Thread.sleep(17000);
+        } catch (InterruptedException ex) {
+            Log.d(TAG, "getCompanies(): " + ex.getMessage());
+        }
         for (String[] company : companiesStringArray) {
             setCompany(company);
         }
         return companies;
     }
 
-    private static void setLine(String[] nextLine) {
+    private void setLine(String[] nextLine) {
         Line line = new Line();
-        line.setShortName(nextLine[0]);
-        line.setLineCode(Integer.parseInt(nextLine[1]));
-        line.setDirection(Direction.of(nextLine[2]));
-        line.setLineDestinationMarker(nextLine[3]);
-        line.setLineOriginMarker(nextLine[4]);
-        line.setVehiclesQuantityLocalized(Integer.parseInt(nextLine[5]));
-        lines.add(line);
+        try {
+            line.setId(UUID.randomUUID().toString().replace("-", ""));
+            line.setShortName(nextLine[0]);
+            line.setLineCode(Integer.parseInt(nextLine[1]));
+            line.setDirection(Direction.of(nextLine[2]));
+            line.setLineDestinationMarker(nextLine[3]);
+            line.setLineOriginMarker(nextLine[4]);
+            line.setVehiclesQuantityLocalized(Integer.parseInt(nextLine[5]));
+            line.setType(LineType.BUS);
+            lines.add(line);
+        } catch (Exception ex) {
+            Log.d(TAG, "setLine(): " + ex.getMessage());
+        }
+    }
+
+    private void setLines() {
+        new GetLinesCsvFile().execute("lines.csv");
     }
 
     private static String getLinesCsvPath() {
-        return "https:////firebasestorage.googleapis.com//v0//b//" +
-            "inspetoronline.appspot.com//o//lines.csv?alt=media&" +
+        return "https://firebasestorage.googleapis.com/v0/b/" +
+            "inspetoronline.appspot.com/o/lines.csv?alt=media&" +
             "token=d840e855-005b-4f98-94ca-d6d0f007cfbd";
     }
 
-    private static void importLineFromCsv(String tableName) {
-        String[] nextLine;
+    private static Reader getLinesCsvFile(String tableName) {
+        BufferedReader r = null;
         try {
-            CsvReader csvReader = new CsvReader(
-                new FileReader(getLinesCsvPath() + "/" + tableName)
-            );
-            //csvReader.readNext();
+            URL url = new URL(getLinesCsvPath());
+            r = new BufferedReader(new InputStreamReader(url.openStream()));
+        } catch (MalformedURLException mex) {
+            Log.e("CsvUtil", mex.getMessage());
+        } catch (IOException ex) {
+            Log.e("CsvUtil", ex.getMessage());
+        }
+        return r;
+    }
+
+    private class GetLinesCsvFile
+        extends AsyncTask<String, Integer, Reader>
+    {
+        @Override
+        protected Reader doInBackground(String... tableName) {
+            return getLinesCsvFile(tableName[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Reader reader) {
+            importLinesFromCsv(reader);
+        }
+    }
+
+    private void importLinesFromCsv(Reader reader) {
+        try {
+            CsvReader csvReader = new CsvReader(reader);
             // nextLine[] is an array of values from the line
             while (csvReader.getHasNext()) {
-                //csvReader.readNext();
-                if (csvReader.getReadNext().getValue() != null)
-                    setLine(csvReader.getReadNext().getValue());
+                csvReader.readNext(linesStringArray);
             }
         } catch (Exception ex) {
             Log.d("CsvUtil", ex.getMessage());
         }
     }
 
-    public static List<Line> getLines() {
-        importLineFromCsv("lines.csv");
+    public List<Line> getLines() {
+        try {
+            Thread.sleep(47700);
+        } catch (InterruptedException ex) {
+            Log.d(TAG, "getLines(): " + ex.getMessage());
+        }
+        for (String[] line : linesStringArray) {
+            setLine(line);
+        }
         return lines;
     }
 
-    private static void setVehicle(String[] nextLine, Integer i) {
-        if (nextLine[i].trim().length() > 0) {
-            setVehicle(nextLine, i += 5);
-        } else {
-            Vehicle vehicle = new Vehicle();
-            vehicle.setPrefix(Integer.parseInt(nextLine[i]));
-            vehicle.setHandicappedAccessible(Boolean.parseBoolean(nextLine[i + 1]));
-            vehicle.setLocalizatedAt(Date.valueOf(nextLine[i + 2]));
-            vehicle.setLatitude(Double.parseDouble(nextLine[i + 3]));
-            vehicle.setLongitude(Double.parseDouble(nextLine[i + 4]));
-            vehicles.add(vehicle);
+    private void setVehicle(String[] nextLine, Integer i) {
+        try {
+            if (nextLine[i].trim().length() > 0) {
+                setVehicle(nextLine, i += 5);
+            } else {
+                Vehicle vehicle = new Vehicle();
+                vehicle.setId(UUID.randomUUID().toString().replace("-", ""));
+                vehicle.setPrefix(Integer.parseInt(nextLine[i - 5]));
+                vehicle.setHandicappedAccessible(Boolean.parseBoolean(nextLine[i - 5 + 1]));
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                Date localizatedAt = dateFormat.parse(nextLine[i - 5 + 2]);
+                vehicle.setLocalizatedAt(localizatedAt);
+                vehicle.setLatitude(Double.parseDouble(nextLine[i - 5 + 3]));
+                vehicle.setLongitude(Double.parseDouble(nextLine[i - 5 + 4]));
+                vehicles.add(vehicle);
+            }
+        } catch (Exception ex) {
+            Log.d(TAG, "setVehicles(): " + ex.getMessage());
         }
     }
 
-    private static void importVehicleFromCsv(String tableName) {
-        String[] nextLine;
+    private static Reader getVehiclesCsvFile(String tableName) {
+        BufferedReader r = null;
+        try {
+            URL url = new URL(getLinesCsvPath());
+            r = new BufferedReader(new InputStreamReader(url.openStream()));
+        } catch (MalformedURLException mex) {
+            Log.e("CsvUtil", mex.getMessage());
+        } catch (IOException ex) {
+            Log.e("CsvUtil", ex.getMessage());
+        }
+        return r;
+    }
+
+    private class GetVehiclesCsvFile extends AsyncTask<String, Integer, Reader> {
+        @Override
+        protected Reader doInBackground(String... tableName) {
+            return getVehiclesCsvFile(tableName[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Reader reader) {
+            importVehicleFromCsv(reader);
+        }
+    }
+
+    private void setVehicles() {
+        new GetVehiclesCsvFile().execute("lines.csv");
+    }
+
+    private static void importVehicleFromCsv(Reader reader) {
         try {
             CsvReader csvReader = new CsvReader(
-                new FileReader(
-            Environment.getExternalStorageDirectory() + "/" + tableName
-                )
+//                new FileReader(
+//            Environment.getExternalStorageDirectory() + "/" + tableName
+//                )
+                reader
             );
-            //csvReader.readNext();
             // nextLine[] is an array of values from the line
             while (csvReader.getHasNext()) {
-                //csvReader.readNext();
-                if (csvReader.getReadNext().getValue() != null)
-                    setVehicle(csvReader.getReadNext().getValue(), 6);
+                csvReader.readNext(vehiclesStringArray);
             }
         } catch (Exception ex) {
             Log.d("CsvUtil", ex.getMessage());
         }
     }
 
-    public static List<Vehicle> getVehicles() {
-        importVehicleFromCsv("lines.csv");
+    public List<Vehicle> getVehicles() {
+        vehiclesStringArray = linesStringArray;
+        for (String[] vehicle : vehiclesStringArray) {
+            setVehicle(vehicle, 6);
+        }
+        try {
+            Thread.sleep(1700);
+        } catch (InterruptedException ex) {
+            Log.d(TAG, "getLines(): " + ex.getMessage());
+        }
         return vehicles;
     }
 }

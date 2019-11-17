@@ -10,16 +10,19 @@ public class BasicApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.context = getApplicationContext();
         mAppExecutors = new AppExecutors();
     }
 
-    /*public BasicApp(Context context) {
+    public BasicApp() {
+    }
+
+    public BasicApp(Context context) {
         this.context = context;
-    }*/
+    }
 
     public AppDatabase getDatabase() {
-        //return AppDatabase.getInstance(context, mAppExecutors);
-        return AppDatabase.getInstance(getApplicationContext(), mAppExecutors);
+        return AppDatabase.getInstance(context, mAppExecutors);
     }
 
     public DataRepository getRepository() {

@@ -1,9 +1,12 @@
 package com.esdrasmorais.inspetoronline.ui.inspection;
 
+import android.app.Application;
 import android.location.Location;
 import android.os.Bundle;
 
 import com.android.volley.Request;
+import com.esdrasmorais.inspetoronline.data.BasicApp;
+import com.esdrasmorais.inspetoronline.data.DataRepository;
 import com.esdrasmorais.inspetoronline.data.GetVolleyResponse;
 import com.esdrasmorais.inspetoronline.data.SpTrans;
 import com.esdrasmorais.inspetoronline.data.model.Company;
@@ -18,8 +21,12 @@ import com.esdrasmorais.inspetoronline.data.repository.InspectionReportRepositor
 import com.esdrasmorais.inspetoronline.data.repository.InspectionRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -90,6 +97,10 @@ public class InspectionReportActivity extends AppCompatActivity {
     Inspection inspection;
     InspectionReport inspectionReport;
     InspectionReportRepository inspectionReportRepository;
+    @NonNull
+    private Application application;
+    @NonNull
+    private DataRepository dataReposity;
 
     public InspectionReportActivity() {
         this.getVolleyResponse = new GetVolleyResponse(this);
@@ -173,6 +184,34 @@ public class InspectionReportActivity extends AppCompatActivity {
             line.setLineDestinationMarker(headSign);
             lines.add(line);
         }
+    }
+
+    private void setLinesDao() {
+        this.dataReposity.getLines().
+            observe(this, new Observer<List<Line>>() {
+                    @Override
+                    public void onChanged(List<Line> l) {
+                        if (l != null) {
+                            lines = l;
+                            setLinesAdapter();
+                        }
+                    }
+                }
+            );
+    }
+
+    private void setVehiclesDao() {
+        this.dataReposity.getVehicles().
+            observe(this, new Observer<List<Vehicle>>() {
+                @Override
+                public void onChanged(List<Vehicle> vehicles) {
+                    if (vehicles != null) {
+                        prefixes = vehicles;
+                        setPrefixesAdapter();
+                    }
+                }
+            }
+        );
     }
 
     //json.routes[0].legs[0].steps[n].transit_details.line.name
@@ -596,6 +635,8 @@ public class InspectionReportActivity extends AppCompatActivity {
     private void initializeAdapters() {
         this.setGoogleDirections();
         this.setSpTrans();
+        this.setLinesDao();
+        this.setVehiclesDao();
         this.setLocationsAdapter();
         this.setVehicleStateAdapter();
         this.setPresentationEmployeesAdapter();
@@ -617,6 +658,7 @@ public class InspectionReportActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.dataReposity = new BasicApp(this.getApplicationContext()).getRepository();
         this.initializeWidgets();
         this.initializeAdapters();
 

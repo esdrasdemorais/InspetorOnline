@@ -66,6 +66,14 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static SpTrans spTrans = null;
 
+    private static CsvUtil csvUtil = new CsvUtil();
+
+    private static List<Company> companies;
+
+    private static List<Line> lines;
+
+    private static List<Vehicle> vehicles;
+
     private void setDatabaseCreated() {
         isDatabaseCreated.postValue(true);
     }
@@ -101,9 +109,9 @@ public abstract class AppDatabase extends RoomDatabase {
         return getInstance(appContext, executors);
     }
 
-    private static void addDelay() {
+    private static void addDelay(Integer minsecs) {
         try {
-            Thread.sleep(4000);
+            Thread.sleep(minsecs);
         } catch (InterruptedException ex) {
             Log.e("AppDatabase", "Sleep failed!");
         }
@@ -125,10 +133,12 @@ public abstract class AppDatabase extends RoomDatabase {
         final List<Line> lines, final List<Vehicle> prefixes
     ) {
         appDatabase.runInTransaction(() -> {
-            if (companies != null)
+            if (companies != null && companies.size() > 0)
                 appDatabase.getCompanyDao().insertAll(companies);
-//            appDatabase.getLineDao().insertAll(lines);
-//            appDatabase.getVehicleDao().insertAll(prefixes);
+            if (lines != null && lines.size() > 0)
+                appDatabase.getLineDao().insertAll(lines);
+            if (prefixes != null && prefixes.size() > 0)
+                appDatabase.getVehicleDao().insertAll(prefixes);
         });
     }
 
@@ -137,10 +147,10 @@ public abstract class AppDatabase extends RoomDatabase {
         try {
            //lines = spTrans.getLineList();
            if (lines == null)
-               lines = CsvUtil.getLines();
+               lines = csvUtil.getLines();
         } catch (Exception ex) {
             Log.e("AppDatabase", ex.getMessage());
-            lines = CsvUtil.getLines();
+            lines = csvUtil.getLines();
         }
         return lines;
     }
@@ -150,17 +160,13 @@ public abstract class AppDatabase extends RoomDatabase {
         try {
             //vehicles = spTrans.getVehicleList();
             if (vehicles == null)
-                vehicles = CsvUtil.getVehicles();
+                vehicles = csvUtil.getVehicles();
         } catch (Exception ex) {
             Log.e("AppDatabase", ex.getMessage());
-            vehicles = CsvUtil.getVehicles();
+            vehicles = csvUtil.getVehicles();
         }
         return vehicles;
     }
-
-    static CsvUtil csvUtil = new CsvUtil();
-
-    static List<Company> companies;
 
     private static AppDatabase buildDatabase(
         final Context appContext, final AppExecutors executors
@@ -171,13 +177,13 @@ public abstract class AppDatabase extends RoomDatabase {
         .addCallback(new Callback() {
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-                executors.diskIO().execute(() -> {
-                    //addDelay();
-                    AppDatabase appDatabase = AppDatabase.getInstance(
-                        appContext, executors
-                    );
-                    //Task.callInBackground((Callable<Void>) () -> {
+            super.onCreate(db);
+            executors.diskIO().execute(() -> {
+                addDelay(1700);
+                AppDatabase appDatabase = AppDatabase.getInstance(
+                    appContext, executors
+                );
+                //Task.callInBackground((Callable<Void>) () -> {
 //                    ExecutorService service =  Executors.newSingleThreadExecutor();
 //                    service.submit(new Runnable() {
 //                       @Override
@@ -192,19 +198,18 @@ public abstract class AppDatabase extends RoomDatabase {
 //                           });
 //                       }
 //                    });
-                    /*    return null;
-                    }).continueWith((Continuation<Void, Void>) task -> {
-                        if (task.isFaulted())
-                            Log.e(TAG, "find failed", task.getError());
-                        return null;
-                    });*/
-                    //                    List<Line> lines = getLines();
-                    //                    List<Vehicle> vehicles = getVehicles();
-                    companies = csvUtil.getCompanies();
-                    if (companies != null)
-                        insertData(appDatabase, companies, null, null);
-                    appDatabase.setDatabaseCreated();
-                });
+                /*    return null;
+                }).continueWith((Continuation<Void, Void>) task -> {
+                    if (task.isFaulted())
+                        Log.e(TAG, "find failed", task.getError());
+                    return null;
+                });*/
+                companies = csvUtil.getCompanies();
+                lines = getLines();
+                vehicles = getVehicles();
+                insertData(appDatabase, companies, lines, vehicles);
+                appDatabase.setDatabaseCreated();
+            });
             }
         })
         .addMigrations(MIGRATION_1_2)

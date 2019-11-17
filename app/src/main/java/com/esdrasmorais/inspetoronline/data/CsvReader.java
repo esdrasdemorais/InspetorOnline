@@ -37,7 +37,7 @@ public class CsvReader {
     /**
      * The default line to start reading.
      */
-    public static final int DEFAULT_SKIP_LINES = 0;
+    public static final int DEFAULT_SKIP_LINES = 1;
 
     /**
      * Constructs CSVReader using a comma for the separator.
@@ -90,7 +90,6 @@ public class CsvReader {
      */
     public void readNext(List<String[]> list) throws IOException {
         //String nextLine = getNextLine();
-
         GetNextLine getNextLine = new GetNextLine(list);
         getNextLine.execute();
         //return hasNext ? parseLine(nextLine) : null;
@@ -117,7 +116,7 @@ public class CsvReader {
         return hasNext ? nextLine : null;
     }
 
-    private static final class GetNextLine extends AsyncTask<Void, Integer, String>
+    private class GetNextLine extends AsyncTask<Void, Integer, String>
         implements ParseLine.TaskDelegate {
 
         private List<String[]> list;
@@ -127,7 +126,7 @@ public class CsvReader {
         }
 
         @Override
-        protected String doInBackground(Void... companies) {
+        protected String doInBackground(Void... v) {
             try {
                 return getNextLine();
             } catch (IOException ex) {
@@ -158,11 +157,9 @@ public class CsvReader {
      * @throws IOException if bad things happen during the read
      */
     private static String[] parseLine(String nextLine) throws IOException {
-
         if (nextLine == null) {
             return null;
         }
-
         List<String> tokensOnThisLine = new ArrayList<String>();
         StringBuffer sb = new StringBuffer();
         boolean inQuotes = false;
@@ -175,12 +172,11 @@ public class CsvReader {
                     break;
             }
             for (int i = 0; i < nextLine.length(); i++) {
-
                 char c = nextLine.charAt(i);
                 if (c == quotechar) {
                     // this gets complex... the quote may end a quoted block, or escape another quote.
                     // do a 1-char lookahead:
-                    if( inQuotes  // we are in quotes, therefore there can be escaped quotes in here.
+                    if(inQuotes  // we are in quotes, therefore there can be escaped quotes in here.
                             && nextLine.length() > (i+1)  // there is indeed another character to check.
                             && nextLine.charAt(i+1) == quotechar ){ // ..and that char. is a quote also.
                         // we have two quote chars in a row == one quote char, so consume them both and
@@ -210,7 +206,7 @@ public class CsvReader {
         return (String[]) tokensOnThisLine.toArray(new String[0]);
     }
 
-    public static final class ParseLine extends AsyncTask<String, Integer, String[]> {
+    public static class ParseLine extends AsyncTask<String, Integer, String[]> {
         private TaskDelegate delegate;
 
         public ParseLine(TaskDelegate delegate) {

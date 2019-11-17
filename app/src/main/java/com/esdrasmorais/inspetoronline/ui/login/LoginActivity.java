@@ -35,6 +35,8 @@ import com.esdrasmorais.inspetoronline.data.AppExecutors;
 import com.esdrasmorais.inspetoronline.data.BasicApp;
 import com.esdrasmorais.inspetoronline.data.DataRepository;
 import com.esdrasmorais.inspetoronline.data.model.Company;
+import com.esdrasmorais.inspetoronline.data.model.Line;
+import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 import com.esdrasmorais.inspetoronline.ui.TaskManagerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -94,6 +96,12 @@ public class LoginActivity
 
     public LiveData<List<Company>> companies;
 
+    private List<Company> companiesList = new ArrayList<Company>();
+
+    private List<Line> linesList = new ArrayList<Line>();
+
+    private List<Vehicle> vehiclesList = new ArrayList<Vehicle>();
+
     public LoginActivity() {
 
     }
@@ -130,11 +138,10 @@ public class LoginActivity
         this.dataReposity = ((BasicApp) application).getRepository();
     }
 
-    private List<Company> companiesList = new ArrayList<Company>();
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         startDb();
+
         this.dataReposity.getCompanies().
             observe(this, new Observer<List<Company>>() {
                 @Override

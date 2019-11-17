@@ -86,6 +86,10 @@ public class DataRepository {
         return observableLines;
     }
 
+    public LiveData<List<Vehicle>> getVehicles() {
+        return observableVehicles;
+    }
+
     public LiveData<Company> findByCompanyReferenceCode(
         final Integer companyReferenceCode
     ) {

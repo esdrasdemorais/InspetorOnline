@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Observer;
 
 import com.android.volley.Request;
 import com.esdrasmorais.inspetoronline.R;
@@ -56,7 +57,7 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
     private GetVolleyResponse getVolleyResponse;
     private List<Company> companies = new ArrayList<Company>();
     private Integer countCompanies = 1;
-    private LiveData<List<Line>> lines = null;
+    private List<Line> lines;
     private TextInputLayout inputLayoutDirection;
     private TextInputLayout inputLayoutSubject;
     private TextInputLayout inputLayoutLines;
@@ -81,7 +82,6 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
         application = fragmentActivity.getApplication();
         dataReposity = ((BasicApp) application).getRepository();
         dataReposity.getCompanies();
-        lines = dataReposity.getLines();
     }
 
     private void setGoogleDirections() {
@@ -224,14 +224,14 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
         ArrayAdapter<Line> adapter = new ArrayAdapter<Line>(
             this.view.getContext(),
             R.layout.dropdown_guidance_lines_menu_popup_item,
-            lines.getValue()
+            lines
         );
         lineDropdown.setAdapter(adapter);
         lineDropdown.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(
-                        AdapterView<?> parent, View view, int position, long id
+                    AdapterView<?> parent, View view, int position, long id
                 ) {
                     Line selected = (Line) parent.getAdapter().getItem(position);
                     guidance.setLine(selected);
@@ -320,6 +320,15 @@ public class GuidanceDialogFragment extends AppCompatDialogFragment {
                         save();
                     }
                 });*/
+        dataReposity.getLines().observe(this, new Observer<List<Line>>() {
+            @Override
+            public void onChanged(List<Line> l) {
+                if (l != null) {
+                    lines = l;
+                    setLinesAdapter();
+                }
+            }
+        });
 
         initializeFields();
         initializeAdapters();

@@ -97,8 +97,8 @@ public class InspectionReportActivity extends AppCompatActivity {
     Inspection inspection;
     InspectionReport inspectionReport;
     InspectionReportRepository inspectionReportRepository;
-    @NonNull
-    private Application application;
+//    @NonNull
+//    private Application application;
     @NonNull
     private DataRepository dataReposity;
 

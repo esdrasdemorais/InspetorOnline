@@ -209,6 +209,7 @@ public class CsvUtil {
             line.setShortName(nextLine[0]);
             line.setLineCode(Integer.parseInt(nextLine[1]));
             line.setDirection(Direction.of(nextLine[2]));
+            line.setName(nextLine[3]);
             line.setLineDestinationMarker(nextLine[3]);
             line.setLineOriginMarker(nextLine[4]);
             line.setVehiclesQuantityLocalized(Integer.parseInt(nextLine[5]));

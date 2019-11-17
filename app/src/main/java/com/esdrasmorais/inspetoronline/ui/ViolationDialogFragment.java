@@ -1,6 +1,7 @@
 package com.esdrasmorais.inspetoronline.ui;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Dialog;
 import android.location.Location;
 import android.os.Bundle;
@@ -12,13 +13,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.core.app.DialogCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
 
 import com.android.volley.Request;
 import com.esdrasmorais.inspetoronline.R;
+import com.esdrasmorais.inspetoronline.data.BasicApp;
+import com.esdrasmorais.inspetoronline.data.DataRepository;
 import com.esdrasmorais.inspetoronline.data.GetVolleyResponse;
 import com.esdrasmorais.inspetoronline.data.GoogleDirections;
 import com.esdrasmorais.inspetoronline.data.SecurityPreferences;
@@ -79,9 +84,17 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
     //    private GuidanceDialogFragment.GuidanceDialogListener listener;
     private Button save;
 
+    @NonNull
+    private Application application;
+
+    @NonNull
+    private DataRepository dataReposity;
+
     public ViolationDialogFragment(FragmentActivity fragmentActivity) {
         this.fragmentActivity = fragmentActivity;
         this.violation = new Violation();
+        application = fragmentActivity.getApplication();
+        dataReposity = ((BasicApp) application).getRepository();
     }
 
     private void setGoogleDirections() {
@@ -397,6 +410,25 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
                         save();
                     }
                 });*/
+        dataReposity.getLines().observe(this, new Observer<List<Line>>() {
+            @Override
+            public void onChanged(List<Line> l) {
+                if (l != null) {
+                    lines = l;
+                    setLinesAdapter();
+                }
+            }
+        });
+
+        dataReposity.getVehicles().observe(this, new Observer<List<Vehicle>>() {
+            @Override
+            public void onChanged(List<Vehicle> v) {
+                if (v != null) {
+                    prefixes = v;
+                    setPrefixesAdapter();
+                }
+            }
+        });
 
         initializeFields();
         initializeAdapters();

@@ -23,16 +23,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/AppDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/AppDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/BasicApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/BasicApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/CsvReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/CsvReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/CsvUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/CsvUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/DataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/DataRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/GuidanceDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/GuidanceDialogFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/ViolationDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/ViolationDialogFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/inspection/InspectionReportActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/inspection/InspectionReportActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginActivity.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -267,11 +263,6 @@
           <option name="timeStamp" value="361" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/GuidanceDialogFragment.java</url>
-          <line>80</line>
-          <option name="timeStamp" value="401" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/TaskManagerActivity.java</url>
           <line>368</line>
           <option name="timeStamp" value="475" />
@@ -297,19 +288,19 @@
           <option name="timeStamp" value="564" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/inspection/InspectionReportActivity.java</url>
-          <line>207</line>
-          <option name="timeStamp" value="565" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/inspection/InspectionReportActivity.java</url>
-          <line>189</line>
-          <option name="timeStamp" value="570" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/login/LoginActivity.java</url>
           <line>148</line>
           <option name="timeStamp" value="571" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/GuidanceDialogFragment.java</url>
+          <line>223</line>
+          <option name="timeStamp" value="576" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/GuidanceDialogFragment.java</url>
+          <line>326</line>
+          <option name="timeStamp" value="577" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

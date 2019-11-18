@@ -35,8 +35,11 @@ import com.esdrasmorais.inspetoronline.data.model.Employee;
 import com.esdrasmorais.inspetoronline.data.model.EmployeeType;
 import com.esdrasmorais.inspetoronline.data.model.Guidance;
 import com.esdrasmorais.inspetoronline.data.model.Line;
+import com.esdrasmorais.inspetoronline.data.model.State;
 import com.esdrasmorais.inspetoronline.data.model.Vehicle;
 import com.esdrasmorais.inspetoronline.data.model.Violation;
+import com.esdrasmorais.inspetoronline.data.model.ViolationType;
+import com.esdrasmorais.inspetoronline.data.model.WorkTime;
 import com.esdrasmorais.inspetoronline.data.repository.GuidanceRepository;
 import com.esdrasmorais.inspetoronline.data.repository.ViolationRepository;
 import com.google.android.material.snackbar.Snackbar;
@@ -71,12 +74,17 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
     private TextInputLayout inputLayoutDepartment;
     private TextInputLayout inputLayoutPrefixes;
     private TextInputLayout inputLayoutEmployeeType;
+    private TextInputLayout inputLayoutState;
+    private TextInputLayout inputLayoutType;
     private AutoCompleteTextView lineDropdown;
     private AutoCompleteTextView prefixDropdown;
     private AutoCompleteTextView direction;
     private AutoCompleteTextView violationDepartment;
     private AutoCompleteTextView employeeTypesDropdown;
-    private AutoCompleteTextView workTimeDroddown;
+    private AutoCompleteTextView workTimeDropdown;
+    private AutoCompleteTextView stateDropdown;
+    private AutoCompleteTextView typeDropdown;
+    private AutoCompleteTextView departmentDropdown;
     private EditText editTextNote;
     private View view;
     private Violation violation;
@@ -351,6 +359,103 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
 //        );
     }
 
+    private void setWorkTimeAdapter() {
+        WorkTime[] workTimes = new WorkTime[]{
+            WorkTime.MORNING,
+            WorkTime.AFTERNOON,
+            WorkTime.NIGHT,
+            WorkTime.DAWN
+        };
+        ArrayAdapter<WorkTime> adapter = new ArrayAdapter<WorkTime>(
+            this.view.getContext(),
+            R.layout.dropdown_violation_work_time_menu_popup_item,
+            workTimes
+        );
+        workTimeDropdown.setAdapter(adapter);
+    }
+
+    private void setStateAdapter() {
+        State[] states = new State[] {
+            State.LIGHT,
+            State.SERIOUS,
+            State.CAPITAL,
+            State.LOBBY,
+            State.PREVENTIVE,
+            State.ANALYZE
+        };
+        ArrayAdapter<State> adapter = new ArrayAdapter<State>(
+            this.view.getContext(),
+            R.layout.dropdown_violation_state_menu_popup_item,
+            states
+        );
+        stateDropdown.setAdapter(adapter);
+    }
+
+    private void setTypeAdapter() {
+        ViolationType[] violationTypes = new ViolationType[] {
+            ViolationType.NON_JUSTIFIED_ABSENCE,
+            ViolationType.JUSTIFIED_ABSENCE,
+            ViolationType.LEAVE_JOB,
+            ViolationType.AGGRESSION,
+            ViolationType.CHANGE_LINE_ITINERARY,
+            ViolationType.NOTE_INCORRECTLY_ENTERING_VALIDATOR_DATA,
+            ViolationType.SHOW_SYMPTOMS_OF_INTOXICATION,
+            ViolationType.GET_INTRODUCED_TO_IRREGULAR_UNIFORM,
+            ViolationType.DISHONEST_ATTITUDE,
+            ViolationType.DELAY_FAIRS_DELIVERY,
+            ViolationType.NEXT_SEMAPHORE_CLOSED,
+            ViolationType.ARRIVE_LATE_FOR_SERVICE,
+            ViolationType.BEHAVIOR_INCONVENIENT,
+            ViolationType.STOP_REPORTING_ACCIDENT_OCCURED,
+            ViolationType.STOP_REPORTING,
+            ViolationType.DISOBEYING_THE_SUPERVISOR,
+            ViolationType.DISOBEYING_SCHEDULE,
+            ViolationType.DISRESPECT_EMPLOYEE,
+            ViolationType.DISRESPECT_PASSENGER_PEDESTRIAN,
+            ViolationType.DRIVING_SPEAKING_TO_CELL_PHONE_HEADSET,
+            ViolationType.DRIVING_THE_VEHICLE_WITHOUT_AUTHORIZATION,
+            ViolationType.PERFORMING_OVERDRIVE,
+            ViolationType.EMBARKATION_DISEMBARKATION_IRREGULAR_POINT,
+            ViolationType.IRREGULAR_LOADING_UNLOADING_DOOR,
+            ViolationType.IRREGULAR_FAIRS_DELIVERY,
+            ViolationType.EXCEED_MAX_SPEED_ALLOWED,
+            ViolationType.MAKING_USE_OF_OBJECTS_INADEQUATE_TO_FUNCTION,
+            ViolationType.LACK_OF_CLEANLINESS,
+            ViolationType.BREAK_OR_HARD_START,
+            ViolationType.SMOKING_INSIDE_THE_COLLECTIVE,
+            ViolationType.OVERTAKING_IN_PLACE_OF_POINT,
+            ViolationType.TRAFFIC_WITHOUT_IDENTIFICATION_PLATE,
+            ViolationType.PLACE_OF_WORK_POORLY_PRESERVED,
+            ViolationType.DO_NOT_ASSIST_THE_DRIVE,
+            ViolationType.DO_NOT_CHARGE,
+            ViolationType.NO_CHECK_SCHOOL_SPECIAL_IDENTIFICATION
+        };
+        ArrayAdapter<ViolationType> adapter = new ArrayAdapter<ViolationType>(
+            this.view.getContext(),
+            R.layout.dropdown_violation_type_menu_popup_item,
+            violationTypes
+        );
+        typeDropdown.setAdapter(adapter);
+    }
+
+    private void setDepartmentAdapter() {
+        Department[] departments = new Department[] {
+            Department.ONE,
+            Department.TWO,
+            Department.THREE,
+            Department.FOUR,
+            Department.FIVE,
+            Department.SIX,
+            Department.SEVEN,
+        };
+        ArrayAdapter<Department> adapter = new ArrayAdapter<Department>(
+            this.view.getContext(),
+            R.layout.dropdown_violation_department_menu_popup_item,
+            departments
+        );
+        departmentDropdown.setAdapter(adapter);
+    }
+
     private void initializeFields() {
         this.inputLayoutLines = view.findViewById(
             R.id.input_layout_violation_lines
@@ -360,10 +465,31 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
             R.id.input_layout_violation_prefixes
         );
         this.prefixDropdown = view.findViewById(R.id.violation_prefixes_dropdown);
-//        this.inputLayoutDepartment =
-//            view.findViewById(R.id.input_layout_violation_department);
-//        this.departmentDropdown =
-//            view.findViewById(R.id.violation_department_dropdown);
+        this.inputLayoutEmployeeType = view.findViewById(
+            R.id.input_layout_violation_employee_type
+        );
+        this.employeeTypesDropdown = view.findViewById(
+            R.id.input_layout_violation_employee_type_dropdown
+        );
+        this.inputLayoutWorkTime = view.findViewById(
+            R.id.input_layout_violation_work_time
+        );
+        this.workTimeDropdown = view.findViewById(
+            R.id.input_layout_violation_work_time_dropdown
+        );
+        this.inputLayoutState = view.findViewById(R.id.input_layout_violation_state);
+        this.stateDropdown = view.findViewById(
+            R.id.input_layout_violation_state_dropdown
+        );
+        this.inputLayoutType = view.findViewById(R.id.input_layout_violation_type);
+        this.typeDropdown = view.findViewById(
+            R.id.input_layout_violation_type_dropdown
+        );
+        this.inputLayoutDepartment = view.findViewById(
+            R.id.input_layout_violation_department
+        );
+        this.departmentDropdown =
+            view.findViewById(R.id.input_layout_violation_department_dropdown);
 //        this.inputLayoutSubject =
 //            view.findViewById(R.id.input_layout_guidance_subject);
 //        this.editTextNote = view.findViewById(R.id.edit_text_violation_note);
@@ -382,6 +508,11 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
     private void initializeAdapters() {
         this.setGoogleDirections();
         this.setSpTrans();
+        this.setEmployeeTypeAdapter();
+        this.setWorkTimeAdapter();
+        this.setStateAdapter();
+        this.setTypeAdapter();
+        this.setDepartmentAdapter();
     }
 
     @Override

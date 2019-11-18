@@ -16,19 +16,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c988f54-eab1-4f9c-9ba9-23266cbd8265" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_violation_department_menu_popup_item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_violation_state_menu_popup_item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_violation_type_menu_popup_item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_violation_work_time_menu_popup_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/CsvUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/CsvUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/GuidanceDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/GuidanceDialogFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/ViolationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/data/model/ViolationType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/ViolationDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/ViolationDialogFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/inspection/InspectionReportActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/esdrasmorais/inspetoronline/ui/inspection/InspectionReportActivity.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,10 +70,10 @@
       <list>
         <option value="Enum" />
         <option value="valueResourceFile" />
-        <option value="layoutResourceFile" />
         <option value="layoutResourceFile_vertical" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>

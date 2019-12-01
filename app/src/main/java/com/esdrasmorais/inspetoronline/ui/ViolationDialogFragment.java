@@ -246,14 +246,50 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
         }
 
         if (prefixDropdown.getText().toString().isEmpty()) {
-            inputLayoutLines.setError(
-                    getString(R.string.error_guidance_direction)
+            inputLayoutPrefixes.setError(
+                    getString(R.string.error_violation_prefix)
             );
             isValid = false;
         } else {
-            inputLayoutLines.setErrorEnabled(false);
+            inputLayoutPrefixes.setErrorEnabled(false);
         }
 
+        if (employeeTypesDropdown.getText().toString().isEmpty()) {
+            inputLayoutEmployeeType.setError(
+                    getString(R.string.error_violation_employee_type)
+            );
+            isValid = false;
+        } else {
+            inputLayoutEmployeeType.setErrorEnabled(false);
+        }
+
+        if (workTimeDropdown.getText().toString().isEmpty()) {
+            inputLayoutWorkTime.setError(
+                getString(R.string.error_violation_work_time)
+            );
+            isValid = false;
+        } else {
+            inputLayoutWorkTime.setErrorEnabled(false);
+        }
+
+        if (stateDropdown.getText().toString().isEmpty()) {
+            inputLayoutState.setError(
+                getString(R.string.error_violation_state)
+            );
+            isValid = false;
+        } else {
+            inputLayoutState.setErrorEnabled(false);
+        }
+
+
+        if (stateDropdown.getText().toString().isEmpty()) {
+            inputLayoutState.setError(
+                    getString(R.string.error_violation_state)
+            );
+            isValid = false;
+        } else {
+            inputLayoutState.setErrorEnabled(false);
+        }
 //        if (editTextSubject.getText().toString().trim().length() >= 0 &&
 //                editTextSubject.getText().toString().trim().length() < 5
 //        ) {
@@ -320,7 +356,7 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(
-                        AdapterView<?> parent, View view, int position, long id
+                    AdapterView<?> parent, View view, int position, long id
                 ) {
                     Line selected = (Line) parent.getAdapter().getItem(position);
                     violation.setLine(selected);
@@ -360,7 +396,7 @@ public class ViolationDialogFragment extends AppCompatDialogFragment {
     }
 
     private void setWorkTimeAdapter() {
-        WorkTime[] workTimes = new WorkTime[]{
+        WorkTime[] workTimes = new WorkTime[] {
             WorkTime.MORNING,
             WorkTime.AFTERNOON,
             WorkTime.NIGHT,

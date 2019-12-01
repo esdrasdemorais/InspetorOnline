@@ -150,5 +150,10 @@
     <string name="hint_department">Setor</string>
     <string name="error_violation_line">Selecione uma Linha</string>
     <string name="error_violation_prefix">Selecione um Prefixo</string>
+    <string name="error_violation_employee_type">Selecione um Tipo de FUncionário</string>
+    <string name="error_violation_work_time">Selecione um Período</string>
+    <string name="error_violation_state">Selecione uma Situação</string>
 
+    <string name="hint_route_diversion_note">Observação</string>
+    <string name="hint_route_diversion_responsible_body">Orgão Responsável</string>
 </resources>

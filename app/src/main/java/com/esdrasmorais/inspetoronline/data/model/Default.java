@@ -15,4 +15,6 @@ public abstract class Default extends Object {
     public void setId(String id) {
         this.id = id;
     }
+
+    public abstract void log(String message);
 }

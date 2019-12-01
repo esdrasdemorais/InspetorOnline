@@ -77,4 +77,9 @@ public class RouteDiversion extends Default {
     public void setCocAware(String cocAware) {
         this.cocAware = cocAware;
     }
+
+    @Override
+    public void log(String message) {
+
+    }
 }

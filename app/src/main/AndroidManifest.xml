@@ -25,7 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".data.BasicApp"
-        >
+        android:debuggable="false"
+        tools:ignore="HardcodedDebugMode">
 <!--        tools:replace="android:appComponentFactory"-->
 <!--        android:appComponentFactory="whateverString"-->
 <!--        android:usesCleartextTraffic="true"-->
